@@ -78,7 +78,8 @@ public class AppLogic {
             switch (ui.readInteger()) {
                 case 1 -> {menuHandler.carInfoMenu.showTable(queryRequestHandler);}
                 case 2 -> {menuHandler.carInfoMenu.showTableOrdered(queryRequestHandler);}
-                case 3 -> {menuHandler.carInfoMenu.insertToTable(editingHandler, ui);}
+                case 3 -> {menuHandler.carInfoMenu.insertToTable(editingHandler, queryRequestHandler,ui);}
+                case 0 -> isRunning = false;
             }
         }
     }

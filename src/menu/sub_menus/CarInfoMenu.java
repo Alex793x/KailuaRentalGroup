@@ -11,14 +11,15 @@ import java.util.Arrays;
 
 public class CarInfoMenu extends Menu implements DBStandardQueries {
 
-    /** The CarInfoMenu constructor
+    /**
+     * The CarInfoMenu constructor
+     *
      * @param menuHeader Title of the menu
-     * @param menuItems The different menu options
+     * @param menuItems  The different menu options
      */
     public CarInfoMenu(String menuHeader, String[] menuItems) {
         super(menuHeader, menuItems);
     }
-
 
 
     @Override
@@ -42,10 +43,16 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
     }
 
     @Override
-    public void insertToTable(DB_QueryEditingHandler editingHandler, UI ui) {
+    public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
+        String selectSection = String.join(", ", DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS);
+
         String sql = "INSERT INTO " + DB_Dependencies.getInstance().TABLE_NAMES[3] + " " +
-                "(" + Arrays.toString(DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS) + ") \n" +
-                "VALUES (";
+                "(" + selectSection + ") \n" +
+                "VALUES (" +
+                ui.insertInto(
+                        DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS,
+                        requestHandler,
+                        DB_Dependencies.getInstance().TABLE_NAMES[3]) + ")";
     }
 
     @Override
