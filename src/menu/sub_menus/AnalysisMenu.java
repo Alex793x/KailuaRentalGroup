@@ -5,23 +5,18 @@ import dbm.handler.DB_QueryRequestHandler;
 import dbm.interfaces.query_interfaces.DBStandardQueries;
 import menu.Menu;
 
-public class CustomerMenu extends Menu implements DBStandardQueries {
+public class AnalysisMenu extends Menu implements DBStandardQueries {
     /**
      * @param menuHeader
      * @param menuItems
      */
-
-    public CustomerMenu(String menuHeader, String[] menuItems) {
+    public AnalysisMenu(String menuHeader, String[] menuItems) {
         super(menuHeader, menuItems);
     }
 
-
     @Override
     public void showTable(DB_QueryRequestHandler requestHandler) {
-        String query = "SELECT *";
-        String[] printColumnNames = {};
-        String[] columnNames = {};
-        requestHandler.printQuery(query, printColumnNames, columnNames);
+
     }
 
     @Override
