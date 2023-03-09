@@ -21,7 +21,10 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void showTable(DB_QueryRequestHandler requestHandler) {
-
+        String query = "SELECT *";
+        String[] printColumnNames = {};
+        String[] columnNames = {};
+        requestHandler.printQuery(query, printColumnNames, columnNames);
     }
 
     @Override
