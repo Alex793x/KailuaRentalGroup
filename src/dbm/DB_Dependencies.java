@@ -67,6 +67,15 @@ public class DB_Dependencies {
             "customer_city", "customer_phone", "customer_email", "customer_driver_license_number",
             "customer_driver_since"};
 
+
+    // Leasing Agreements section --------------------------------------------------------
+    public final String[] LEASING_AGREEMENT_COLUMN_PRINT_FORMAT = {"Rental Registry ID: ", "Rental Start Date: ",
+            "Rental End Date: ", "Car Registry ID: ","Customer ID: "};
+
+    public final String[] LEASING_AGREEMENT_COLUMNS = {"rental_registry_id", "rental_start_date", "rental_end_date",
+            "car_registry_id", "customer_id"};
+
+
     // Constructor -----------------------------------------------------------------------
     private DB_Dependencies() {}
 

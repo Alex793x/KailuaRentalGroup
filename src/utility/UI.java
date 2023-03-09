@@ -102,8 +102,16 @@ public class UI {
     } // End of method
 
     public LocalDate readDate() {
-        // TODO - implement UI.readDate
-        throw new UnsupportedOperationException();
+        while (true){
+            int year = input.nextInt();
+            int month = input.nextInt();
+            int day = input.nextInt();
+            try {
+                return LocalDate.of(year,month,day);
+            } catch (NumberFormatException e) {
+                System.out.println("An invalid input was given, please enter a number");
+            }
+        }
     }
 
 
