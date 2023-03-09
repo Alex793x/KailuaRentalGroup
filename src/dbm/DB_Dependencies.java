@@ -10,23 +10,59 @@ public class DB_Dependencies {
     public final String password = "kp1ScwPK48";
 
 
+
     // Table INFO and Dependencies
+    /**
+     * <p>The {@link #TABLE_NAMES} includes all table names within the database</p>
+     * @implNote 0 = customer_info <br>
+     * 1 = car_properties <br>
+     * 2 = rental_registry <br>
+     * 3 = car_registry <br>
+     * 4 = car_rental_groups
+     */
     public final String[] TABLE_NAMES = {
             "customer_info", "car_properties", "rental_registry", "car_registry", "car_rental_groups"
     };
 
+
+    /**
+     * <p>The {@link #CAR_REGISTRY_COLUMNS} includes all columns within the database which is including within the table car_registry.</p>
+     * @implNote 0 = car_registry_id <br>
+     * 1 = car_brand <br>
+     * 2 = car_model <br>
+     * 3 = registration_number <br>
+     * 4 = first_registration <br>
+     * 5 = availability <br>
+     * 6 = car_rental_group_id
+     */
     // Car registry section --------------------------------------------------------------
     public final String[] CAR_REGISTRY_COLUMNS = {
-            "car_registry_id", "car_brand", "car_model", "registration_number", "first_registration",
+            "car_registry_id", "car_brand", "car_model", "customer_info", "registration_number", "first_registration",
             "availability", "car_rental_group_id"
     };
 
+    /**
+     * <p>The {@link #carRegistryColumnPrintFormat} is simply a nicer formatting for the column names for printing purposes within the console
+     * please look at {@link #CAR_REGISTRY_COLUMNS} for further details of content</p>
+     */
     public final String[] carRegistryColumnPrintFormat = {
             "Car registry id: ", "Car brand: ", "Car model: ", "Registration number: ", "First registration",
             "Availability: ", "Car rental group id: "
     };
 
     // Customer section ------------------------------------------------------------------
+    /**
+     * <p>The {@link #CUSTOMER_COLUMNS} includes all columns within the database which is including within the table customer_info.</p>
+     * @implNote 0 = customer_id <br>
+     * 1 = customer_name <br>
+     * 2 = customer_address <br>
+     * 3 = customer_zip <br>
+     * 4 = customer_city <br>
+     * 5 = customer_phone <br>
+     * 6 = customer_email <br>
+     * 7 = customer_driver_license_number <br>
+     * 8 = customer_driver_since <br>
+     */
     public final String[] CUSTOMER_COLUMNS = {"customer_id", "customer_name", "customer_address", "customer_zip",
             "customer_city", "customer_phone", "customer_email", "customer_driver_license_number",
             "customer_driver_since"};
