@@ -9,6 +9,10 @@ public class DB_Dependencies {
     public final String username = "sql7603879";
     public final String password = "kp1ScwPK48";
 
+    public final String[] CUSTOMER_COLUMNS = {"customer_id", "customer_name", "customer_address", "customer_zip",
+            "customer_city", "customer_phone", "customer_email", "customer_driver_license_number",
+            "customer_driver_since"};
+
     // Constructor -----------------------------------------------------------------------
     private DB_Dependencies() {}
 

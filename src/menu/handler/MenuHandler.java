@@ -41,10 +41,11 @@ public class MenuHandler {
     });
 
     public CustomerMenu customerMenu = new CustomerMenu("CUSTOMER MENU", new String[] {
-            "1. ",
-            "2. ",
-            "3. ",
-            "4. "
+            "1. Show all customers.",
+            "2. Show all customers ordered.",
+            "3. Add new customer.",
+            "4. Edit customer info",
+            "5. Delete customer"
     });
 
     public LeasingAgreementMenu leasingAgreementMenu = new LeasingAgreementMenu("LEASING AGREEMENT MENU", new String[] {
