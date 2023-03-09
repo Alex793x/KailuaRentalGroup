@@ -1,5 +1,8 @@
 package dbm.interfaces.query_interfaces;
 
+import dbm.handler.DB_QueryEditingHandler;
+import dbm.handler.DB_QueryRequestHandler;
+
 /**
  * This interface is acting as a standard skeleton for DB queries regarding - create, edit, delete, show etc. concept.
  * @implNote {@link #showTable()} mirrors the intention of SELECT * FROM query within MySQL <br>
@@ -12,15 +15,15 @@ package dbm.interfaces.query_interfaces;
 
 public interface DBStandardQueries {
 
-    void showTable();
+    void showTable(DB_QueryRequestHandler requestHandler);
 
-    void showTableOrdered();
+    void showTableOrdered(DB_QueryRequestHandler requestHandler);
 
-    void insertToTable();
+    void insertToTable(DB_QueryEditingHandler editingHandler);
 
-    void updateTable();
+    void updateTable(DB_QueryEditingHandler editingHandler);
 
-    void deleteFromTable();
+    void deleteFromTable(DB_QueryEditingHandler editingHandler);
 
     void alterTable();
 
