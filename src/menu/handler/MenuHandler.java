@@ -26,10 +26,10 @@ public class MenuHandler {
             "4. "
     });
 
-    public AnalasisMenu analasisMenu = new AnalasisMenu("ANALYSIS MENU", new String[] {
-            "1. ",
-            "2. ",
-            "3. ",
+    public AnalysisMenu analysisMenu = new AnalysisMenu("ANALYSIS MENU", new String[] {
+            "1. Show best customers in descending order",
+            "2. Show occupancy by car group",
+            "3. Show occupancy by month",
             "4. "
     });
 
