@@ -1,12 +1,13 @@
-package dbm;
+package dbm.handler;
+
+import dbm.DB_Dependencies;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DB_QueryHandler {
-    
+public class DB_QueryRequestHandler {
 
     public void printQuery(String query, String[] printColumns, String[] dbColumnName) {
         try (

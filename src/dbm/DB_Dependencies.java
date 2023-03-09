@@ -5,7 +5,7 @@ public class DB_Dependencies {
     private static DB_Dependencies theInstance = new DB_Dependencies();
 
     // Login / Connection Fields ---------------------------------------------------------
-    public final String database_url = "sql7.freesqldatabase.com";
+    public final String database_url = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7603879";
     public final String username = "sql7603879";
     public final String password = "kp1ScwPK48";
 
