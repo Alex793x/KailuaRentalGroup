@@ -66,6 +66,9 @@ public class UI {
         } // End of while loop
     } // End of readLine method
 
+
+
+
     public String readNext() {
         while (true) {
             String readLine = input.next();
@@ -76,6 +79,9 @@ public class UI {
         } // End of while loop
     } // End of method
 
+
+
+
     public boolean readBoolean() {
         while (true) {
             try {
@@ -85,6 +91,10 @@ public class UI {
             } // End of try-catch block
         } // End of while loop
     } // End of method
+
+
+
+
 
     public double readDouble() {
         // TODO - implement UI.readDouble

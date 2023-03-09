@@ -20,10 +20,11 @@ public class MenuHandler {
     // Menus being instantiated ----------------------------------------------------
 
     public MainMenu mainMenu = new MainMenu("MAIN MENU", new String[] {
-            "1. ",
-            "2. ",
-            "3. ",
-            "4. "
+            "1. Customers",
+            "2. Cars",
+            "3. Leasing agreement",
+            "4. Rental Service",
+            "5. Analysis"
     });
 
     public AnalysisMenu analysisMenu = new AnalysisMenu("ANALYSIS MENU", new String[] {
@@ -34,10 +35,12 @@ public class MenuHandler {
     });
 
     public CarInfoMenu carInfoMenu = new CarInfoMenu("CAR INFO MENU", new String[] {
-            "1. ",
-            "2. ",
-            "3. ",
-            "4. "
+            "1. Show all cars.",
+            "2. Show all cars ordered",
+            "3. Add new car",
+            "4. Edit car registry",
+            "5. Delete car registry",
+            "0. Back to main menu"
     });
 
     public CustomerMenu customerMenu = new CustomerMenu("CUSTOMER MENU", new String[] {

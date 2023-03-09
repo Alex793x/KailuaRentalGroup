@@ -4,6 +4,7 @@ import dbm.handler.DB_QueryEditingHandler;
 import dbm.handler.DB_QueryRequestHandler;
 import dbm.interfaces.query_interfaces.DBStandardQueries;
 import menu.Menu;
+import utility.UI;
 
 public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
     /**
@@ -26,17 +27,17 @@ public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
     }
 
     @Override
-    public void insertToTable(DB_QueryEditingHandler editingHandler) {
+    public void insertToTable(DB_QueryEditingHandler editingHandler, UI ui) {
 
     }
 
     @Override
-    public void updateTable(DB_QueryEditingHandler editingHandler) {
+    public void updateTable(DB_QueryEditingHandler editingHandler, UI ui) {
 
     }
 
     @Override
-    public void deleteFromTable(DB_QueryEditingHandler editingHandler) {
+    public void deleteFromTable(DB_QueryEditingHandler editingHandler, UI ui) {
 
     }
 
