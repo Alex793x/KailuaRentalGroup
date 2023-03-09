@@ -15,6 +15,7 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
     private DB_Dependencies db_dependencies = DB_Dependencies.getInstance();
     private String[] printColumnNames = {"Customer ID: ", "name: ", "address: ", "ZIP: ", "City ", "Phone no.: ",
             "Email: ", "Driver license since: "};
+
     public CustomerMenu(String menuHeader, String[] menuItems) {
         super(menuHeader, menuItems);
     }
@@ -44,15 +45,21 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
     public void updateTable(DB_QueryEditingHandler editingHandler,
                             DB_QueryRequestHandler requestHandler, UI ui) { // DB REGUEST HANDLER
         String query = "UPDATE customer_info " + "SET " +
-                getTableNamesWithValues() +
-                "WHERE " + db_dependencies.CUSTOMER_COLUMNS[0] + " = " + getCustomerID(requestHandler, ui) + ";";
+                getTableNamesWithValues(ui) +
+                "WHERE " + db_dependencies.CUSTOMER_COLUMNS[0] + " = " +
+                getCustomerID(requestHandler, ui) + ";";
 
         editingHandler.insertQuery(query);
     }
 
     @Override
-    public void deleteFromTable(DB_QueryEditingHandler editingHandler) {
+    public void deleteFromTable(DB_QueryEditingHandler editingHandler,
+                                DB_QueryRequestHandler requestHandler, UI ui) {
+        String query = "DELETE FROM customer_info " +
+                "WHERE " + db_dependencies.CUSTOMER_COLUMNS[0] + " = " +
+                getCustomerID(requestHandler, ui) + ";";
 
+        editingHandler.insertQuery(query);
     }
 
     @Override
@@ -60,7 +67,7 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
 
     }
 
-    private String getSpecifiedTableNames(int... x){
+    private String getSpecifiedTableNames(int... x) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < x.length; i++) {
             if (i == x.length - 1) {
@@ -83,8 +90,22 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
         return stringBuilder.toString();
     }
 
-    private String getTableNamesWithValues() {
+    private String getTableNamesWithValues(UI ui) {
         StringBuilder stringBuilder = new StringBuilder();
+        System.out.println("If the value shouldn't be changed just type \"stay\".");
+        for (int i = 1; i < 8; i++) {
+            System.out.print("Please enter new value for " + printColumnNames[i] + ": ");
+            String input = ui.readLine();
+            System.out.println();
+            if (input.equalsIgnoreCase("stay")) {
+                continue;
+            }
+            if (i == 7) {
+                stringBuilder.append(db_dependencies.CUSTOMER_COLUMNS[i] + " = " + input);
+            } else {
+                stringBuilder.append(db_dependencies.CUSTOMER_COLUMNS[i] + " = " + input + ", ");
+            }
+        }
 
         return stringBuilder.toString();
     }
