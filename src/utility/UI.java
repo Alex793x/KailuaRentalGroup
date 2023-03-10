@@ -82,6 +82,10 @@ public class UI {
         } // End of while loop
     } // End of method
 
+    public String readNextLine() {
+        return input.nextLine();
+    }
+
     public String readRegistration() {
         return input.nextLine();
     }

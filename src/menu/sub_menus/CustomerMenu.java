@@ -37,7 +37,7 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
 
 
     @Override
-    public void insertToTable(DB_QueryEditingHandler editingHandler,DB_QueryRequestHandler requestHandler, UI ui) {
+    public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
         String selectSection = String.join(", ",
                 Arrays.stream(DB_Dependencies.getInstance().CUSTOMER_COLUMNS).skip(1).toArray(String[]::new));
 
@@ -57,9 +57,9 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
                             DB_QueryRequestHandler requestHandler, UI ui) { // DB REGUEST HANDLER
         String query = "UPDATE customer_info " + "SET " +
                 getTableNamesWithValues(ui) +
-                "WHERE " + db_dependencies.CUSTOMER_COLUMNS[0] + " = " +
+                " WHERE " + db_dependencies.CUSTOMER_COLUMNS[0] + " = " +
                 getCustomerID(requestHandler, ui) + ";";
-
+        System.out.println(query);
         editingHandler.insertQuery(query);
     }
 
@@ -114,31 +114,29 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
 
     private String getTableNamesWithValues(UI ui) {
         StringBuilder stringBuilder = new StringBuilder();
+        ui.readNextLine(); //scannerbug
+
         System.out.println("If the value shouldn't be changed just type \"stay\".");
         for (int i = 1; i < 8; i++) {
-            System.out.print("Please enter new value for " + printColumnNames[i]);
-            String input = ui.readLine();
+            System.out.print("Please enter new value for " + printColumnNames[i] + ": ");
+            String input = printColumnNames[i].contains("since") ? ui.readDate().toString() : ui.readNextLine();
             System.out.println();
             if (input.equalsIgnoreCase("stay")) {
                 continue;
             }
-            if (i == 7) {
-                stringBuilder.append(db_dependencies.CUSTOMER_COLUMNS[i] + " = " + input);
-            } else {
+            if (printColumnNames[i].contains("ZIP") || printColumnNames[i].contains("since")) {
                 stringBuilder.append(db_dependencies.CUSTOMER_COLUMNS[i] + " = " + input + ", ");
+            } else {
+                stringBuilder.append(db_dependencies.CUSTOMER_COLUMNS[i] + " = '" + input + "', ");
             }
         }
 
-        return stringBuilder.toString();
+        return stringBuilder.substring(0, stringBuilder.length() - 2);
     }
 
     private int getCustomerID(DB_QueryRequestHandler requestHandler, UI ui) {
-        int customerID = 0;
         showTable(requestHandler);
-
         System.out.print("Please enter the customers ID: ");
-        customerID = ui.readInteger();
-
-        return customerID;
+        return ui.readInteger();
     }
 }
