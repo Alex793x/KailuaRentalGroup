@@ -37,8 +37,6 @@ public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
-
-
         System.out.println("Input Year, Month and Day of Rental Start");
         LocalDate dateStart = ui.readDate();
         System.out.println("Input Year, Month and Day of rental end");
