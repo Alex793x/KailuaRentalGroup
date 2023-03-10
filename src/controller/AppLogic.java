@@ -85,9 +85,9 @@ public class AppLogic {
             switch (ui.readInteger()) {
                 case 1 -> {menuHandler.leasingAgreementMenu.showTable(queryRequestHandler);}
                 case 2 -> {menuHandler.leasingAgreementMenu.showTableOrdered(queryRequestHandler);}
-                case 3 -> {menuHandler.leasingAgreementMenu.insertToTable(editingHandler,ui);}
-                case 4 -> {menuHandler.leasingAgreementMenu.updateTable(editingHandler,ui);}
-                case 5 -> {menuHandler.leasingAgreementMenu.deleteFromTable(editingHandler,ui);}
+                case 3 -> {menuHandler.leasingAgreementMenu.insertToTable(editingHandler,queryRequestHandler,ui);}
+                case 4 -> {menuHandler.leasingAgreementMenu.updateTable(editingHandler,queryRequestHandler,ui);}
+                case 5 -> {menuHandler.leasingAgreementMenu.deleteFromTable(editingHandler,queryRequestHandler,ui);}
                 case 6 -> {menuHandler.leasingAgreementMenu.getAvailableCars(queryRequestHandler);}
             }
         }
