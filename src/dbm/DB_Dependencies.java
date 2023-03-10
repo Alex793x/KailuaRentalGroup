@@ -37,16 +37,17 @@ public class DB_Dependencies {
      */
     // Car registry section --------------------------------------------------------------
     public final String[] CAR_REGISTRY_COLUMNS = {
-            "car_registry_id", "car_brand", "car_model", "customer_info", "registration_number", "first_registration",
-            "availability", "car_rental_group_id, car_isRented"
+            "car_brand", "car_model", "registration_number", "first_registration",
+            "availability", "car_rental_group_id", "car_isRented"
+
     };
 
     /**
-     * <p>The {@link #carRegistryColumnPrintFormat} is simply a nicer formatting for the column names for printing purposes within the console
+     * <p>The {@link #CAR_REGISTRY_COLUMN_PRINT_FORMAT} is simply a nicer formatting for the column names for printing purposes within the console
      * please look at {@link #CAR_REGISTRY_COLUMNS} for further details of content</p>
      */
-    public final String[] carRegistryColumnPrintFormat = {
-            "Car registry id: ", "Car brand: ", "Car model: ", "Registration number: ", "First registration",
+    public final String[] CAR_REGISTRY_COLUMN_PRINT_FORMAT = {
+            "Car brand: ", "Car model: ", "Registration number: ", "First registration",
             "Availability: ", "Car rental group id: ","Car Is Rented?: "
     };
 
