@@ -52,5 +52,4 @@ public class DB_QueryRequestHandler {
             return null;
         }
     }
-
 }
