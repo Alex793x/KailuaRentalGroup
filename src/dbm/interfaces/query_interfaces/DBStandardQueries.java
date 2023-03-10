@@ -22,9 +22,9 @@ public interface DBStandardQueries {
 
     void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui);
 
-    void updateTable(DB_QueryEditingHandler editingHandler, UI ui);
+    void updateTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui);
 
-    void deleteFromTable(DB_QueryEditingHandler editingHandler, UI ui);
+    void deleteFromTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui);
 
     void alterTable();
 
