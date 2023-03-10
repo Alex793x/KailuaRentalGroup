@@ -66,7 +66,7 @@ public class UI {
             String readLine = input.nextLine();
             if (!readLine.matches(".*\\d.*") && !readLine.isEmpty()) {
                 return readLine;
-            } // End of if statement
+            } // End of if statementg
             System.out.println("Please enter a valid word/statement, without any numbers inside");
         } // End of while loop
     } // End of readLine method
@@ -126,7 +126,6 @@ public class UI {
             } // End of try-catch block
         } // End of while loop
     } // End of method
-
 
     // Insert into Generic Method -----------------------------------------------
     public String insertInto(String[] columnValues, DB_QueryRequestHandler requestHandler, String tableName) {
