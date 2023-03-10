@@ -160,11 +160,11 @@ public class UI {
                 insertValues.append(readRegistration()).append(",");
             } else {
                 switch (dataType) {
-                    case "int" -> insertValues.append(readInteger()).append(",");
-                    case "varchar" -> insertValues.append(readLine()).append(",");
-                    case "date" -> insertValues.append(readDate()).append(",");
-                    case "tinyint" -> insertValues.append(readBoolean()).append(",");
-                    case "double" -> insertValues.append(readDouble()).append(",");
+                    case "int" -> insertValues.append(readInteger()).append("\",\"");
+                    case "varchar" -> insertValues.append(readLine()).append("\",\"");
+                    case "date" -> insertValues.append(readDate()).append("\",\"");
+                    case "tinyint" -> insertValues.append(readBoolean()).append("\",\"");
+                    case "double" -> insertValues.append(readDouble()).append("\",\"");
                     default -> System.out.println("Error: Unsupported data type " + dataType);
                 } // End of switch statement
             }

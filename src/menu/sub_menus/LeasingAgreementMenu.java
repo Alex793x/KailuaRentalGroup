@@ -76,20 +76,22 @@ public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
     }
 
     public void getAvailableCars(DB_QueryRequestHandler requestHandler) {
+
+        // De gør præcis det samme
         String query1 = "SELECT cr.car_registry_id, cr.car_brand, cr.car_model, crg.car_rental_group_name\n" +
                 "FROM car_registry cr\n" +
                 "JOIN car_rental_groups crg USING (car_rental_group_id)\n" +
                 "WHERE cr.availability = 1 AND cr.car_isRented = 0";
 
-
-        String query = "SELECT " + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[0] + ", " + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[1] +
+        // De gør præcis det samme
+        /*String query = "SELECT " + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[0] + ", " + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[1] +
                 ", " + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[2] + ", " +
                 DB_Dependencies.getInstance().CAR_RENTAL_GROUPS_COLUMNS[1] +"\n" +
                 "FROM " + Arrays.toString(DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS) + "\n" +
                 "JOIN " + Arrays.toString(DB_Dependencies.getInstance().CAR_RENTAL_GROUPS_COLUMNS) + " USING (" +
                 DB_Dependencies.getInstance().CAR_RENTAL_GROUPS_COLUMNS[0] + ")\n" +
                 "WHERE "+ DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[6] +"= 1 AND "+
-                DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[7] +"= 0";
+                DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[7] +"= 0";*/
 
         requestHandler.printQuery(query1, new String[] {DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT[0],
                 DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT[1],DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT[2],
