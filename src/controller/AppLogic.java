@@ -1,5 +1,6 @@
 package controller;
 
+import dbm.handler.DB_QueryEditingHandler;
 import dbm.handler.DB_QueryRequestHandler;
 import utility.*;
 import menu.handler.*;
@@ -20,6 +21,9 @@ public class AppLogic {
     // Fields ----------------------------------------------------------------------------
     private final UI ui;
     private final MenuHandler menuHandler;
+    private final DB_QueryRequestHandler queryRequestHandler;
+    private final DB_QueryEditingHandler editingHandler;
+
 
 
     // Constructor -----------------------------------------------------------------------
@@ -28,14 +32,10 @@ public class AppLogic {
      * The AppLogic constructor.
      */
     public AppLogic() {
-        String query = "SELECT car_model FROM car_registry";
-        String[] printConsole = {"car model: "};
-        String[] columnName = {"car_model"};
-        DB_QueryRequestHandler db = new DB_QueryRequestHandler();
-        db.printQuery(query, printConsole, columnName);
-
         ui = new UI();
         menuHandler = new MenuHandler();
+        queryRequestHandler = new DB_QueryRequestHandler();
+        editingHandler = new DB_QueryEditingHandler();
     }
 
 
@@ -44,9 +44,11 @@ public class AppLogic {
     /**
      *
      */
-    private void runMainMenu() {
+    public void runMainMenu() {
         boolean isRunning = true;
         while (isRunning) {
+            menuHandler.mainMenu.printMenu();
+
             switch (ui.readInteger()) {
                 case 1 -> runCustomerMenu();
                 case 2 -> runCarInfoMenu();
@@ -70,8 +72,16 @@ public class AppLogic {
     }
 
     private void runCarInfoMenu() {
-        // TODO - implement controller.AppLogic.runCarInfoMenu
-        throw new UnsupportedOperationException();
+        boolean isRunning = true;
+        while (isRunning) {
+            menuHandler.carInfoMenu.printMenu();
+            switch (ui.readInteger()) {
+                case 1 -> {menuHandler.carInfoMenu.showTable(queryRequestHandler);}
+                case 2 -> {menuHandler.carInfoMenu.showTableOrdered(queryRequestHandler);}
+                case 3 -> {menuHandler.carInfoMenu.insertToTable(editingHandler, queryRequestHandler,ui);}
+                case 0 -> isRunning = false;
+            }
+        }
     }
 
     private void runRentalServiceMenu() {
