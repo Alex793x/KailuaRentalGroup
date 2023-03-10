@@ -7,6 +7,8 @@ import dbm.interfaces.query_interfaces.DBStandardQueries;
 import menu.Menu;
 import utility.UI;
 
+import java.util.Scanner;
+
 public class CustomerMenu extends Menu implements DBStandardQueries {
     /**
      * @param menuHeader
@@ -14,7 +16,7 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
      */
     private DB_Dependencies db_dependencies = DB_Dependencies.getInstance();
     private String[] printColumnNames = {"Customer ID: ", "name: ", "address: ", "ZIP: ", "City ", "Phone no.: ",
-            "Email: ", "Driver license since: "};
+            "Email: ", "Driver license number: ", "Driver license since: "};
 
     public CustomerMenu(String menuHeader, String[] menuItems) {
         super(menuHeader, menuItems);
@@ -71,22 +73,33 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < x.length; i++) {
             if (i == x.length - 1) {
-                stringBuilder.append(db_dependencies.CUSTOMER_COLUMNS[i]);
+                stringBuilder.append(db_dependencies.CUSTOMER_COLUMNS[x[i]]);
             } else {
-                stringBuilder.append(db_dependencies.CUSTOMER_COLUMNS[i] + ", ");
+                stringBuilder.append(db_dependencies.CUSTOMER_COLUMNS[x[i]] + ", ");
             }
         }
+        System.out.println(stringBuilder);
         return stringBuilder.toString();
     }
 
     private String getValuesToInsert(UI ui) {
+        Scanner scan = new Scanner(System.in);
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (int i = 1; i < 8; i++) { // magicnumber 8 is amount of values for MySQL insertion xD
-            System.out.print("Please enter " + printColumnNames[i] + ": ");
-            stringBuilder.append(ui.readLine());
-            System.out.println();
+        for (int i = 1; i < printColumnNames.length; i++) { // magicnumber 8 is amount of values for MySQL insertion xD
+            System.out.print("Please enter " + printColumnNames[i]);
+            String input = scan.nextLine();
+            if (i != 8) {
+                if (printColumnNames[i].contains("number") || printColumnNames[i].contains("ZIP")) {
+                    stringBuilder.append(input + ", ");
+                } else {
+                    stringBuilder.append("'" + input + "'" + ", ");
+                }
+            } else {
+                stringBuilder.append("'" + input + "'");
+            }
         }
+        System.out.println(stringBuilder);
         return stringBuilder.toString();
     }
 
@@ -94,7 +107,7 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
         StringBuilder stringBuilder = new StringBuilder();
         System.out.println("If the value shouldn't be changed just type \"stay\".");
         for (int i = 1; i < 8; i++) {
-            System.out.print("Please enter new value for " + printColumnNames[i] + ": ");
+            System.out.print("Please enter new value for " + printColumnNames[i]);
             String input = ui.readLine();
             System.out.println();
             if (input.equalsIgnoreCase("stay")) {

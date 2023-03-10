@@ -62,8 +62,19 @@ public class AppLogic {
     } // End of method
 
     private void runCustomerMenu() {
-        // TODO - implement controller.AppLogic.runCustomerMenu
-        throw new UnsupportedOperationException();
+        boolean isRunning = true;
+        while (isRunning) {
+            menuHandler.customerMenu.printMenu();
+            switch (ui.readInteger()) {
+                case 1 -> {menuHandler.customerMenu.showTable(queryRequestHandler);}
+                case 2 -> {menuHandler.customerMenu.showTableOrdered(queryRequestHandler);}
+                case 3 -> {menuHandler.customerMenu.insertToTable(editingHandler, queryRequestHandler,ui);}
+                case 4 -> {menuHandler.customerMenu.updateTable(editingHandler, queryRequestHandler,ui);}
+                case 5 -> {menuHandler.customerMenu.deleteFromTable(editingHandler, queryRequestHandler,ui);}
+                case 0 -> isRunning = false;
+            }
+        }
+
     }
 
     private void runLeasingAgreementMenu() {
