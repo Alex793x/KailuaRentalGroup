@@ -94,12 +94,8 @@ public class UI {
                     2. false""");
 
             switch (readInteger()) {
-                case 1 -> {
-                    return true;
-                }
-                case 0 -> {
-                    return false;
-                }
+                case 1 -> {return true;}
+                case 2 -> {return false;}
                 default -> System.out.println("Please enter either true or false");
             }
         } // End of while loop
@@ -157,20 +153,20 @@ public class UI {
 
             if (columnElement.equals(DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[2]) ||
             columnElement.equals(DB_Dependencies.getInstance().CUSTOMER_COLUMNS[2])) {
-                insertValues.append(readRegistration()).append(",");
+                insertValues.append("\'").append(readRegistration()).append("\',");
             } else {
                 switch (dataType) {
-                    case "int" -> insertValues.append(readInteger()).append("\",\"");
-                    case "varchar" -> insertValues.append(readLine()).append("\",\"");
-                    case "date" -> insertValues.append(readDate()).append("\",\"");
-                    case "tinyint" -> insertValues.append(readBoolean()).append("\",\"");
-                    case "double" -> insertValues.append(readDouble()).append("\",\"");
+                    case "int" -> insertValues.append(readInteger()).append(",");
+                    case "varchar" -> insertValues.append("\'").append(readLine()).append("\',");
+                    case "date" -> insertValues.append("\'").append(readDate()).append("\',");
+                    case "tinyint" -> insertValues.append(readBoolean()).append(",");
+                    case "double" -> insertValues.append(readDouble()).append(",");
                     default -> System.out.println("Error: Unsupported data type " + dataType);
                 } // End of switch statement
             }
 
         });
-        return insertValues.substring(0, insertValues.length()-2);
+        return insertValues.substring(0, insertValues.length()-1);
     }
 
 
