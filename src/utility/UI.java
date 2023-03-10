@@ -127,7 +127,6 @@ public class UI {
         } // End of while loop
     } // End of method
 
-
     // Insert into Generic Method -----------------------------------------------
     public String insertInto(String[] columnValues, DB_QueryRequestHandler requestHandler, String tableName) {
         StringBuilder insertValues = new StringBuilder();

@@ -68,6 +68,18 @@ public class AppLogic {
 
     private void runLeasingAgreementMenu() {
         // TODO - implement controller.AppLogic.runLeasingAgreementMenu
+        boolean isRunning = true;
+        while (isRunning){
+            menuHandler.leasingAgreementMenu.printMenu();
+            switch (ui.readInteger()) {
+                case 1 -> {menuHandler.leasingAgreementMenu.showTable(queryRequestHandler);}
+                case 2 -> {menuHandler.leasingAgreementMenu.showTableOrdered(queryRequestHandler);}
+                case 3 -> {menuHandler.leasingAgreementMenu.insertToTable(editingHandler,ui);}
+                case 4 -> {menuHandler.leasingAgreementMenu.updateTable(editingHandler,ui);}
+                case 5 -> {menuHandler.leasingAgreementMenu.deleteFromTable(editingHandler,ui);}
+                case 6 -> {menuHandler.leasingAgreementMenu.getAvailableCars(queryRequestHandler);}
+            }
+        }
         throw new UnsupportedOperationException();
     }
 
