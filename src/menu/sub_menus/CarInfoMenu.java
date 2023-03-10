@@ -27,7 +27,7 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
         String sql = "SELECT * FROM " + DB_Dependencies.getInstance().TABLE_NAMES[3];
         requestHandler.printQuery(
                 sql,
-                DB_Dependencies.getInstance().carRegistryColumnPrintFormat,
+                DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT,
                 DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS);
     }
 
@@ -39,7 +39,7 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
 
         requestHandler.printQuery(
                 sql,
-                DB_Dependencies.getInstance().carRegistryColumnPrintFormat,
+                DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT,
                 DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS);
     }
 

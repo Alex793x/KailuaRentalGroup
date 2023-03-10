@@ -15,7 +15,7 @@ public class DB_QueryEditingHandler {
                         DB_Dependencies.getInstance().database_url,
                         DB_Dependencies.getInstance().username,
                         DB_Dependencies.getInstance().password);
-                Statement s = connection.createStatement();
+                        Statement s = connection.createStatement();
         ) {
             s.executeUpdate(query);
         } catch (SQLException e) {
