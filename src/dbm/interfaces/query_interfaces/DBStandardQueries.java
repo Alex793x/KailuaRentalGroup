@@ -20,7 +20,7 @@ public interface DBStandardQueries {
 
     void showTable(DB_QueryRequestHandler requestHandler);
 
-    void showTableOrdered(DB_QueryRequestHandler requestHandler) throws SQLException;
+    void showTableOrdered(DB_QueryRequestHandler requestHandler);
 
     void insertToTable(DB_QueryEditingHandler editingHandler, UI ui);
 
