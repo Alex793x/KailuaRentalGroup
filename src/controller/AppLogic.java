@@ -5,6 +5,8 @@ import dbm.handler.DB_QueryRequestHandler;
 import utility.*;
 import menu.handler.*;
 
+import java.sql.SQLException;
+
 /**
  * The AppLogic class is defining and running all the logic within the app.
  * Think about it as the controller of the whole application, requesting and handling queries

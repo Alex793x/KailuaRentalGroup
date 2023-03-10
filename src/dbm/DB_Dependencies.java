@@ -70,6 +70,10 @@ public class DB_Dependencies {
             "customer_info.customer_driver_since"};
 
 
+    //Analysis section ---------------------------------------
+    public static final String[] bestCustomerPrint =  {"[Customer Name]", "[Customer ID]", "[Total Days Rented]"};
+
+    public static final String[] BestCustomerDB = {"customer_name","customer_id","total_days_rented"};
     // Registry section --------------------------------------
     public final String[] rentalRegistryCOLUMNS = {
             "rental_registry.rental_registry_id", "rental_registry.rental_start_date", "rental_registry.rental_end_date"
