@@ -91,8 +91,8 @@ public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
                 "WHERE "+ DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[6] +"= 1 AND "+
                 DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[7] +"= 0";
 
-        requestHandler.printQuery(query1, new String[] {DB_Dependencies.getInstance().carRegistryColumnPrintFormat[0],
-                DB_Dependencies.getInstance().carRegistryColumnPrintFormat[1],DB_Dependencies.getInstance().carRegistryColumnPrintFormat[2],
+        requestHandler.printQuery(query1, new String[] {DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT[0],
+                DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT[1],DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT[2],
                 DB_Dependencies.getInstance().CAR_RENTAL_GROUP_PRINT_FORMAT[1]}, new String[] {DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[0],
                 DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[1],DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[2], DB_Dependencies.getInstance().CAR_RENTAL_GROUPS_COLUMNS[1]});
     }

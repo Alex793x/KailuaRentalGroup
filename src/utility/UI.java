@@ -66,8 +66,8 @@ public class UI {
             String readLine = input.nextLine();
             if (!readLine.matches(".*\\d.*") && !readLine.isEmpty()) {
                 return readLine;
-            } // End of if statementg
-            System.out.println("Please enter a valid word/statement, without any numbers inside");
+            } // End of if statement
+            System.out.println("Please enter a valid word/name, with no numbers please");
         } // End of while loop
     } // End of readLine method
 
@@ -78,10 +78,13 @@ public class UI {
             if (!readLine.matches(".*\\d.*")) {
                 return readLine;
             } // End of if statement
-            System.out.println("Please enter a valid word/name, without any numbers inside");
+            System.out.println("Please enter a valid word/name, with no numbers please");
         } // End of while loop
     } // End of method
 
+    public String readRegistration() {
+        return input.nextLine();
+    }
 
     public boolean readBoolean() {
         while (true) {
@@ -91,9 +94,14 @@ public class UI {
                     2. false""");
 
             switch (readInteger()) {
-                case 1 -> {return true;}
-                case 0 -> {return false;}
-                default -> System.out.println("Please enter either true or false");}
+                case 1 -> {
+                    return true;
+                }
+                case 0 -> {
+                    return false;
+                }
+                default -> System.out.println("Please enter either true or false");
+            }
         } // End of while loop
     } // End of method
 
@@ -109,9 +117,8 @@ public class UI {
     } // End of method
 
 
-
     public LocalDate readDate() {
-        while(true) {
+        while (true) {
             System.out.println("Please enter year");
             int year = readInteger();
             System.out.println("Please enter month");
@@ -120,30 +127,50 @@ public class UI {
             int day = readInteger();
 
             try {
-                return LocalDate.of(year,month,day);
+                return LocalDate.of(year, month, day);
             } catch (DateTimeException e) {
                 System.out.println("Please enter a valid date");
             } // End of try-catch block
         } // End of while loop
     } // End of method
 
+
     // Insert into Generic Method -----------------------------------------------
+
+    /**
+     * This method builds a sql insert statement by iterating through available columns, whenever a column
+     * has been targeted, the method first creates a request to figure out the datatype, when the datatype has been figured,
+     * the right {@link #UI} method which is error proofed against wrong input.
+     *
+     * @param columnValues   The column values which are available within a specific table
+     * @param requestHandler The Database Request Handler class
+     * @param tableName      The specific name of the table from DB we wish to work with
+     * @return A string made up of all the values needed for a valid insert statement within specific table.
+     */
     public String insertInto(String[] columnValues, DB_QueryRequestHandler requestHandler, String tableName) {
         StringBuilder insertValues = new StringBuilder();
+        input.nextLine();
 
-        Arrays.stream(columnValues).forEach(s -> {
-            String dataType = requestHandler.getColumnDataType(tableName, s);
-            System.out.println("Please enter value for " + s + ": ");
-            switch (dataType) {
-                case "INT" -> insertValues.append(readInteger()).append(",");
-                case "VARCHAR" -> insertValues.append(readLine()).append(",");
-                case "DATE" -> insertValues.append(readDate()).append(",");
-                case "BOOLEAN" -> insertValues.append(readBoolean()).append(",");
-                case "DOUBLE" -> insertValues.append(readDouble()).append(",");
-                default -> System.out.println("Error: Unsupported data type " + dataType);
+        Arrays.stream(columnValues).forEach(columnElement -> {
+        String dataType = requestHandler.getColumnDataType(tableName, columnElement);
+            System.out.print("Please enter value for " + columnElement + ": ");
+
+            if (columnElement.equals(DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[2]) ||
+            columnElement.equals(DB_Dependencies.getInstance().CUSTOMER_COLUMNS[2])) {
+                insertValues.append(readRegistration()).append(",");
+            } else {
+                switch (dataType) {
+                    case "int" -> insertValues.append(readInteger()).append(",");
+                    case "varchar" -> insertValues.append(readLine()).append(",");
+                    case "date" -> insertValues.append(readDate()).append(",");
+                    case "tinyint" -> insertValues.append(readBoolean()).append(",");
+                    case "double" -> insertValues.append(readDouble()).append(",");
+                    default -> System.out.println("Error: Unsupported data type " + dataType);
+                } // End of switch statement
             }
+
         });
-        return insertValues.toString();
+        return insertValues.substring(0, insertValues.length()-2);
     }
 
 
