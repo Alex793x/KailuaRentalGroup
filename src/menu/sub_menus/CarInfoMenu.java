@@ -1,22 +1,15 @@
 package menu.sub_menus;
 
-import dbm.DB_Dependencies;
 import dbm.handler.DB_QueryEditingHandler;
 import dbm.handler.DB_QueryRequestHandler;
 import dbm.interfaces.query_interfaces.DBStandardQueries;
 import menu.Menu;
 import utility.UI;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 public class CarInfoMenu extends Menu implements DBStandardQueries {
-
     /**
-     * The CarInfoMenu constructor
-     *
-     * @param menuHeader Title of the menu
-     * @param menuItems  The different menu options
+     * @param menuHeader
+     * @param menuItems
      */
     public CarInfoMenu(String menuHeader, String[] menuItems) {
         super(menuHeader, menuItems);
@@ -25,40 +18,17 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void showTable(DB_QueryRequestHandler requestHandler) {
-        String sql = "SELECT * FROM " + DB_Dependencies.getInstance().TABLE_NAMES[3];
-        requestHandler.printQueryResult(
-                sql,
-                DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT,
-                DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS);
+
     }
 
     @Override
     public void showTableOrdered(DB_QueryRequestHandler requestHandler) {
-        String sql = "SELECT * " +
-                "FROM " + DB_Dependencies.getInstance().TABLE_NAMES[3] + " " +
-                "ORDER BY " + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[1] + " ASC";
 
-        requestHandler.printQueryResult(
-                sql,
-                DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT,
-                DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS);
     }
 
     @Override
     public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
 
-        String selectSection = String.join(", ",
-                Arrays.stream(DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS).skip(1).toArray(String[]::new));
-
-        String sql = "INSERT INTO " + DB_Dependencies.getInstance().TABLE_NAMES[3] + " " +
-                "(" + selectSection + ") \n" +
-                "VALUES (" +
-                ui.insertInto(
-                        DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS,
-                        requestHandler,
-                        DB_Dependencies.getInstance().TABLE_NAMES[3]) + ")";
-
-        editingHandler.insertQuery(sql);
     }
 
     @Override
@@ -67,7 +37,8 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
     }
 
     @Override
-    public void deleteFromTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui) {
+    public void deleteFromTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler,
+                                UI ui) {
 
     }
 

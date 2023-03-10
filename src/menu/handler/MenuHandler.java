@@ -34,8 +34,8 @@ public class MenuHandler {
             "0. Back to main menu"
     });
 
-    public CarInfoMenu carInfoMenu = new CarInfoMenu("CAR INFO MENU", new String[] {
-            "1. Show all cars.",
+    public CarRegistryMenu carRegistryMenu = new CarRegistryMenu("CAR INFO MENU", new String[] {
+            "1. Show all cars",
             "2. Show all cars ordered",
             "3. Add new car",
             "4. Edit car registry",
@@ -61,7 +61,7 @@ public class MenuHandler {
             "6. Find available Cars"
     });
 
-    public RentalServiceMenu rentalServiceMenu = new RentalServiceMenu("RENTAL SERVICE MENU", new String[] {
+    public CarInfoMenu rentalServiceMenu = new CarInfoMenu("RENTAL SERVICE MENU", new String[] {
             "1. ",
             "2. ",
             "3. ",

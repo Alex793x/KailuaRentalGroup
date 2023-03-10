@@ -1,7 +1,11 @@
 package dbm.handler;
 
 import dbm.DB_Dependencies;
+import dbm.interfaces.query_interfaces.DBStandardQueries;
+import utility.UI;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.*;
 
 public class DB_QueryRequestHandler {
@@ -36,6 +40,19 @@ public class DB_QueryRequestHandler {
             System.out.println("An error occurred while retrieving the data type of the column: " + e.getMessage());
             return null;
         }
+    }
+
+    public int getPrimaryKeyValue(Method method, Object object, UI ui) throws InvocationTargetException, IllegalAccessException {
+        int primaryKeyID = -1;
+
+        System.out.println("Please enter unique ID");
+
+        int id = ui.readInteger();
+
+        // Invoke the specified method to get the primary key value
+        primaryKeyID = (int) method.invoke(object, id);
+
+        return primaryKeyID;
     }
 
     /**

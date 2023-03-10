@@ -99,11 +99,11 @@ public class AppLogic {
     private void runCarInfoMenu() {
         boolean isRunning = true;
         while (isRunning) {
-            menuHandler.carInfoMenu.printMenu();
+            menuHandler.carRegistryMenu.printMenu();
             switch (ui.readInteger()) {
-                case 1 -> {menuHandler.carInfoMenu.showTable(queryRequestHandler);}
-                case 2 -> {menuHandler.carInfoMenu.showTableOrdered(queryRequestHandler);}
-                case 3 -> {menuHandler.carInfoMenu.insertToTable(editingHandler, queryRequestHandler,ui);}
+                case 1 -> {menuHandler.carRegistryMenu.showTable(queryRequestHandler);}
+                case 2 -> {menuHandler.carRegistryMenu.showTableOrdered(queryRequestHandler);}
+                case 3 -> {menuHandler.carRegistryMenu.insertToTable(editingHandler, queryRequestHandler,ui);}
                 case 0 -> isRunning = false;
             }
         }
