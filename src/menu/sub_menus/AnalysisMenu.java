@@ -31,12 +31,14 @@ public class AnalysisMenu extends Menu implements DBStandardQueries {
     }
 
     @Override
-    public void updateTable(DB_QueryEditingHandler editingHandler, UI ui) {
+    public void updateTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler,
+                            UI ui) {
 
     }
 
     @Override
-    public void deleteFromTable(DB_QueryEditingHandler editingHandler, UI ui) {
+    public void deleteFromTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler,
+                                UI ui) {
 
     }
 
