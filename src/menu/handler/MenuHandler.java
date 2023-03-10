@@ -56,7 +56,8 @@ public class MenuHandler {
             "2. Show all leasing agreements ordered",
             "3. Add new leasing agreement",
             "4. Edit leasing agreement",
-            "5. Delete leasing agreement"
+            "5. Delete leasing agreement",
+            "6. Find available Cars"
     });
 
     public RentalServiceMenu rentalServiceMenu = new RentalServiceMenu("RENTAL SERVICE MENU", new String[] {

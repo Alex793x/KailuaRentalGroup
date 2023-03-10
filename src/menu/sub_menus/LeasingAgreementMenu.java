@@ -54,7 +54,7 @@ public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
         String query = "INSERT INTO " + DB_Dependencies.getInstance().TABLE_NAMES[2] + " " +
                 "(" + Arrays.toString(Arrays.copyOfRange(DB_Dependencies.getInstance().LEASING_AGREEMENT_COLUMNS,1,5)) +
                 " ) VALUES (?,?,?,?)";
-        
+
         editingHandler.insertQuery(query);
         System.out.println("New rental agreement created");
     }
@@ -72,5 +72,27 @@ public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
     @Override
     public void alterTable() {
 
+    }
+
+    public void getAvailableCars(DB_QueryRequestHandler requestHandler) {
+        String query1 = "SELECT cr.car_registry_id, cr.car_brand, cr.car_model, crg.car_rental_group_name\n" +
+                "FROM car_registry cr\n" +
+                "JOIN car_rental_groups crg USING (car_rental_group_id)\n" +
+                "WHERE cr.availability = 1 AND cr.car_isRented = 0";
+
+
+        String query = "SELECT " + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[0] + ", " + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[1] +
+                ", " + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[2] + ", " +
+                DB_Dependencies.getInstance().CAR_RENTAL_GROUPS_COLUMNS[1] +"\n" +
+                "FROM " + Arrays.toString(DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS) + "\n" +
+                "JOIN " + Arrays.toString(DB_Dependencies.getInstance().CAR_RENTAL_GROUPS_COLUMNS) + " USING (" +
+                DB_Dependencies.getInstance().CAR_RENTAL_GROUPS_COLUMNS[0] + ")\n" +
+                "WHERE "+ DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[6] +"= 1 AND "+
+                DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[7] +"= 0";
+
+        requestHandler.printQuery(query1, new String[] {DB_Dependencies.getInstance().carRegistryColumnPrintFormat[0],
+                DB_Dependencies.getInstance().carRegistryColumnPrintFormat[1],DB_Dependencies.getInstance().carRegistryColumnPrintFormat[2],
+                DB_Dependencies.getInstance().CAR_RENTAL_GROUP_PRINT_FORMAT[1]}, new String[] {DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[0],
+                DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[1],DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[2], DB_Dependencies.getInstance().CAR_RENTAL_GROUPS_COLUMNS[1]});
     }
 }
