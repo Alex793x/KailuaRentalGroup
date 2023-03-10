@@ -128,21 +128,32 @@ public class UI {
     } // End of method
 
 
+
     // Insert into Generic Method -----------------------------------------------
+
+    /**
+     * This method builds a sql insert statement by iterating through available columns, whenever a column
+     * has been targeted, the method first creates a request to figure out the datatype, when the datatype has been figured,
+     * the right {@link #UI} method which is err
+     * @param columnValues  The column values which are available within a specific table
+     * @param requestHandler The Database Request Handler class
+     * @param tableName The specific name of the table from DB we wish to work with
+     * @return A string made up of all the values needed for a valid insert statement within specific table.
+     */
     public String insertInto(String[] columnValues, DB_QueryRequestHandler requestHandler, String tableName) {
         StringBuilder insertValues = new StringBuilder();
 
-        Arrays.stream(columnValues).forEach(s -> {
-            String dataType = requestHandler.getColumnDataType(tableName, s);
-            System.out.println("Please enter value for " + s + ": ");
+        Arrays.stream(columnValues).forEach(columnElement -> {
+            String dataType = requestHandler.getColumnDataType(tableName, columnElement);
+            System.out.println("Please enter value for " + columnElement + ": ");
             switch (dataType) {
-                case "INT" -> insertValues.append(readInteger()).append(",");
-                case "VARCHAR" -> insertValues.append(readLine()).append(",");
-                case "DATE" -> insertValues.append(readDate()).append(",");
-                case "BOOLEAN" -> insertValues.append(readBoolean()).append(",");
-                case "DOUBLE" -> insertValues.append(readDouble()).append(",");
+                case "int" -> insertValues.append(readInteger()).append(",");
+                case "varchar" -> insertValues.append(readLine()).append(",");
+                case "date" -> insertValues.append(readDate()).append(",");
+                case "tinyint" -> insertValues.append(readBoolean()).append(",");
+                case "double" -> insertValues.append(readDouble()).append(",");
                 default -> System.out.println("Error: Unsupported data type " + dataType);
-            }
+            } // End of switch statement
         });
         return insertValues.toString();
     }

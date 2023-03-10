@@ -37,8 +37,8 @@ public class DB_Dependencies {
      */
     // Car registry section --------------------------------------------------------------
     public final String[] CAR_REGISTRY_COLUMNS = {
-            "car_registry_id", "car_brand", "car_model", "customer_info", "registration_number", "first_registration",
-            "availability", "car_rental_group_id"
+            "car_registry_id", "car_brand", "car_model", "registration_number", "first_registration",
+            "availability", "car_rental_group_id", "car_isRented"
     };
 
     /**
