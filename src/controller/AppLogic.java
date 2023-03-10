@@ -89,8 +89,17 @@ public class AppLogic {
     }
 
     private void runAnalysisMenu() {
+        boolean isRunning = true;
+        while (isRunning) {
+            menuHandler.analysisMenu.printMenu();
+            switch (ui.readInteger()) {
+                case 1 -> {menuHandler.analysisMenu.showTable(queryRequestHandler);}
+                case 2 -> {menuHandler.analysisMenu.showTableOrdered(queryRequestHandler);}
+                case 3 -> {menuHandler.analysisMenu.insertToTable(editingHandler, ui);}
+                case 0 -> {isRunning = false;}
+            }
+        }
 
-        throw new UnsupportedOperationException();
     }
 
 }

@@ -32,4 +32,27 @@ public class DB_QueryRequestHandler {
         }
     }
 
+    // IKKE GENERISK PRINTMETODE TIL JOINS
+    public void printALIAS(String query, String[] printColumns, String[] dbColumnName) {
+        try (
+                java.sql.Connection connection = DriverManager.getConnection(
+                        DB_Dependencies.getInstance().database_url,
+                        DB_Dependencies.getInstance().username,
+                        DB_Dependencies.getInstance().password);
+
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query)
+        ) {
+            if (resultSet != null) {
+                while (resultSet.next()) {
+                    String customerName = resultSet.getString("customer_name");
+                    int customerID = resultSet.getInt("customer_id");
+                    int totalDaysRented = resultSet.getInt("total_days_rented");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
