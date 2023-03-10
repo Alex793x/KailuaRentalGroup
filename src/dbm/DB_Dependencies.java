@@ -7,7 +7,7 @@ public class DB_Dependencies {
     // Login / Connection Fields ---------------------------------------------------------
     public final String database_url = "jdbc:mysql://localhost:3306/kailua_rental";
     public final String username = "root";
-    public final String password = "AKukekv6#";
+    public final String password = "Mfbz9yzxn";
 
 
     // Table INFO and Dependencies ------------------------------------------------------

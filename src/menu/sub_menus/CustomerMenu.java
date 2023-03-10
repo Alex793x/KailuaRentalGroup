@@ -37,17 +37,18 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
 
 
     @Override
-    public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
+    public void insertToTable(DB_QueryEditingHandler editingHandler,
+                              DB_QueryRequestHandler requestHandler, UI ui) {
         String selectSection = String.join(", ",
                 Arrays.stream(DB_Dependencies.getInstance().CUSTOMER_COLUMNS).skip(1).toArray(String[]::new));
 
-        String sql = "INSERT INTO " + DB_Dependencies.getInstance().TABLE_NAMES[0] + " " +
+        String sql = "INSERT INTO " + db_dependencies.TABLE_NAMES[0] + " " +
                 "(" + selectSection + ") \n" +
                 "VALUES (" +
                 ui.insertInto(
-                        DB_Dependencies.getInstance().CUSTOMER_COLUMNS,
+                        db_dependencies.CUSTOMER_COLUMNS,
                         requestHandler,
-                        DB_Dependencies.getInstance().TABLE_NAMES[0]) + ")";
+                        db_dependencies.TABLE_NAMES[0],true) + ")";
 
         editingHandler.insertQuery(sql);
     }
@@ -76,40 +77,6 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
     @Override
     public void alterTable() {
 
-    }
-
-    private String getSpecifiedTableNames(int... x) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < x.length; i++) {
-            if (i == x.length - 1) {
-                stringBuilder.append(db_dependencies.CUSTOMER_COLUMNS[x[i]]);
-            } else {
-                stringBuilder.append(db_dependencies.CUSTOMER_COLUMNS[x[i]] + ", ");
-            }
-        }
-        System.out.println(stringBuilder);
-        return stringBuilder.toString();
-    }
-
-    private String getValuesToInsert(UI ui) {
-        Scanner scan = new Scanner(System.in);
-        StringBuilder stringBuilder = new StringBuilder();
-
-        for (int i = 1; i < printColumnNames.length; i++) { // magicnumber 8 is amount of values for MySQL insertion xD
-            System.out.print("Please enter " + printColumnNames[i]);
-            String input = scan.nextLine();
-            if (i != 8) {
-                if (printColumnNames[i].contains("number") || printColumnNames[i].contains("ZIP")) {
-                    stringBuilder.append(input + ", ");
-                } else {
-                    stringBuilder.append("'" + input + "'" + ", ");
-                }
-            } else {
-                stringBuilder.append("'" + input + "'");
-            }
-        }
-        System.out.println(stringBuilder);
-        return stringBuilder.toString();
     }
 
     private String getTableNamesWithValues(UI ui) {

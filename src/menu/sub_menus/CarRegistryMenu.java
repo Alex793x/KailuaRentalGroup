@@ -55,7 +55,7 @@ public class CarRegistryMenu extends Menu implements DBStandardQueries {
                 ui.insertInto(
                         DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS,
                         requestHandler,
-                        DB_Dependencies.getInstance().TABLE_NAMES[3]) + ")";
+                        DB_Dependencies.getInstance().TABLE_NAMES[3], true) + ")";
 
         editingHandler.insertQuery(sql);
     }

@@ -25,6 +25,7 @@ import java.util.Scanner;
 public class UI {
 
     public Scanner input;
+    private final DB_Dependencies db_dependencies = DB_Dependencies.getInstance();
 
 
     // Constructor -----------------------------------------------------------------
@@ -98,8 +99,12 @@ public class UI {
                     2. false""");
 
             switch (readInteger()) {
-                case 1 -> {return true;}
-                case 2 -> {return false;}
+                case 1 -> {
+                    return true;
+                }
+                case 2 -> {
+                    return false;
+                }
                 default -> System.out.println("Please enter either true or false");
             }
         } // End of while loop
@@ -134,6 +139,12 @@ public class UI {
         } // End of while loop
     } // End of method
 
+    private boolean readYesNo(String s) {
+        String response = input.nextLine().trim().toLowerCase();
+        return response.equals("stay");
+    }
+
+
 
     // Insert into Generic Method -----------------------------------------------
 
@@ -147,36 +158,41 @@ public class UI {
      * @param tableName      The specific name of the table from DB we wish to work with
      * @return A string made up of all the values needed for a valid insert statement within specific table.
      */
-    public String insertInto(String[] columnValues, DB_QueryRequestHandler requestHandler, String tableName) {
+    public String insertInto(String[] columnValues, DB_QueryRequestHandler requestHandler, String tableName, boolean isUpdate) {
         StringBuilder insertValues = new StringBuilder();
         input.nextLine();
 
         Arrays.stream(columnValues).skip(1).forEach(columnElement -> {
-        String dataType = requestHandler.getColumnDataType(tableName, columnElement);
-            System.out.print("Please enter value for " + columnElement + ": ");
+            String dataType = requestHandler.getColumnDataType(tableName, columnElement);
+            if (isUpdate || readYesNo("If the value shouldn't be changed for " + columnElement + " just type \"stay\".")) {
+                System.out.print("Please enter value for " + columnElement + ": ");
 
-            if (columnElement.equals(DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[3]) ||
-            columnElement.equals(DB_Dependencies.getInstance().CUSTOMER_COLUMNS[2]) ||
-            columnElement.equals(DB_Dependencies.getInstance().CUSTOMER_COLUMNS[5])) {
-                insertValues.append("\'").append(readRegistration()).append("\',");
-
+                if (columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[3]) ||
+                        columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[2]) ||
+                        columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[5])) {
+                    insertValues.append("\'").append(readRegistration()).append("\',");
+                } else {
+                    switch (dataType) {
+                        case "int" -> {
+                            insertValues.append(readInteger()).append(",");
+                            input.nextLine(); // Scanner bug
+                        }
+                        case "varchar" -> insertValues.append("\'").append(readLine()).append("\',");
+                        case "date" -> insertValues.append("\'").append(readDate()).append("\',");
+                        case "tinyint" -> insertValues.append(readBoolean()).append(",");
+                        case "double" -> insertValues.append(readDouble()).append(",");
+                        default -> System.out.println("Error: Unsupported data type " + dataType);
+                    } // End of switch statement
+                }
             } else {
-                switch (dataType) {
-                    case "int" -> {
-                        insertValues.append(readInteger()).append(",");
-                        input.nextLine();
-                    }
-                    case "varchar" -> insertValues.append("\'").append(readLine()).append("\',");
-                    case "date" -> insertValues.append("\'").append(readDate()).append("\',");
-                    case "tinyint" -> insertValues.append(readBoolean()).append(",");
-                    case "double" -> insertValues.append(readDouble()).append(",");
-                    default -> System.out.println("Error: Unsupported data type " + dataType);
-                } // End of switch statement
+                // User chose not to edit this column, so skip it
+                insertValues.append("null,");
             }
-
         });
-        return insertValues.substring(0, insertValues.length()-1);
+
+        return insertValues.substring(0, insertValues.length() - 1);
     }
+
 
 
     // Invalid Print statements --------------------------------------------------

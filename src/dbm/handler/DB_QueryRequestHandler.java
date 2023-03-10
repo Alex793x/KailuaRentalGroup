@@ -42,19 +42,6 @@ public class DB_QueryRequestHandler {
         }
     }
 
-    public int getPrimaryKeyValue(Method method, Object object, UI ui) throws InvocationTargetException, IllegalAccessException {
-        int primaryKeyID = -1;
-
-        System.out.println("Please enter unique ID");
-
-        int id = ui.readInteger();
-
-        // Invoke the specified method to get the primary key value
-        primaryKeyID = (int) method.invoke(object, id);
-
-        return primaryKeyID;
-    }
-
     /**
      * This method is a generic way to print out the result from a SQL query
      * @param query The SQL statement which queries the DB
