@@ -15,8 +15,8 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
      * @param menuItems
      */
     private DB_Dependencies db_dependencies = DB_Dependencies.getInstance();
-    private String[] printColumnNames = {"Customer ID: ", "name: ", "address: ", "ZIP: ", "City ", "Phone no.: ",
-            "Email: ", "Driver license number: ", "Driver license since: "};
+    private String[] printColumnNames = {"Customer ID", "name", "address", "ZIP", "City", "Phone no.",
+            "Email", "Driver license number", "Driver license since"};
 
     public CustomerMenu(String menuHeader, String[] menuItems) {
         super(menuHeader, menuItems);
@@ -25,13 +25,13 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
     @Override
     public void showTable(DB_QueryRequestHandler requestHandler) {
         String query = "SELECT * FROM customer_info;";
-        requestHandler.printQuery(query, printColumnNames, db_dependencies.CUSTOMER_COLUMNS);
+        requestHandler.printQueryResult(query, printColumnNames, db_dependencies.CUSTOMER_COLUMNS);
     }
 
     @Override
     public void showTableOrdered(DB_QueryRequestHandler requestHandler) {
         String query = "SELECT * FROM customer_info ORDER BY customer_name;";
-        requestHandler.printQuery(query, printColumnNames, db_dependencies.CUSTOMER_COLUMNS);
+        requestHandler.printQueryResult(query, printColumnNames, db_dependencies.CUSTOMER_COLUMNS);
     }
 
     @Override

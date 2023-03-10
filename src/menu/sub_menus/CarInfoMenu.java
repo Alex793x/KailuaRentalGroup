@@ -25,7 +25,7 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
     @Override
     public void showTable(DB_QueryRequestHandler requestHandler) {
         String sql = "SELECT * FROM " + DB_Dependencies.getInstance().TABLE_NAMES[3];
-        requestHandler.printQuery(
+        requestHandler.printQueryResult(
                 sql,
                 DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT,
                 DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS);
@@ -37,7 +37,7 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
                 "FROM " + DB_Dependencies.getInstance().TABLE_NAMES[3] + " " +
                 "ORDER BY " + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[1] + " ASC";
 
-        requestHandler.printQuery(
+        requestHandler.printQueryResult(
                 sql,
                 DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT,
                 DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS);

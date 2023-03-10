@@ -7,10 +7,6 @@ import dbm.interfaces.query_interfaces.DBStandardQueries;
 import menu.Menu;
 import utility.UI;
 
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -27,7 +23,7 @@ public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
     @Override
     public void showTable(DB_QueryRequestHandler requestHandler) {
         String query = "SELECT * FROM " + DB_Dependencies.getInstance().TABLE_NAMES[2];
-        requestHandler.printQuery(query, DB_Dependencies.getInstance().LEASING_AGREEMENT_COLUMN_PRINT_FORMAT,
+        requestHandler.printQueryResult(query, DB_Dependencies.getInstance().LEASING_AGREEMENT_COLUMN_PRINT_FORMAT,
                 DB_Dependencies.getInstance().LEASING_AGREEMENT_COLUMNS);
     }
 
@@ -35,7 +31,7 @@ public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
     public void showTableOrdered(DB_QueryRequestHandler requestHandler) {
         String query = "SELECT * FROM " + DB_Dependencies.getInstance().TABLE_NAMES[2] + " ORDER BY "
                 + DB_Dependencies.getInstance().LEASING_AGREEMENT_COLUMNS[1] + " ASC";
-        requestHandler.printQuery(query, DB_Dependencies.getInstance().LEASING_AGREEMENT_COLUMN_PRINT_FORMAT,
+        requestHandler.printQueryResult(query, DB_Dependencies.getInstance().LEASING_AGREEMENT_COLUMN_PRINT_FORMAT,
                 DB_Dependencies.getInstance().LEASING_AGREEMENT_COLUMNS);
     }
 
@@ -93,7 +89,7 @@ public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
                 "WHERE "+ DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[6] +"= 1 AND "+
                 DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[7] +"= 0";*/
 
-        requestHandler.printQuery(query1, new String[] {DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT[0],
+        requestHandler.printQueryResult(query1, new String[] {DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT[0],
                 DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT[1],DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT[2],
                 DB_Dependencies.getInstance().CAR_RENTAL_GROUP_PRINT_FORMAT[1]}, new String[] {DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[0],
                 DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[1],DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[2], DB_Dependencies.getInstance().CAR_RENTAL_GROUPS_COLUMNS[1]});

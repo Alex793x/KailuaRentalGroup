@@ -37,7 +37,7 @@ public class DB_Dependencies {
      */
     // Car registry section --------------------------------------------------------------
     public final String[] CAR_REGISTRY_COLUMNS = {
-            "car_brand", "car_model", "registration_number", "first_registration",
+            "car_registry_id" ,"car_brand", "car_model", "registration_number", "first_registration",
             "availability", "car_rental_group_id", "car_isRented"
 
     };
@@ -47,8 +47,8 @@ public class DB_Dependencies {
      * please look at {@link #CAR_REGISTRY_COLUMNS} for further details of content</p>
      */
     public final String[] CAR_REGISTRY_COLUMN_PRINT_FORMAT = {
-            "Car brand: ", "Car model: ", "Registration number: ", "First registration",
-            "Availability: ", "Car rental group id: ","Car Is Rented?: "
+            "Car Registry ID", "Car brand", "Car model", "Registration number", "First registration",
+            "Availability", "Car rental group id","Car Is Rented ?"
     };
 
     // Customer section ------------------------------------------------------------------
@@ -72,7 +72,7 @@ public class DB_Dependencies {
 
 
     //Analysis section ---------------------------------------
-    public static final String[] bestCustomerPrint =  {"[Customer Name]", "[Customer ID]", "[Total Days Rented]"};
+    public static final String[] bestCustomerPrint =  {"Customer Name", "Customer ID", "Total Days Rented"};
 
     public static final String[] BestCustomerDB = {"customer_name","customer_id","total_days_rented"};
     // Registry section --------------------------------------
@@ -82,8 +82,8 @@ public class DB_Dependencies {
 
 
     // Leasing Agreements section --------------------------------------------------------
-    public final String[] LEASING_AGREEMENT_COLUMN_PRINT_FORMAT = {"Rental Registry ID: ", "Rental Start Date: ",
-            "Rental End Date: ", "Car Registry ID: ","Customer ID: "};
+    public final String[] LEASING_AGREEMENT_COLUMN_PRINT_FORMAT = {"Rental Registry ID", "Rental Start Date",
+            "Rental End Date", "Car Registry ID","Customer ID"};
 
     public final String[] LEASING_AGREEMENT_COLUMNS = {"rental_registry_id", "rental_start_date", "rental_end_date",
             "car_registry_id", "customer_id"};
@@ -92,8 +92,8 @@ public class DB_Dependencies {
 
 
     // Car Rental Group Section ----------------------------------------------------------
-    public final String[] CAR_RENTAL_GROUP_PRINT_FORMAT = {"Car Rental Group ID: ", "Car Rental Group Name: ",
-            "Car Properties ID: "};
+    public final String[] CAR_RENTAL_GROUP_PRINT_FORMAT = {"Car Rental Group ID: ", "Car Rental Group Name",
+            "Car Properties ID"};
 
     public final String[] CAR_RENTAL_GROUPS_COLUMNS = {"car_rental_group_id", "car_rental_group_name", "car_properties_id"};
 
