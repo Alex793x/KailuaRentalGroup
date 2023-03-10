@@ -31,7 +31,7 @@ public class MenuHandler {
             "1. Show best customers in descending order",
             "2. Show occupancy by car group",
             "3. Show occupancy by month",
-            "4. "
+            "0. Back to main menu"
     });
 
     public CarInfoMenu carInfoMenu = new CarInfoMenu("CAR INFO MENU", new String[] {
