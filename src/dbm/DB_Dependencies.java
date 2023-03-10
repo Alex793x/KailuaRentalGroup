@@ -5,13 +5,12 @@ public class DB_Dependencies {
     private static DB_Dependencies theInstance = new DB_Dependencies();
 
     // Login / Connection Fields ---------------------------------------------------------
-    public final String database_url = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7603879";
-    public final String username = "sql7603879";
-    public final String password = "kp1ScwPK48";
+    public final String database_url = "jdbc:mysql://localhost:3306/kailua_rental";
+    public final String username = "root";
+    public final String password = "Mfbz9yzxn";
 
 
-
-    // Table INFO and Dependencies
+    // Table INFO and Dependencies ------------------------------------------------------
     /**
      * <p>The {@link #TABLE_NAMES} includes all table names within the database</p>
      * @implNote 0 = customer_info <br>
@@ -25,6 +24,8 @@ public class DB_Dependencies {
     };
 
 
+
+    // Car registry section --------------------------------------------------------------
     /**
      * <p>The {@link #CAR_REGISTRY_COLUMNS} includes all columns within the database which is including within the table car_registry.</p>
      * @implNote 0 = car_registry_id <br>
@@ -35,7 +36,6 @@ public class DB_Dependencies {
      * 5 = availability <br>
      * 6 = car_rental_group_id
      */
-    // Car registry section --------------------------------------------------------------
     public final String[] CAR_REGISTRY_COLUMNS = {
             "car_registry_id" ,"car_brand", "car_model", "registration_number", "first_registration",
             "availability", "car_rental_group_id", "car_isRented"
@@ -51,6 +51,7 @@ public class DB_Dependencies {
             "Availability", "Car rental group id","Car Is Rented ?"
     };
 
+
     // Customer section ------------------------------------------------------------------
     /**
      * <p>The {@link #CUSTOMER_COLUMNS} includes all columns within the database which is including within the table customer_info.</p>
@@ -64,21 +65,25 @@ public class DB_Dependencies {
      * 7 = customer_driver_license_number <br>
      * 8 = customer_driver_since <br>
      */
-    public final String[] CUSTOMER_COLUMNS = {"customer_info.customer_id", "customer_info.customer_name",
-            "customer_info.customer_address", "customer_info.customer_zip",
-            "customer_info.customer_city", "customer_info.customer_phone", "customer_info.customer_email",
-            "customer_info.customer_driver_license_number",
-            "customer_info.customer_driver_since"};
+    public final String[] CUSTOMER_COLUMNS = {"customer_id", "customer_name",
+            "customer_address", "customer_zip", "customer_city", "customer_phone", "customer_email",
+            "customer_driver_license_number", "customer_driver_since"};
 
 
     //Analysis section ---------------------------------------
-    public static final String[] bestCustomerPrint =  {"Customer Name", "Customer ID", "Total Days Rented"};
+    public final String[] bestCustomerPrint =  {"Customer Name", "Customer ID", "Total Days Rented"};
 
-    public static final String[] BestCustomerDB = {"customer_name","customer_id","total_days_rented"};
+    public final String[] BestCustomerDB = {"customer_name","customer_id","total_days_rented"};
+
+
+
+
     // Registry section --------------------------------------
     public final String[] rentalRegistryCOLUMNS = {
             "rental_registry.rental_registry_id", "rental_registry.rental_start_date", "rental_registry.rental_end_date"
             , "rental_registry.car_registry_id", "rental_registry.customer_id"};
+
+
 
 
     // Leasing Agreements section --------------------------------------------------------
@@ -90,12 +95,12 @@ public class DB_Dependencies {
 
 
 
-
     // Car Rental Group Section ----------------------------------------------------------
     public final String[] CAR_RENTAL_GROUP_PRINT_FORMAT = {"Car Rental Group ID: ", "Car Rental Group Name",
             "Car Properties ID"};
 
     public final String[] CAR_RENTAL_GROUPS_COLUMNS = {"car_rental_group_id", "car_rental_group_name", "car_properties_id"};
+
 
 
 

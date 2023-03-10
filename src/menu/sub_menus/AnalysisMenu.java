@@ -30,7 +30,10 @@ public class AnalysisMenu extends Menu implements DBStandardQueries {
                 DB_Dependencies.getInstance().CUSTOMER_COLUMNS[0] + " GROUP BY " +
                 DB_Dependencies.getInstance().rentalRegistryCOLUMNS[4] + " ORDER BY " +
                 "total_days_rented DESC;";
-        requestHandler.printQueryResult(sql, DB_Dependencies.bestCustomerPrint,DB_Dependencies.BestCustomerDB);
+        requestHandler.printQueryResult(
+                sql,
+                DB_Dependencies.getInstance().bestCustomerPrint,
+                DB_Dependencies.getInstance().BestCustomerDB);
     }
 
     @Override

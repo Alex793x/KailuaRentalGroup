@@ -7,6 +7,7 @@ import dbm.interfaces.query_interfaces.DBStandardQueries;
 import menu.Menu;
 import utility.UI;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class CustomerMenu extends Menu implements DBStandardQueries {
@@ -34,13 +35,29 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
         requestHandler.printQueryResult(query, printColumnNames, db_dependencies.CUSTOMER_COLUMNS);
     }
 
+//    @Override
+//    public void insertToTable(DB_QueryEditingHandler editingHandler,DB_QueryRequestHandler requestHandler, UI ui) {
+//        String query = "INSERT INTO customer_info " + "(" +
+//                getSpecifiedTableNames(1, 2, 3, 4, 5, 6, 7, 8) +
+//                ")" + " VALUES (" + getValuesToInsert(ui) + ");";
+//
+//        editingHandler.insertQuery(query);
+//    }
+
     @Override
     public void insertToTable(DB_QueryEditingHandler editingHandler,DB_QueryRequestHandler requestHandler, UI ui) {
-        String query = "INSERT INTO customer_info " + "(" +
-                getSpecifiedTableNames(1, 2, 3, 4, 5, 6, 7, 8) +
-                ")" + " VALUES (" + getValuesToInsert(ui) + ");";
+        String selectSection = String.join(", ",
+                Arrays.stream(DB_Dependencies.getInstance().CUSTOMER_COLUMNS).skip(1).toArray(String[]::new));
 
-        editingHandler.insertQuery(query);
+        String sql = "INSERT INTO " + DB_Dependencies.getInstance().TABLE_NAMES[0] + " " +
+                "(" + selectSection + ") \n" +
+                "VALUES (" +
+                ui.insertInto(
+                        DB_Dependencies.getInstance().CUSTOMER_COLUMNS,
+                        requestHandler,
+                        DB_Dependencies.getInstance().TABLE_NAMES[0]) + ")";
+
+        editingHandler.insertQuery(sql);
     }
 
     @Override

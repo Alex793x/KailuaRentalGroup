@@ -147,16 +147,21 @@ public class UI {
         StringBuilder insertValues = new StringBuilder();
         input.nextLine();
 
-        Arrays.stream(columnValues).forEach(columnElement -> {
+        Arrays.stream(columnValues).skip(1).forEach(columnElement -> {
         String dataType = requestHandler.getColumnDataType(tableName, columnElement);
             System.out.print("Please enter value for " + columnElement + ": ");
 
-            if (columnElement.equals(DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[2]) ||
-            columnElement.equals(DB_Dependencies.getInstance().CUSTOMER_COLUMNS[2])) {
+            if (columnElement.equals(DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[3]) ||
+            columnElement.equals(DB_Dependencies.getInstance().CUSTOMER_COLUMNS[2]) ||
+            columnElement.equals(DB_Dependencies.getInstance().CUSTOMER_COLUMNS[5])) {
                 insertValues.append("\'").append(readRegistration()).append("\',");
+
             } else {
                 switch (dataType) {
-                    case "int" -> insertValues.append(readInteger()).append(",");
+                    case "int" -> {
+                        insertValues.append(readInteger()).append(",");
+                        input.nextLine();
+                    }
                     case "varchar" -> insertValues.append("\'").append(readLine()).append("\',");
                     case "date" -> insertValues.append("\'").append(readDate()).append("\',");
                     case "tinyint" -> insertValues.append(readBoolean()).append(",");

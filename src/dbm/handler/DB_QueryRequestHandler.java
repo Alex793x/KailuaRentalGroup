@@ -78,10 +78,10 @@ public class DB_QueryRequestHandler {
             for (int i = 1; i <= numColumns; i++) {
                 Object value = resultSet.getObject(i);
                 System.out.printf("%-30s", value);
-            }
+            } // End of for loop
             System.out.println();
         } // End of while loop
         System.out.println();
-    } // End of meethod
+    } // End of method
 
 }

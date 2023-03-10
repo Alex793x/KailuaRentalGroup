@@ -8,6 +8,7 @@ import menu.Menu;
 import utility.UI;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class CarInfoMenu extends Menu implements DBStandardQueries {
 
@@ -45,7 +46,9 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
-        String selectSection = String.join(", ", DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS);
+
+        String selectSection = String.join(", ",
+                Arrays.stream(DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS).skip(1).toArray(String[]::new));
 
         String sql = "INSERT INTO " + DB_Dependencies.getInstance().TABLE_NAMES[3] + " " +
                 "(" + selectSection + ") \n" +
