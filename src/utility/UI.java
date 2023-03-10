@@ -64,7 +64,7 @@ public class UI {
     public String readLine() {
         while (true) {
             String readLine = input.nextLine();
-            if (!readLine.matches(".*\\d.*") && !readLine.isEmpty()) {
+            if (!readLine.matches(".*\\d.*")) {
                 return readLine;
             } // End of if statement
             System.out.println("Please enter a valid word/name, with no numbers please");
