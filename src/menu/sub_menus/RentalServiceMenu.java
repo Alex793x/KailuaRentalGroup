@@ -27,7 +27,7 @@ public class RentalServiceMenu extends Menu implements DBStandardQueries {
     }
 
     @Override
-    public void insertToTable(DB_QueryEditingHandler editingHandler, UI ui) {
+    public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
 
     }
 
