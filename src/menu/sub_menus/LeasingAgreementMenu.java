@@ -40,7 +40,7 @@ public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
     }
 
     @Override
-    public void insertToTable(DB_QueryEditingHandler editingHandler, UI ui) {
+    public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
 
 
         System.out.println("Input Year, Month and Day of Rental Start");
@@ -60,12 +60,13 @@ public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
     }
 
     @Override
-    public void updateTable(DB_QueryEditingHandler editingHandler, UI ui) {
+    public void updateTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui) {
 
     }
 
     @Override
-    public void deleteFromTable(DB_QueryEditingHandler editingHandler, UI ui) {
+    public void deleteFromTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler,
+                                UI ui) {
 
     }
 
