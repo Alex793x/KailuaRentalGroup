@@ -64,9 +64,21 @@ public class DB_Dependencies {
      * 7 = customer_driver_license_number <br>
      * 8 = customer_driver_since <br>
      */
-    public final String[] CUSTOMER_COLUMNS = {"customer_id", "customer_name", "customer_address", "customer_zip",
-            "customer_city", "customer_phone", "customer_email", "customer_driver_license_number",
-            "customer_driver_since"};
+    public final String[] CUSTOMER_COLUMNS = {"customer_info.customer_id", "customer_info.customer_name",
+            "customer_info.customer_address", "customer_info.customer_zip",
+            "customer_info.customer_city", "customer_info.customer_phone", "customer_info.customer_email",
+            "customer_info.customer_driver_license_number",
+            "customer_info.customer_driver_since"};
+
+
+    //Analysis section ---------------------------------------
+    public static final String[] bestCustomerPrint =  {"[Customer Name]", "[Customer ID]", "[Total Days Rented]"};
+
+    public static final String[] BestCustomerDB = {"customer_name","customer_id","total_days_rented"};
+    // Registry section --------------------------------------
+    public final String[] rentalRegistryCOLUMNS = {
+            "rental_registry.rental_registry_id", "rental_registry.rental_start_date", "rental_registry.rental_end_date"
+            , "rental_registry.car_registry_id", "rental_registry.customer_id"};
 
 
     // Leasing Agreements section --------------------------------------------------------

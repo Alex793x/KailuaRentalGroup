@@ -5,6 +5,8 @@ import dbm.handler.DB_QueryRequestHandler;
 import utility.*;
 import menu.handler.*;
 
+import java.sql.SQLException;
+
 /**
  * The AppLogic class is defining and running all the logic within the app.
  * Think about it as the controller of the whole application, requesting and handling queries
@@ -113,8 +115,17 @@ public class AppLogic {
     }
 
     private void runAnalysisMenu() {
+        boolean isRunning = true;
+        while (isRunning) {
+            menuHandler.analysisMenu.printMenu();
+            switch (ui.readInteger()) {
+                case 1 -> {menuHandler.analysisMenu.showTable(queryRequestHandler);}
+                case 2 -> {menuHandler.analysisMenu.showTableOrdered(queryRequestHandler);}
+                case 3 -> {menuHandler.analysisMenu.insertToTable(editingHandler, queryRequestHandler,ui);}
+                case 0 -> {isRunning = false;}
+            }
+        }
 
-        throw new UnsupportedOperationException();
     }
 
 }
