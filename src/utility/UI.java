@@ -184,7 +184,7 @@ public class UI {
                         case "double" -> insertValues.append(readDouble()).append(",");
                         default -> System.out.println("Error: Unsupported data type " + dataType);
                     } // End of switch statement
-                } // End 
+                } // End
             }
         });
 

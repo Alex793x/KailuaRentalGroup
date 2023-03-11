@@ -15,8 +15,8 @@ import java.sql.SQLException;
  * @implNote {@link #runMainMenu()} Will be showing the different sections in categorized fashion. <br>
  * {@link #runCustomerMenu()} Will be handling all customer queries (adding new customer, delete, edit etc.) <br>
  * {@link #runLeasingAgreementMenu()} Will be handling all leasing agreements while query details on cars and specifications <br>
- * {@link #runCarInfoMenu()} Will be handling all queries when user wants to create unique search criteria on car info <br>
- * {@link #runRentalServiceMenu()} Will be handling payments, setups, while also other important employee queries <br>
+ * {@link #runCarRegistryMenu()} Will be handling all queries when user wants to create unique search criteria on car info <br>
+ * {@link #runCarInfoMenu()} Will be handling payments, setups, while also other important employee queries <br>
  * {@link #runAnalysisMenu()} Will be handling detailed analysis queries if employees want to get some detailed information about customer behaviour <br>
  */
 public class AppLogic {
@@ -53,9 +53,9 @@ public class AppLogic {
 
             switch (ui.readInteger()) {
                 case 1 -> runCustomerMenu();
-                case 2 -> runCarInfoMenu();
+                case 2 -> runCarRegistryMenu();
                 case 3 -> runLeasingAgreementMenu();
-                case 4 -> runRentalServiceMenu();
+                case 4 -> runCarInfoMenu();
                 case 5 -> runAnalysisMenu();
                 case 0 -> isRunning = false;
                 default -> System.out.println("invalid input, please try again");
@@ -96,7 +96,7 @@ public class AppLogic {
         throw new UnsupportedOperationException();
     }
 
-    private void runCarInfoMenu() {
+    private void runCarRegistryMenu() {
         boolean isRunning = true;
         while (isRunning) {
             menuHandler.carRegistryMenu.printMenu();
@@ -109,7 +109,7 @@ public class AppLogic {
         }
     }
 
-    private void runRentalServiceMenu() {
+    private void runCarInfoMenu() {
         // TODO - implement controller.AppLogic.runRentalServiceMenu
         throw new UnsupportedOperationException();
     }
