@@ -102,6 +102,7 @@ public class AppLogic {
                 case 1 -> {menuHandler.carRegistryMenu.showTable(queryRequestHandler);}
                 case 2 -> {menuHandler.carRegistryMenu.showTableOrdered(queryRequestHandler);}
                 case 3 -> {menuHandler.carRegistryMenu.insertToTable(editingHandler, queryRequestHandler,ui);}
+                case 4 -> {menuHandler.carRegistryMenu.updateTable(editingHandler, queryRequestHandler, ui);}
                 case 0 -> isRunning = false;
             } // End of switch case
         } // End of while loop

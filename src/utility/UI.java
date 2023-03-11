@@ -169,20 +169,20 @@ public class UI {
                 if (!columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[7]) && isInsert) {
                     System.out.print("Please enter value for " + columnElement + ": ");
                 }
-
                 String dataType = requestHandler.getColumnDataType(tableName, columnElement);
                 String columnValue = isInsert ? getInsertValue(columnElement, dataType) : getUpdateValue(columnElement, dataType);
 
                 if (columnValue != null) {
                     insertValues.append(columnValue).append(",");
-                }
-            }
-        });
+                } // End of inner if statement
+            } // End of outer if statement
+        }); // End of Arrays.stream.forEach loop
 
         return insertValues.substring(0, Math.max(0, insertValues.length() - 1)); // remove trailing comma
-    }
+    } // End of method
 
     private String getInsertValue(String columnElement, String dataType) {
+        System.out.print("Please enter value for " + columnElement + ": ");
         if (columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[3]) ||
                 columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[2]) ||
                 columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[5])) {
@@ -203,9 +203,11 @@ public class UI {
     } // End of method
 
     private String getUpdateValue(String columnElement, String dataType) {
+        System.out.print("Please enter value for " + columnElement + ": ");
         if (columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[3]) ||
                 columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[2]) ||
                 columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[5])) {
+
             return columnElement + " = '" + readRegistration();
 
         } else {

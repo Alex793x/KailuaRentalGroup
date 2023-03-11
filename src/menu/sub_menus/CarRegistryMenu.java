@@ -10,6 +10,7 @@ import utility.UI;
 import java.util.Arrays;
 
 public class CarRegistryMenu extends Menu implements DBStandardQueries {
+    private final DB_Dependencies db_dependencies = DB_Dependencies.getInstance();
 
     /**
      * The CarInfoMenu constructor
@@ -24,45 +25,52 @@ public class CarRegistryMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void showTable(DB_QueryRequestHandler requestHandler) {
-        String sql = "SELECT * FROM " + DB_Dependencies.getInstance().TABLE_NAMES[3];
+        String sql = "SELECT * FROM " + db_dependencies.TABLE_NAMES[3];
         requestHandler.printQueryResult(
                 sql,
-                DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT,
-                DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS);
+                db_dependencies.CAR_REGISTRY_COLUMN_PRINT_FORMAT,
+                db_dependencies.CAR_REGISTRY_COLUMNS);
     }
 
     @Override
     public void showTableOrdered(DB_QueryRequestHandler requestHandler) {
         String sql = "SELECT * " +
-                "FROM " + DB_Dependencies.getInstance().TABLE_NAMES[3] + " " +
-                "ORDER BY " + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[1] + " ASC";
+                "FROM " + db_dependencies.TABLE_NAMES[3] + " " +
+                "ORDER BY " + db_dependencies.CAR_REGISTRY_COLUMNS[1] + " ASC";
 
         requestHandler.printQueryResult(
                 sql,
-                DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT,
-                DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS);
+                db_dependencies.CAR_REGISTRY_COLUMN_PRINT_FORMAT,
+                db_dependencies.CAR_REGISTRY_COLUMNS);
     }
 
     @Override
     public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
 
         String selectSection = String.join(", ",
-                Arrays.stream(DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS).skip(1).toArray(String[]::new));
+                Arrays.stream(db_dependencies.CAR_REGISTRY_COLUMNS).skip(1).toArray(String[]::new));
 
-        String sql = "INSERT INTO " + DB_Dependencies.getInstance().TABLE_NAMES[3] + " " +
+        String sql = "INSERT INTO " + db_dependencies.TABLE_NAMES[3] + " " +
                 "(" + selectSection + ") \n" +
                 "VALUES (" +
                 ui.insertInto(
-                        DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS,
+                        db_dependencies.CAR_REGISTRY_COLUMNS,
                         requestHandler,
-                        DB_Dependencies.getInstance().TABLE_NAMES[3], true) + ")";
+                        db_dependencies.TABLE_NAMES[3], true) + ")";
 
         editingHandler.insertQuery(sql);
     }
 
     @Override
     public void updateTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui) {
-
+        String query = "UPDATE car_registry " + "SET " +
+                ui.insertInto(db_dependencies.CAR_REGISTRY_COLUMNS,
+                        requestHandler,
+                        db_dependencies.TABLE_NAMES[3], false) +
+                " WHERE " + db_dependencies.CAR_REGISTRY_COLUMNS[0] + " = " +
+                getCarRegistryID(requestHandler, ui) + ";";
+        System.out.println(query);
+        editingHandler.insertQuery(query);
     }
 
     @Override
@@ -73,5 +81,11 @@ public class CarRegistryMenu extends Menu implements DBStandardQueries {
     @Override
     public void alterTable() {
 
+    }
+
+    private int getCarRegistryID(DB_QueryRequestHandler requestHandler, UI ui) {
+        showTable(requestHandler);
+        System.out.print("Please enter the customers ID: ");
+        return ui.readInteger();
     }
 }
