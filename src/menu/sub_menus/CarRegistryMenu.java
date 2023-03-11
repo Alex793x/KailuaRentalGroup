@@ -47,7 +47,7 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
 
     @Override
     public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
-
+        super.insertToTable(editingHandler, requestHandler, ui);
         String selectCarRegistrySelection = String.join(", ",
                 Arrays.stream(db_dependencies.CAR_REGISTRY_COLUMNS).skip(1).toArray(String[]::new));
 
@@ -62,8 +62,6 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
 
 
         editingHandler.insertQuery(insertNewCarSQL);
-
-        super.insertToTable(editingHandler, requestHandler, ui);
     }
 
     @Override

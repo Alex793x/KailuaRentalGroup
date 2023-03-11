@@ -49,9 +49,7 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
         String insertPropertiesSQL = "INSERT INTO " + db_dependencies.TABLE_NAMES[1] + " " +
                 "(" + selectCarPropertySelection + ") \n" +
                 "VALUES (" +
-                ui.insertInto(db_dependencies.CAR_PROPERTIES_COLUMNS,
-                        requestHandler,
-                        db_dependencies.TABLE_NAMES[1], true) + ")";
+                getGroupType(ui,requestHandler) + ")";
 
         editingHandler.insertQuery(insertPropertiesSQL);
     }
@@ -77,6 +75,20 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void alterTable() {
+
+    }
+
+    private String getGroupType(UI ui, DB_QueryRequestHandler requestHandler){
+        String sql = ui.insertInto(db_dependencies.CAR_PROPERTIES_COLUMNS,
+                requestHandler,
+                db_dependencies.TABLE_NAMES[1], true);
+
+        String[] sqlCheck = sql.split(",");
+        if (sqlCheck[2].equalsIgnoreCase("Automatic")){
+                return sql + ", 1";
+        } else if(Integer.valueOf(sqlCheck[6])>200 && Integer.valueOf(sqlCheck[5])<=5) {
+                return sql + ", 3";
+        } else return sql + ", 2";
 
     }
 }

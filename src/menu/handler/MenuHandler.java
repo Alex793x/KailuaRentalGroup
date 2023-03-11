@@ -21,10 +21,12 @@ public class MenuHandler {
 
     public MainMenu mainMenu = new MainMenu("MAIN MENU", new String[] {
             "1. Customers",
-            "2. Cars",
-            "3. Leasing agreement",
-            "4. Rental Service",
-            "5. Analysis"
+            "2. Car Registry",
+            "3. Car Property",
+            "4. Leasing agreement",
+            "5. Car Info",
+            "6. Analysis",
+            "0. Exit program"
     });
 
     public AnalysisMenu analysisMenu = new AnalysisMenu("ANALYSIS MENU", new String[] {

@@ -7,7 +7,7 @@ public class DB_Dependencies {
     // Login / Connection Fields ---------------------------------------------------------
     public final String database_url = "jdbc:mysql://localhost:3306/kailua_rental";
     public final String username = "root";
-    public final String password = "Mfbz9yzxn";
+    public final String password = "sesame80";
 
 
     // Table INFO and Dependencies ------------------------------------------------------
@@ -97,7 +97,7 @@ public class DB_Dependencies {
      */
     public final String[] CAR_PROPERTIES_PRINT_FORMAT = {
             "Car Properties ID", "CCM", "Gear Type", "Air Condition", "Seat Type", "Seat Amount",
-            "Horsepower", "Cruise Control", "Odometer", "Fuel Type"
+            "Horsepower", "Cruise Control", "Odometer", "Fuel Type", "Car Rental Group"
     };
 
 
