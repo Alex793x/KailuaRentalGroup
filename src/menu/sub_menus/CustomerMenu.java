@@ -57,7 +57,9 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
     public void updateTable(DB_QueryEditingHandler editingHandler,
                             DB_QueryRequestHandler requestHandler, UI ui) { // DB REGUEST HANDLER
         String query = "UPDATE customer_info " + "SET " +
-                getTableNamesWithValues(ui) +
+                ui.insertInto(db_dependencies.CUSTOMER_COLUMNS,
+                        requestHandler,
+                        db_dependencies.TABLE_NAMES[0], false) +
                 " WHERE " + db_dependencies.CUSTOMER_COLUMNS[0] + " = " +
                 getCustomerID(requestHandler, ui) + ";";
         System.out.println(query);

@@ -139,7 +139,8 @@ public class UI {
         } // End of while loop
     } // End of method
 
-    private boolean readYesNo(String s) {
+    private boolean readStay(String s) {
+        System.out.print(s);
         String response = input.nextLine().trim().toLowerCase();
         return response.equals("stay");
     }
@@ -158,35 +159,32 @@ public class UI {
      * @param tableName      The specific name of the table from DB we wish to work with
      * @return A string made up of all the values needed for a valid insert statement within specific table.
      */
-    public String insertInto(String[] columnValues, DB_QueryRequestHandler requestHandler, String tableName, boolean isUpdate) {
+    public String insertInto(String[] columnValues, DB_QueryRequestHandler requestHandler, String tableName, boolean isEdit) {
         StringBuilder insertValues = new StringBuilder();
         input.nextLine();
 
         Arrays.stream(columnValues).skip(1).forEach(columnElement -> {
             String dataType = requestHandler.getColumnDataType(tableName, columnElement);
-            if (isUpdate || readYesNo("If the value shouldn't be changed for " + columnElement + " just type \"stay\".")) {
+            if (isEdit || !readStay("If the value shouldn't be changed for " + columnElement + " just type \"stay\", else type \"edit\": ")) {
                 System.out.print("Please enter value for " + columnElement + ": ");
 
                 if (columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[3]) ||
                         columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[2]) ||
                         columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[5])) {
-                    insertValues.append("\'").append(readRegistration()).append("\',");
+                    insertValues.append("'").append(readRegistration()).append("',");
                 } else {
                     switch (dataType) {
                         case "int" -> {
                             insertValues.append(readInteger()).append(",");
                             input.nextLine(); // Scanner bug
                         }
-                        case "varchar" -> insertValues.append("\'").append(readLine()).append("\',");
-                        case "date" -> insertValues.append("\'").append(readDate()).append("\',");
+                        case "varchar" -> insertValues.append("'").append(readLine()).append("',");
+                        case "date" -> insertValues.append("'").append(readDate()).append("',");
                         case "tinyint" -> insertValues.append(readBoolean()).append(",");
                         case "double" -> insertValues.append(readDouble()).append(",");
                         default -> System.out.println("Error: Unsupported data type " + dataType);
                     } // End of switch statement
-                }
-            } else {
-                // User chose not to edit this column, so skip it
-                insertValues.append("nullValue,");
+                } // End 
             }
         });
 
