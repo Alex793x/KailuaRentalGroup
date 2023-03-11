@@ -75,7 +75,11 @@ public class CarRegistryMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void deleteFromTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui) {
+        String query = "DELETE FROM customer_info " +
+                "WHERE " + db_dependencies.CAR_REGISTRY_COLUMNS[0] + " = " +
+                getCarRegistryID(requestHandler, ui) + ";";
 
+        editingHandler.insertQuery(query);
     }
 
     @Override
