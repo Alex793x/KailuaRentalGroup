@@ -9,7 +9,6 @@ import utility.UI;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
 

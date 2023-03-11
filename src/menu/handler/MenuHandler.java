@@ -43,6 +43,13 @@ public class MenuHandler {
             "0. Back to main menu"
     });
 
+    public CarPropertiesMenu carPropertiesMenu = new CarPropertiesMenu("CAR PROPERTY MENU", new String[] {
+            "1. Show all property combinations",
+            "2. Show all property combinations ordered",
+            "3. Edit property for car",
+            "0. Back to main menu"
+    });
+
     public CustomerMenu customerMenu = new CustomerMenu("CUSTOMER MENU", new String[] {
             "1. Show all customers.",
             "2. Show all customers ordered.",

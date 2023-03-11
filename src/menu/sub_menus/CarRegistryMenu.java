@@ -9,7 +9,7 @@ import utility.UI;
 
 import java.util.Arrays;
 
-public class CarRegistryMenu extends Menu implements DBStandardQueries {
+public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQueries {
     private final DB_Dependencies db_dependencies = DB_Dependencies.getInstance();
 
     /**
@@ -30,6 +30,7 @@ public class CarRegistryMenu extends Menu implements DBStandardQueries {
                 sql,
                 db_dependencies.CAR_REGISTRY_COLUMN_PRINT_FORMAT,
                 db_dependencies.CAR_REGISTRY_COLUMNS);
+
     }
 
     @Override
@@ -47,18 +48,22 @@ public class CarRegistryMenu extends Menu implements DBStandardQueries {
     @Override
     public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
 
-        String selectSection = String.join(", ",
+        String selectCarRegistrySelection = String.join(", ",
                 Arrays.stream(db_dependencies.CAR_REGISTRY_COLUMNS).skip(1).toArray(String[]::new));
 
-        String sql = "INSERT INTO " + db_dependencies.TABLE_NAMES[3] + " " +
-                "(" + selectSection + ") \n" +
+
+        String insertNewCarSQL = "INSERT INTO " + db_dependencies.TABLE_NAMES[3] + " " +
+                "(" + selectCarRegistrySelection + ") \n" +
                 "VALUES (" +
                 ui.insertInto(
                         db_dependencies.CAR_REGISTRY_COLUMNS,
                         requestHandler,
                         db_dependencies.TABLE_NAMES[3], true) + ")";
 
-        editingHandler.insertQuery(sql);
+
+        editingHandler.insertQuery(insertNewCarSQL);
+
+        super.insertToTable(editingHandler, requestHandler, ui);
     }
 
     @Override

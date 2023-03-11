@@ -54,11 +54,12 @@ public class AppLogic {
             switch (ui.readInteger()) {
                 case 1 -> runCustomerMenu();
                 case 2 -> runCarRegistryMenu();
-                case 3 -> runLeasingAgreementMenu();
-                case 4 -> runCarInfoMenu();
-                case 5 -> runAnalysisMenu();
+                case 3 -> runCarPropertyMenu();
+                case 4 -> runLeasingAgreementMenu();
+                case 5 -> runCarInfoMenu();
+                case 6 -> runAnalysisMenu();
                 case 0 -> isRunning = false;
-                default -> System.out.println("invalid input, please try again");
+                default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case
         } // End of while loop
     } // End of method
@@ -74,6 +75,7 @@ public class AppLogic {
                 case 4 -> {menuHandler.customerMenu.updateTable(editingHandler, queryRequestHandler,ui);}
                 case 5 -> {menuHandler.customerMenu.deleteFromTable(editingHandler, queryRequestHandler,ui);}
                 case 0 -> isRunning = false;
+                default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case
         } // End of while loop
     } // End of method
@@ -90,6 +92,7 @@ public class AppLogic {
                 case 5 -> {menuHandler.leasingAgreementMenu.deleteFromTable(editingHandler,queryRequestHandler,ui);}
                 case 6 -> {menuHandler.leasingAgreementMenu.getAvailableCars(queryRequestHandler, ui);}
                 case 0 -> {isRunning = false;}
+                default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case
         } // End of while loop
     } // End of method
@@ -104,6 +107,21 @@ public class AppLogic {
                 case 3 -> {menuHandler.carRegistryMenu.insertToTable(editingHandler, queryRequestHandler,ui);}
                 case 4 -> {menuHandler.carRegistryMenu.updateTable(editingHandler, queryRequestHandler, ui);}
                 case 0 -> isRunning = false;
+                default -> System.out.println(ui.invalidChoiceInput());
+            } // End of switch case
+        } // End of while loop
+    } // End of method
+
+    public void runCarPropertyMenu() {
+        boolean isRunning = true;
+        while (isRunning) {
+            menuHandler.carPropertiesMenu.printMenu();
+            switch (ui.readInteger()) {
+                case 1 -> menuHandler.carPropertiesMenu.showTable(queryRequestHandler);
+                case 2 -> menuHandler.carPropertiesMenu.showTableOrdered(queryRequestHandler);
+                case 3 -> menuHandler.carPropertiesMenu.updateTable(editingHandler,queryRequestHandler,ui);
+                case 0 -> isRunning = false;
+                default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case
         } // End of while loop
     } // End of method
@@ -122,6 +140,7 @@ public class AppLogic {
                 case 2 -> {menuHandler.analysisMenu.showTableOrdered(queryRequestHandler);}
                 case 3 -> {menuHandler.analysisMenu.insertToTable(editingHandler, queryRequestHandler,ui);}
                 case 0 -> {isRunning = false;}
+                default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case
         } // End of while loop
     } // End of method

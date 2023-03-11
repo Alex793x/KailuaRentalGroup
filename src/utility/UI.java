@@ -283,6 +283,10 @@ public class UI {
         return whereClause.toString();
     } // End of method
 
+    public int parseValue(int valueToParse) {
+        return valueToParse;
+    }
+
     // Invalid Print statements --------------------------------------------------
     public String invalidChoiceInput() {
         return "Invalid input was given";
