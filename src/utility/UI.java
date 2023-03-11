@@ -146,7 +146,6 @@ public class UI {
     }
 
 
-
     // Insert into Generic Method -----------------------------------------------
 
     /**
@@ -159,37 +158,70 @@ public class UI {
      * @param tableName      The specific name of the table from DB we wish to work with
      * @return A string made up of all the values needed for a valid insert statement within specific table.
      */
-    public String insertInto(String[] columnValues, DB_QueryRequestHandler requestHandler, String tableName, boolean isEdit) {
+    public String insertInto(String[] columnValues, DB_QueryRequestHandler requestHandler, String tableName, boolean isInsert) {
         StringBuilder insertValues = new StringBuilder();
         input.nextLine();
 
         Arrays.stream(columnValues).skip(1).forEach(columnElement -> {
-            String dataType = requestHandler.getColumnDataType(tableName, columnElement);
-            if (isEdit || !readStay("If the value shouldn't be changed for " + columnElement + " just type \"stay\", else type \"edit\": ")) {
-                System.out.print("Please enter value for " + columnElement + ": ");
+            boolean isStay = !isInsert && readStay("If the value shouldn't be changed for " + columnElement + " just type \"stay\", else type \"edit\": ");
 
-                if (columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[3]) ||
-                        columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[2]) ||
-                        columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[5])) {
-                    insertValues.append("'").append(readRegistration()).append("',");
-                } else {
-                    switch (dataType) {
-                        case "int" -> {
-                            insertValues.append(readInteger()).append(",");
-                            input.nextLine(); // Scanner bug
-                        }
-                        case "varchar" -> insertValues.append("'").append(readLine()).append("',");
-                        case "date" -> insertValues.append("'").append(readDate()).append("',");
-                        case "tinyint" -> insertValues.append(readBoolean()).append(",");
-                        case "double" -> insertValues.append(readDouble()).append(",");
-                        default -> System.out.println("Error: Unsupported data type " + dataType);
-                    } // End of switch statement
-                } // End
+            if (!isStay) {
+                if (!columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[7]) && isInsert) {
+                    System.out.print("Please enter value for " + columnElement + ": ");
+                }
+
+                String dataType = requestHandler.getColumnDataType(tableName, columnElement);
+                String columnValue = isInsert ? getInsertValue(columnElement, dataType) : getUpdateValue(columnElement, dataType);
+
+                if (columnValue != null) {
+                    insertValues.append(columnValue).append(",");
+                }
             }
         });
 
-        return insertValues.substring(0, insertValues.length() - 1);
+        return insertValues.substring(0, Math.max(0, insertValues.length() - 1)); // remove trailing comma
     }
+
+    private String getInsertValue(String columnElement, String dataType) {
+        if (columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[3]) ||
+                columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[2]) ||
+                columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[5])) {
+            return "'" + readRegistration() + "'";
+        } else {
+            switch (dataType) {
+                case "int" -> {return readInteger() + input.nextLine();}        // Scanner bug
+                case "varchar" -> {return "'" + readLine() + "'";}
+                case "date" -> {return "'" + readDate() + "'";}
+                case "tinyint" -> {return columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[7]) ? "false" : String.valueOf(readBoolean());}
+                case "double" -> {return String.valueOf(readDouble());}
+                default -> {
+                    System.out.println("Error: Unsupported data type " + dataType);
+                    return null;
+                } // End of last switch case
+            } // End of switch statement
+        } // End of if-else statement
+    } // End of method
+
+    private String getUpdateValue(String columnElement, String dataType) {
+        if (columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[3]) ||
+                columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[2]) ||
+                columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[5])) {
+            return columnElement + " = '" + readRegistration();
+
+        } else {
+            switch (dataType) {
+                case "int" -> {return columnElement + " = " + readInteger();}
+                case "varchar" -> {return columnElement + " = '" + readLine() + "'";}
+                case "date" -> {return columnElement + " = '" + readDate() + "'";}
+                case "tinyint" -> {return columnElement + " = " + readBoolean();}
+                case "double" -> {return columnElement + " = " + readDouble();}
+                default -> {
+                    System.out.println("Error: Unsupported data type " + dataType);
+                    return null;
+                } // End of last switch case
+            } // End of switch statement
+        } // End of if-else statement
+    } // End of method
 
 
 

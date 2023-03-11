@@ -74,13 +74,11 @@ public class AppLogic {
                 case 4 -> {menuHandler.customerMenu.updateTable(editingHandler, queryRequestHandler,ui);}
                 case 5 -> {menuHandler.customerMenu.deleteFromTable(editingHandler, queryRequestHandler,ui);}
                 case 0 -> isRunning = false;
-            }
-        }
-
-    }
+            } // End of switch case
+        } // End of while loop
+    } // End of method
 
     private void runLeasingAgreementMenu() {
-        // TODO - implement controller.AppLogic.runLeasingAgreementMenu
         boolean isRunning = true;
         while (isRunning){
             menuHandler.leasingAgreementMenu.printMenu();
@@ -91,10 +89,10 @@ public class AppLogic {
                 case 4 -> {menuHandler.leasingAgreementMenu.updateTable(editingHandler,queryRequestHandler,ui);}
                 case 5 -> {menuHandler.leasingAgreementMenu.deleteFromTable(editingHandler,queryRequestHandler,ui);}
                 case 6 -> {menuHandler.leasingAgreementMenu.getAvailableCars(queryRequestHandler);}
-            }
-        }
-        throw new UnsupportedOperationException();
-    }
+                case 0 -> {isRunning = false;}
+            } // End of switch case
+        } // End of while loop
+    } // End of method
 
     private void runCarRegistryMenu() {
         boolean isRunning = true;
@@ -105,13 +103,13 @@ public class AppLogic {
                 case 2 -> {menuHandler.carRegistryMenu.showTableOrdered(queryRequestHandler);}
                 case 3 -> {menuHandler.carRegistryMenu.insertToTable(editingHandler, queryRequestHandler,ui);}
                 case 0 -> isRunning = false;
-            }
-        }
-    }
+            } // End of switch case
+        } // End of while loop
+    } // End of method
+
 
     private void runCarInfoMenu() {
-        // TODO - implement controller.AppLogic.runRentalServiceMenu
-        throw new UnsupportedOperationException();
+
     }
 
     private void runAnalysisMenu() {
@@ -123,9 +121,8 @@ public class AppLogic {
                 case 2 -> {menuHandler.analysisMenu.showTableOrdered(queryRequestHandler);}
                 case 3 -> {menuHandler.analysisMenu.insertToTable(editingHandler, queryRequestHandler,ui);}
                 case 0 -> {isRunning = false;}
-            }
-        }
-
-    }
+            } // End of switch case
+        } // End of while loop
+    } // End of method
 
 }
