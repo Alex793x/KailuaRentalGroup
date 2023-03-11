@@ -65,10 +65,12 @@ public class CarRegistryMenu extends Menu implements DBStandardQueries {
     public void updateTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui) {
         String query = "UPDATE car_registry " + "SET " +
                 ui.insertInto(db_dependencies.CAR_REGISTRY_COLUMNS,
-                        requestHandler,
-                        db_dependencies.TABLE_NAMES[3], false) +
-                " WHERE " + db_dependencies.CAR_REGISTRY_COLUMNS[0] + " = " +
-                getCarRegistryID(requestHandler, ui) + ";";
+                        requestHandler, db_dependencies.TABLE_NAMES[3], false) +
+
+                " WHERE " + ui.chooseWhereOptions(
+                        db_dependencies.TABLE_NAMES[3], db_dependencies.CAR_REGISTRY_COLUMNS,
+                requestHandler) + ";";
+
         System.out.println(query);
         editingHandler.insertQuery(query);
     }

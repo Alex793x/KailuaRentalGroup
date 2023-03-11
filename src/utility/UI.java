@@ -7,6 +7,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
@@ -177,6 +178,7 @@ public class UI {
                 } // End of inner if statement
             } // End of outer if statement
         }); // End of Arrays.stream.forEach loop
+        System.out.println();
 
         return insertValues.substring(0, Math.max(0, insertValues.length() - 1)); // remove trailing comma
     } // End of method
@@ -226,6 +228,17 @@ public class UI {
     } // End of method
 
 
+    public String chooseWhereOptions(String columnTable, String[] columnValues, DB_QueryRequestHandler requestHandler) {
+        AtomicInteger count = new AtomicInteger();
+        System.out.println("Please enter what specific search parameter you want to change for: ");
+        Arrays.stream(columnValues).skip(1).forEach(value -> {
+            System.out.println(count.getAndIncrement() + ": " + value);
+        });
+        System.out.println();
+        String columnValue = columnValues[readInteger() - 1] + input.nextLine(); // Scanner bug
+        String dataType = requestHandler.getColumnDataType(columnTable, columnValue);
+        return columnValue + " = " + getInsertValue(columnValue, dataType);
+    }
 
     // Invalid Print statements --------------------------------------------------
     public String invalidChoiceInput() {

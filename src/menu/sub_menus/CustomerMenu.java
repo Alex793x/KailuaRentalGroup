@@ -81,28 +81,6 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
 
     }
 
-    private String getTableNamesWithValues(UI ui) {
-        StringBuilder stringBuilder = new StringBuilder();
-        ui.readNextLine(); //scannerbug
-
-        System.out.println("If the value shouldn't be changed just type \"stay\".");
-        for (int i = 1; i < 8; i++) {
-            System.out.print("Please enter new value for " + printColumnNames[i] + ": ");
-            String input = printColumnNames[i].contains("since") ? ui.readDate().toString() : ui.readNextLine();
-            System.out.println();
-            if (input.equalsIgnoreCase("stay")) {
-                continue;
-            }
-            if (printColumnNames[i].contains("ZIP") || printColumnNames[i].contains("since")) {
-                stringBuilder.append(db_dependencies.CUSTOMER_COLUMNS[i] + " = " + input + ", ");
-            } else {
-                stringBuilder.append(db_dependencies.CUSTOMER_COLUMNS[i] + " = '" + input + "', ");
-            }
-        }
-
-        return stringBuilder.substring(0, stringBuilder.length() - 2);
-    }
-
     private int getCustomerID(DB_QueryRequestHandler requestHandler, UI ui) {
         showTable(requestHandler);
         System.out.print("Please enter the customers ID: ");
