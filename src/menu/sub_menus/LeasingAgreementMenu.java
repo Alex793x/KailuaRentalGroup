@@ -9,6 +9,7 @@ import utility.UI;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
 
@@ -73,7 +74,7 @@ public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
 
     }
 
-    public void getAvailableCars(DB_QueryRequestHandler requestHandler) {
+    public void getAvailableCars(DB_QueryRequestHandler requestHandler, UI ui) {
 
         // De gør præcis det samme
         String query1 = "SELECT cr.car_registry_id, cr.car_brand, cr.car_model, crg.car_rental_group_name\n" +
@@ -81,11 +82,30 @@ public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
                 "JOIN car_rental_groups crg USING (car_rental_group_id)\n" +
                 "WHERE cr.availability = 1 AND cr.car_isRented = 0";
 
+
+        /*
+         * Dette eksempel er for at vise hvorfor generiske metoder KAN være smarte.
+         * Denne version gør det samme, som din ovenfor men bruger en generisk WHERE creator.
+         * Man vælger selv hvilke klausuler man vil søge efter baseret på de koloner man giver med, derefter indtaster man
+         * index positionen, som printes hvorefter den rette UI metode som kaldes på baggrund af datatypen som DB kolonen er indekseret med
+         * resultatet der bliver appended efter WHERE delen.
+         *
+         * Hvis man nu ville sammensætte begge join tables kolloner ville man bare skrive:
+         *
+         *          Stream
+         *               .concat(Arrays.stream(db_dependencies.CAR_REGISTRY_COLUMNS),
+         *                      Arrays.stream(db_dependencies.CAR_RENTAL_GROUPS_COLUMNS))
+         *               .toArray(String[]::new)
+         *
+         * Stream metoden foroven sammensætter to arrays, og dermed kan man selv vælge hvilke parameter man vil lave sin WHERE claus efter.
+         *
+         */
         String query2 = "SELECT " + String.join(", ", Arrays.asList(db_dependencies.CAR_REGISTRY_COLUMNS).subList(1,5)) + "\n"
                 + db_dependencies.TABLE_NAMES[3] + " cr\n" +
                 "JOIN " + db_dependencies.TABLE_NAMES[4] + " crg USING (" + db_dependencies.CAR_RENTAL_GROUPS_COLUMNS[0] + ")\n"
-                + "WHERE cr." + db_dependencies.CAR_REGISTRY_COLUMNS[5].equals("1")
-                + "AND cr." + db_dependencies.CAR_REGISTRY_COLUMNS[7].equals("0");
+                + "WHERE " + ui.chooseWhereOptions(db_dependencies.TABLE_NAMES[3],
+                db_dependencies.CAR_REGISTRY_COLUMNS, requestHandler);
+
 
         // De gør præcis det samme
         /*String query = "SELECT " + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[0] + ", " + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[1] +
@@ -96,8 +116,9 @@ public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
                 DB_Dependencies.getInstance().CAR_RENTAL_GROUPS_COLUMNS[0] + ")\n" +
                 "WHERE "+ DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[6] +"= 1 AND "+
                 DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[7] +"= 0";*/
+        System.out.println(query2);
 
-        requestHandler.printQueryResult(query1, new String[] {DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT[0],
+        requestHandler.printQueryResult(query2, new String[] {DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT[0],
                 DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT[1],DB_Dependencies.getInstance().CAR_REGISTRY_COLUMN_PRINT_FORMAT[2],
                 DB_Dependencies.getInstance().CAR_RENTAL_GROUP_PRINT_FORMAT[1]}, new String[] {DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[0],
                 DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[1],DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[2], DB_Dependencies.getInstance().CAR_RENTAL_GROUPS_COLUMNS[1]});

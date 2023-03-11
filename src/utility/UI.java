@@ -100,12 +100,8 @@ public class UI {
                     2. false""");
 
             switch (readInteger()) {
-                case 1 -> {
-                    return true;
-                }
-                case 2 -> {
-                    return false;
-                }
+                case 1 -> {return true;}
+                case 2 -> {return false;}
                 default -> System.out.println("Please enter either true or false");
             }
         } // End of while loop
@@ -183,6 +179,18 @@ public class UI {
         return insertValues.substring(0, Math.max(0, insertValues.length() - 1)); // remove trailing comma
     } // End of method
 
+    /**
+     * <p> The {@link #getInsertValue(String columnElement, String dataType)} validates the datatype of the specified column which
+     * is intended to be filled out for an INSERT TO statement with MySQL.
+     * When the datatype has been validated and known, the method requests the correct input method, to avoid bad inputs
+     * based on the datatype which the database requites for the specific column</p>
+     *
+     * @param columnElement The column element name
+     * @param dataType  The type of data which is registered within the Database
+     * @return The Insert SQL statement, where every column element is defined for insertion
+     *
+     *
+     */
     private String getInsertValue(String columnElement, String dataType) {
         System.out.print("Please enter value for " + columnElement + ": ");
         if (columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[3]) ||
@@ -203,6 +211,20 @@ public class UI {
             } // End of switch statement
         } // End of if-else statement
     } // End of method
+
+    /**
+     * <p> The {@link #getUpdateValue(String columnElement, String dataType)} is very similar to
+     * {@link #getInsertValue(String columnElement, String dataType)}, but it do have a slightly different approach.
+     * Before it validates the datatype of the specified column, the method request the user to choose, if the column element
+     * should be changed or not, if user enters "stay", the method continues and skips the element, which
+     * is intended to be filled out for an UPDATE SET statement with MySQL.
+     * When the datatype has been validated and known, the method requests the correct input method, to avoid bad inputs
+     * based on the datatype which the database requites for the specific column</p>
+     *
+     * @param columnElement The column element name
+     * @param dataType  The type of data which is registered within the Database
+     * @return The UPDATE SET SQL statement, where every column element is defined for insertion
+     */
 
     private String getUpdateValue(String columnElement, String dataType) {
         System.out.print("Please enter value for " + columnElement + ": ");
@@ -227,7 +249,16 @@ public class UI {
         } // End of if-else statement
     } // End of method
 
-
+    /**
+     * <p> The {@link #chooseWhereOptions(String columnTable, String[] columnValues, DB_QueryRequestHandler)}
+     * method is a generic solution to help create more specified user possible WHERE clauses.
+     * In essence a user will be able to specify more than one pair of parameters to create a sophisticated WHERE statement</p>
+     * @param columnTable   The Table name intended to query
+     * @param columnValues  The column elements which resides within the specific table
+     * @param requestHandler {@link DB_QueryRequestHandler}
+     * @return Returns a filled out WHERE statement which can if amount of clauses > 1 define more than one column to express
+     * search parameter for.
+     */
     public String chooseWhereOptions(String columnTable, String[] columnValues, DB_QueryRequestHandler requestHandler) {
         System.out.println("How many clauses, do you want to search parameters for?: ");
         int amountOfClauses = readInteger();

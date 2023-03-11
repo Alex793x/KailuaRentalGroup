@@ -88,7 +88,7 @@ public class AppLogic {
                 case 3 -> {menuHandler.leasingAgreementMenu.insertToTable(editingHandler,queryRequestHandler,ui);}
                 case 4 -> {menuHandler.leasingAgreementMenu.updateTable(editingHandler,queryRequestHandler,ui);}
                 case 5 -> {menuHandler.leasingAgreementMenu.deleteFromTable(editingHandler,queryRequestHandler,ui);}
-                case 6 -> {menuHandler.leasingAgreementMenu.getAvailableCars(queryRequestHandler);}
+                case 6 -> {menuHandler.leasingAgreementMenu.getAvailableCars(queryRequestHandler, ui);}
                 case 0 -> {isRunning = false;}
             } // End of switch case
         } // End of while loop
