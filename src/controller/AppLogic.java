@@ -106,6 +106,7 @@ public class AppLogic {
                 case 2 -> {menuHandler.carRegistryMenu.showTableOrdered(queryRequestHandler);}
                 case 3 -> {menuHandler.carRegistryMenu.insertToTable(editingHandler, queryRequestHandler,ui);}
                 case 4 -> {menuHandler.carRegistryMenu.updateTable(editingHandler, queryRequestHandler, ui);}
+                case 5 -> menuHandler.carRegistryMenu.deleteFromTable(editingHandler, queryRequestHandler, ui);
                 case 0 -> isRunning = false;
                 default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case

@@ -72,7 +72,7 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void deleteFromTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
-
+        
     }
 
     @Override
