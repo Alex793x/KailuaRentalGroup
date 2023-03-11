@@ -229,15 +229,27 @@ public class UI {
 
 
     public String chooseWhereOptions(String columnTable, String[] columnValues, DB_QueryRequestHandler requestHandler) {
-        AtomicInteger count = new AtomicInteger();
-        System.out.println("Please enter what specific search parameter you want to change for: ");
-        Arrays.stream(columnValues).skip(1).forEach(value -> {
-            System.out.println(count.getAndIncrement() + ": " + value);
-        });
-        System.out.println();
-        String columnValue = columnValues[readInteger() - 1] + input.nextLine(); // Scanner bug
-        String dataType = requestHandler.getColumnDataType(columnTable, columnValue);
-        return columnValue + " = " + getInsertValue(columnValue, dataType);
+        System.out.println("How many clauses, do you want to search parameters for?: ");
+        int amountOfClauses = readInteger();
+        String whereClause = "";
+        for (int i = 0; i < amountOfClauses; i++) {
+            AtomicInteger count = new AtomicInteger(1);
+            System.out.println("Please enter what specific search parameter you want to change for: ");
+            Arrays.stream(columnValues).skip(1).forEach(value -> {
+                System.out.println(count.getAndIncrement() + ": " + value);
+            });
+            System.out.println();
+            String columnValue = columnValues[readInteger()] + input.nextLine(); // Scanner bug
+            String dataType = requestHandler.getColumnDataType(columnTable, columnValue);
+            whereClause += columnValue + " = " + getInsertValue(columnValue, dataType);
+
+            if (i == 1) {
+                return whereClause;
+            } else {
+                whereClause += " AND ";
+            }
+        }
+        return whereClause;
     }
 
     // Invalid Print statements --------------------------------------------------

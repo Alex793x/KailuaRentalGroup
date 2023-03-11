@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
+
+    private final DB_Dependencies db_dependencies = DB_Dependencies.getInstance();
     /**
      * @param menuHeader
      * @param menuItems
@@ -79,11 +81,11 @@ public class LeasingAgreementMenu extends Menu implements DBStandardQueries {
                 "JOIN car_rental_groups crg USING (car_rental_group_id)\n" +
                 "WHERE cr.availability = 1 AND cr.car_isRented = 0";
 
-        String query2 = "SELECT " + String.join(", ", Arrays.asList(DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS).subList(1,5)) + "\n"
-                + DB_Dependencies.getInstance().TABLE_NAMES[3] + " cr\n" +
-                "JOIN " + DB_Dependencies.getInstance().TABLE_NAMES[4] + " crg USING (" + DB_Dependencies.getInstance().CAR_RENTAL_GROUPS_COLUMNS[0] + ")\n"
-                + "WHERE cr." + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[5].equals("1")
-                + "AND cr." + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[7].equals("0");
+        String query2 = "SELECT " + String.join(", ", Arrays.asList(db_dependencies.CAR_REGISTRY_COLUMNS).subList(1,5)) + "\n"
+                + db_dependencies.TABLE_NAMES[3] + " cr\n" +
+                "JOIN " + db_dependencies.TABLE_NAMES[4] + " crg USING (" + db_dependencies.CAR_RENTAL_GROUPS_COLUMNS[0] + ")\n"
+                + "WHERE cr." + db_dependencies.CAR_REGISTRY_COLUMNS[5].equals("1")
+                + "AND cr." + db_dependencies.CAR_REGISTRY_COLUMNS[7].equals("0");
 
         // De gør præcis det samme
         /*String query = "SELECT " + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[0] + ", " + DB_Dependencies.getInstance().CAR_REGISTRY_COLUMNS[1] +
