@@ -71,14 +71,34 @@ public class DB_Dependencies {
 
 
     //Analysis section ---------------------------------------
+    /**
+     * <p>The {@link #bestCustomerPrint} includes all columns within the database which is including within the table customer_info.</p>
+     * @implNote 0 = Customer Name <br>
+     * 1 = Customer ID <br>
+     * 2 = Total Days Rented <br>
+     */
     public final String[] bestCustomerPrint =  {"Customer Name", "Customer ID", "Total Days Rented"};
 
+    /**
+     * <p>The {@link #BestCustomerDB} includes all columns within the database which is including within the table customer_info.</p>
+     * @implNote 0 = customer_name <br>
+     * 1 = customer_id <br>
+     * 2 = total_days_rented <br>
+     */
     public final String[] BestCustomerDB = {"customer_name","customer_id","total_days_rented"};
 
 
 
 
     // Registry section --------------------------------------
+    /**
+     * <p>The {@link #rentalRegistryCOLUMNS} includes all columns within the database which is including within the table customer_info.</p>
+     * @implNote 0 = rental_registry.rental_registry_id <br>
+     * 1 = rental_registry.rental_start_date <br>
+     * 2 = rental_registry.rental_end_date <br>
+     * 3 = rental_registry.car_registry_id <br>
+     * 4 = rental_registry.customer_id <br>
+     */
     public final String[] rentalRegistryCOLUMNS = {
             "rental_registry.rental_registry_id", "rental_registry.rental_start_date", "rental_registry.rental_end_date"
             , "rental_registry.car_registry_id", "rental_registry.customer_id"};
@@ -87,18 +107,46 @@ public class DB_Dependencies {
 
 
     // Leasing Agreements section --------------------------------------------------------
+    /**
+     * <p>The {@link #rentalRegistryCOLUMNS} includes all columns within the database which is including within the table customer_info.</p>
+     * @implNote 0 = Rental Registry ID <br>
+     * 1 = Rental Start Date <br>
+     * 2 = Rental End Date <br>
+     * 3 = Car Registry ID <br>
+     * 4 = Customer ID <br>
+     */
     public final String[] LEASING_AGREEMENT_COLUMN_PRINT_FORMAT = {"Rental Registry ID", "Rental Start Date",
             "Rental End Date", "Car Registry ID","Customer ID"};
 
+    /**
+     * <p>The {@link #rentalRegistryCOLUMNS} includes all columns within the database which is including within the table customer_info.</p>
+     * @implNote 0 = rental_registry_id <br>
+     * 1 = rental_start_date <br>
+     * 2 = rental_end_date <br>
+     * 3 = car_registry_id <br>
+     * 4 = customer_id <br>
+     */
     public final String[] LEASING_AGREEMENT_COLUMNS = {"rental_registry_id", "rental_start_date", "rental_end_date",
             "car_registry_id", "customer_id"};
 
 
 
     // Car Rental Group Section ----------------------------------------------------------
+    /**
+     * <p>The {@link #rentalRegistryCOLUMNS} includes all columns within the database which is including within the table customer_info.</p>
+     * @implNote 0 = Car Rental Group ID <br>
+     * 1 = Car Rental Group Name <br>
+     * 2 = Car Properties ID <br>
+     */
     public final String[] CAR_RENTAL_GROUP_PRINT_FORMAT = {"Car Rental Group ID: ", "Car Rental Group Name",
             "Car Properties ID"};
 
+    /**
+     * <p>The {@link #rentalRegistryCOLUMNS} includes all columns within the database which is including within the table customer_info.</p>
+     * @implNote 0 = car_rental_group_id <br>
+     * 1 = car_rental_group_name <br>
+     * 2 = car_properties_id <br>
+     */
     public final String[] CAR_RENTAL_GROUPS_COLUMNS = {"car_rental_group_id", "car_rental_group_name", "car_properties_id"};
 
 

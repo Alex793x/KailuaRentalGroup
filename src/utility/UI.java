@@ -231,7 +231,7 @@ public class UI {
     public String chooseWhereOptions(String columnTable, String[] columnValues, DB_QueryRequestHandler requestHandler) {
         System.out.println("How many clauses, do you want to search parameters for?: ");
         int amountOfClauses = readInteger();
-        String whereClause = "";
+        StringBuilder whereClause = new StringBuilder();
         for (int i = 0; i < amountOfClauses; i++) {
             AtomicInteger count = new AtomicInteger(1);
             System.out.println("Please enter what specific search parameter you want to change for: ");
@@ -241,16 +241,16 @@ public class UI {
             System.out.println();
             String columnValue = columnValues[readInteger()] + input.nextLine(); // Scanner bug
             String dataType = requestHandler.getColumnDataType(columnTable, columnValue);
-            whereClause += columnValue + " = " + getInsertValue(columnValue, dataType);
+            whereClause.append(columnValue).append(" = ").append(getInsertValue(columnValue, dataType));
 
             if (i == 1) {
-                return whereClause;
+                return whereClause.toString();
             } else {
-                whereClause += " AND ";
-            }
-        }
-        return whereClause;
-    }
+                whereClause.append(" AND ");
+            } // End of if-else statement
+        } // End of for loop
+        return whereClause.toString();
+    } // End of method
 
     // Invalid Print statements --------------------------------------------------
     public String invalidChoiceInput() {

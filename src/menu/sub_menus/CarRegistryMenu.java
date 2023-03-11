@@ -78,8 +78,9 @@ public class CarRegistryMenu extends Menu implements DBStandardQueries {
     @Override
     public void deleteFromTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui) {
         String query = "DELETE FROM customer_info " +
-                "WHERE " + db_dependencies.CAR_REGISTRY_COLUMNS[0] + " = " +
-                getCarRegistryID(requestHandler, ui) + ";";
+                "WHERE " + ui.chooseWhereOptions(
+                db_dependencies.TABLE_NAMES[3], db_dependencies.CAR_REGISTRY_COLUMNS,
+                requestHandler) + ";";
 
         editingHandler.insertQuery(query);
     }
@@ -87,11 +88,5 @@ public class CarRegistryMenu extends Menu implements DBStandardQueries {
     @Override
     public void alterTable() {
 
-    }
-
-    private int getCarRegistryID(DB_QueryRequestHandler requestHandler, UI ui) {
-        showTable(requestHandler);
-        System.out.print("Please enter the customers ID: ");
-        return ui.readInteger();
     }
 }
