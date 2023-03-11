@@ -269,6 +269,7 @@ public class UI {
             Arrays.stream(columnValues).skip(1).forEach(value -> {
                 System.out.println(count.getAndIncrement() + ": " + value);
             });
+
             System.out.println();
             String columnValue = columnValues[readInteger()] + input.nextLine(); // Scanner bug
             String dataType = requestHandler.getColumnDataType(columnTable, columnValue);
