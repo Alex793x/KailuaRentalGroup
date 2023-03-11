@@ -186,7 +186,7 @@ public class UI {
                 }
             } else {
                 // User chose not to edit this column, so skip it
-                insertValues.append("null,");
+                insertValues.append("nullValue,");
             }
         });
 
