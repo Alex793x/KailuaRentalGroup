@@ -192,7 +192,6 @@ public class UI {
      *
      */
     private String getInsertValue(String columnElement, String dataType) {
-        System.out.print("Please enter value for " + columnElement + ": ");
         if (columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[3]) ||
                 columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[2]) ||
                 columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[5])) {
@@ -227,7 +226,6 @@ public class UI {
      */
 
     private String getUpdateValue(String columnElement, String dataType) {
-        System.out.print("Please enter value for " + columnElement + ": ");
         if (columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[3]) ||
                 columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[2]) ||
                 columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[5])) {
@@ -262,8 +260,11 @@ public class UI {
     public String chooseWhereOptions(String columnTable, String[] columnValues, DB_QueryRequestHandler requestHandler) {
         System.out.println("How many clauses, do you want to search parameters for?: ");
         int amountOfClauses = readInteger();
+        input.nextLine(); // Scanner bug
+
         StringBuilder whereClause = new StringBuilder();
-        for (int i = 0; i < amountOfClauses; i++) {
+
+        for (int i = amountOfClauses; i > 0; i--) {
             AtomicInteger count = new AtomicInteger(1);
             System.out.println("Please enter what specific search parameter you want to change for: ");
             Arrays.stream(columnValues).skip(1).forEach(value -> {

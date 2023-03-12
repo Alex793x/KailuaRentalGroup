@@ -62,6 +62,7 @@ public class AppLogic {
                 default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case
         } // End of while loop
+        System.exit(1);
     } // End of method
 
     private void runCustomerMenu() {
@@ -120,7 +121,9 @@ public class AppLogic {
             switch (ui.readInteger()) {
                 case 1 -> menuHandler.carPropertiesMenu.showTable(queryRequestHandler);
                 case 2 -> menuHandler.carPropertiesMenu.showTableOrdered(queryRequestHandler);
-                case 3 -> menuHandler.carPropertiesMenu.updateTable(editingHandler,queryRequestHandler,ui);
+                case 3 -> menuHandler.carPropertiesMenu.searchAndShowTable(queryRequestHandler, ui);
+                case 4 -> menuHandler.carPropertiesMenu.updateTable(editingHandler,queryRequestHandler,ui);
+                case 5 -> menuHandler.carPropertiesMenu.deleteFromTable(editingHandler,queryRequestHandler,ui);
                 case 0 -> isRunning = false;
                 default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case

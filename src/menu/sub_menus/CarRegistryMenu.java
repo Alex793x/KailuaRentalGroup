@@ -60,10 +60,8 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
                         requestHandler,
                         db_dependencies.TABLE_NAMES[3], true) + ")";
 
-
+        super.insertToTable(editingHandler,requestHandler,ui);
         editingHandler.insertQuery(insertNewCarSQL);
-
-        super.insertToTable(editingHandler, requestHandler, ui);
     }
 
     @Override
@@ -82,12 +80,17 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
 
     @Override
     public void deleteFromTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui) {
-        String query = "DELETE FROM customer_info " +
+        showTable(requestHandler);
+        String query = "DELETE FROM car_registry " +
                 "WHERE " + ui.chooseWhereOptions(
                 db_dependencies.TABLE_NAMES[3], db_dependencies.CAR_REGISTRY_COLUMNS,
                 requestHandler) + ";";
 
         editingHandler.insertQuery(query);
+
+        System.out.println("Now we need to do the same for Car Properties associated with the deleted car");
+        System.out.print("Please enter car_registry_id you just deleted: ");
+        super.deleteFromTable(editingHandler, requestHandler,ui);
     }
 
     @Override

@@ -39,7 +39,7 @@ public class DB_Dependencies {
      */
     public final String[] CAR_REGISTRY_COLUMNS = {
             "car_registry_id", "car_brand", "car_model", "registration_number", "first_registration",
-            "availability", "car_rental_group_id", "car_isRented"
+            "availability", "car_properties_id", "car_isRented"
 
     };
 
@@ -58,7 +58,7 @@ public class DB_Dependencies {
      */
     public final String[] CAR_REGISTRY_COLUMN_PRINT_FORMAT = {
             "Car Registry ID", "Car brand", "Car model", "Registration number", "First registration",
-            "Availability", "Car rental group id", "Car Is Rented ?"
+            "Availability","Car Properties ID", "Car Is Rented ?"
     };
 
 
@@ -73,31 +73,33 @@ public class DB_Dependencies {
      * 6 = horsepower <br>
      * 7 = cruise_control <br>
      * 8 = odometer <br>
-     * 9 = fuel_type
+     * 9 = fuel_type <br>
+     * 10 = car_rental_group_id
      */
     public final String[] CAR_PROPERTIES_COLUMNS = {
             "car_properties_id", "ccm", "gear_type", "air_condition", "seat_type", "seat_amount",
-            "horsepower", "cruise_control", "odometer", "fuel_type"
+            "horsepower", "cruise_control", "odometer", "fuel_type", "car_rental_group_id"
     };
 
 
     /**
      * <p>The {@link #CAR_PROPERTIES_PRINT_FORMAT} is simply a nicer formatting for the column names for printing purposes within the console </p>
      *
-     * @implNote 0 = car_properties_id <br>
-     * 1 = ccm <br>
-     * 2 = gear_type <br>
-     * 3 = air_condition <br>
-     * 4 = seat_type <br>
-     * 5 = seat_amount <br>
-     * 6 = horsepower <br>
-     * 7 = cruise_control <br>
-     * 8 = odometer <br>
-     * 9 = fuel_type
+     * @implNote 0 = Car Properties ID <br>
+     * 1 = CCM <br>
+     * 2 = Gear Type <br>
+     * 3 = Air Condition <br>
+     * 4 = Seat Type <br>
+     * 5 = Seat Amount <br>
+     * 6 = Horsepower <br>
+     * 7 = Cruise Control <br>
+     * 8 = Odometer <br>
+     * 9 = Fuel Type
+     * 10 = Car Rental Group ID
      */
     public final String[] CAR_PROPERTIES_PRINT_FORMAT = {
             "Car Properties ID", "CCM", "Gear Type", "Air Condition", "Seat Type", "Seat Amount",
-            "Horsepower", "Cruise Control", "Odometer", "Fuel Type"
+            "Horsepower", "Cruise Control", "Odometer", "Fuel Type", "Car Rental Group ID"
     };
 
 
