@@ -21,7 +21,7 @@ public class MenuHandler {
 
     public MainMenu mainMenu = new MainMenu("MAIN MENU", new String[] {
             "1. Customers",
-            "2. Cars",
+            "2. Car Registry",
             "3. Cars Properties",
             "4. Leasing agreement",
             "5. Rental Service",
