@@ -35,7 +35,8 @@ public class DB_Dependencies {
      * 3 = registration_number <br>
      * 4 = first_registration <br>
      * 5 = availability <br>
-     * 6 = car_rental_group_id
+     * 6 = car_rental_group_id <br>
+     * 7 = car_isRented
      */
     public final String[] CAR_REGISTRY_COLUMNS = {
             "car_registry_id", "car_brand", "car_model", "registration_number", "first_registration",

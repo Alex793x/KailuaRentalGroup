@@ -63,7 +63,7 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
                 ui.insertInto(
                         db_dependencies.CAR_PROPERTIES_COLUMNS,
                         requestHandler,
-                        db_dependencies.TABLE_NAMES[1], true) + ")";
+                        db_dependencies.TABLE_NAMES[1], true, false) + ")";
 
         editingHandler.insertQuery(insertNewCarPropertiesSQL);
     }
@@ -72,7 +72,7 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
     public void updateTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui) {
         String query = "UPDATE car_registry " + "SET " +
                 ui.insertInto(db_dependencies.CAR_PROPERTIES_COLUMNS,
-                        requestHandler, db_dependencies.TABLE_NAMES[1], false) +
+                        requestHandler, db_dependencies.TABLE_NAMES[1], false, false) +
 
                 " WHERE " + ui.chooseWhereOptions(
                 db_dependencies.TABLE_NAMES[1], db_dependencies.CAR_PROPERTIES_COLUMNS,

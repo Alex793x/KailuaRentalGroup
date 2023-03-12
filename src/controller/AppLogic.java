@@ -14,9 +14,8 @@ import java.sql.SQLException;
  * <p>In essence different menus will be calling queries on the database for the Kailua Rental Group.</p>
  * @implNote {@link #runMainMenu()} Will be showing the different sections in categorized fashion. <br>
  * {@link #runCustomerMenu()} Will be handling all customer queries (adding new customer, delete, edit etc.) <br>
- * {@link #runLeasingAgreementMenu()} Will be handling all leasing agreements while query details on cars and specifications <br>
+ * {@link #runRentalRegistryMenu()} Will be handling all leasing agreements while query details on cars and specifications <br>
  * {@link #runCarRegistryMenu()} Will be handling all queries when user wants to create unique search criteria on car info <br>
- * {@link #runCarInfoMenu()} Will be handling payments, setups, while also other important employee queries <br>
  * {@link #runAnalysisMenu()} Will be handling detailed analysis queries if employees want to get some detailed information about customer behaviour <br>
  */
 public class AppLogic {
@@ -56,8 +55,7 @@ public class AppLogic {
                 case 2 -> runCarRegistryMenu();
                 case 3 -> runCarPropertyMenu();
                 case 4 -> runRentalRegistryMenu();
-                case 5 -> runCarInfoMenu();
-                case 6 -> runAnalysisMenu();
+                case 5 -> runAnalysisMenu();
                 case 0 -> isRunning = false;
                 default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case
@@ -127,11 +125,6 @@ public class AppLogic {
             } // End of switch case
         } // End of while loop
     } // End of method
-
-
-    private void runCarInfoMenu() {
-
-    }
 
     private void runAnalysisMenu() {
         boolean isRunning = true;

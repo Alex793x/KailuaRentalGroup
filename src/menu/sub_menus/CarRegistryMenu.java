@@ -30,8 +30,7 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
                 sql,
                 db_dependencies.CAR_REGISTRY_COLUMN_PRINT_FORMAT,
                 db_dependencies.CAR_REGISTRY_COLUMNS);
-
-    }
+    } // End of method
 
     @Override
     public void showTableOrdered(DB_QueryRequestHandler requestHandler) {
@@ -43,7 +42,7 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
                 sql,
                 db_dependencies.CAR_REGISTRY_COLUMN_PRINT_FORMAT,
                 db_dependencies.CAR_REGISTRY_COLUMNS);
-    }
+    } // End of method
 
     @Override
     public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
@@ -58,17 +57,17 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
                 ui.insertInto(
                         db_dependencies.CAR_REGISTRY_COLUMNS,
                         requestHandler,
-                        db_dependencies.TABLE_NAMES[3], true) + ")";
+                        db_dependencies.TABLE_NAMES[3], true, false) + ")";
 
         super.insertToTable(editingHandler,requestHandler,ui);
         editingHandler.insertQuery(insertNewCarSQL);
-    }
+    } // End of method
 
     @Override
     public void updateTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui) {
         String query = "UPDATE car_registry " + "SET " +
                 ui.insertInto(db_dependencies.CAR_REGISTRY_COLUMNS,
-                        requestHandler, db_dependencies.TABLE_NAMES[3], false) +
+                        requestHandler, db_dependencies.TABLE_NAMES[3], false, false) +
 
                 " WHERE " + ui.chooseWhereOptions(
                         db_dependencies.TABLE_NAMES[3], db_dependencies.CAR_REGISTRY_COLUMNS,
@@ -76,7 +75,7 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
 
         System.out.println(query);
         editingHandler.insertQuery(query);
-    }
+    } // End of method
 
     @Override
     public void deleteFromTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui) {
@@ -99,7 +98,7 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
             System.out.print("Please enter car_registry_id you just deleted: ");
             editingHandler.insertQuery(query);
             super.deleteFromTable(editingHandler, requestHandler, ui);
-        } // End of if-else statmenet
+        } // End of if-else statement
     } // End of method
 
 }
