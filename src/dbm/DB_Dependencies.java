@@ -159,9 +159,9 @@ public class DB_Dependencies {
     public final String[] BestCustomerDB = {"customer_name", "customer_id", "total_days_rented"};
 
 
-    // Registry section --------------------------------------
+    // Rental Registry section --------------------------------------
     /**
-     * <p>The {@link #rentalRegistryCOLUMNS} includes all columns within the database which is including within the table customer_info.</p>
+     * <p>The {@link #RENTAL_REGISTRY_COLUMNS_FOR_JOINS} includes all columns within the database which is including within the table customer_info.</p>
      *
      * @implNote 0 = rental_registry.rental_registry_id <br>
      * 1 = rental_registry.rental_start_date <br>
@@ -169,14 +169,25 @@ public class DB_Dependencies {
      * 3 = rental_registry.car_registry_id <br>
      * 4 = rental_registry.customer_id <br>
      */
-    public final String[] rentalRegistryCOLUMNS = {
+    public final String[] RENTAL_REGISTRY_COLUMNS_FOR_JOINS = {
             "rental_registry.rental_registry_id", "rental_registry.rental_start_date", "rental_registry.rental_end_date"
             , "rental_registry.car_registry_id", "rental_registry.customer_id"};
 
-
-    // Leasing Agreements section --------------------------------------------------------
     /**
-     * <p>The {@link #rentalRegistryCOLUMNS} includes all columns within the database which is including within the table customer_info.</p>
+     * <p>The {@link #RENTAL_REGISTRY_COLUMNS_FOR_JOINS} includes all columns within the database which is including within the table customer_info.</p>
+     *
+     * @implNote 0 = rental_registry.rental_registry_id <br>
+     * 1 = rental_start_date <br>
+     * 2 = rental_end_date <br>
+     * 3 = car_registry_id <br>
+     * 4 = customer_id <br>
+     */
+
+    public final String[] RENTAL_REGISTRY_COLUMNS = {
+            "rental_registry_id", "rental_start_date", "rental_end_date", "car_registry_id", "customer_id"};
+
+    /**
+     * <p>The {@link #RENTAL_REGISTRY_COLUMNS_FOR_JOINS} includes all columns within the database which is including within the table customer_info.</p>
      *
      * @implNote 0 = Rental Registry ID <br>
      * 1 = Rental Start Date <br>
@@ -184,11 +195,11 @@ public class DB_Dependencies {
      * 3 = Car Registry ID <br>
      * 4 = Customer ID <br>
      */
-    public final String[] LEASING_AGREEMENT_COLUMN_PRINT_FORMAT = {"Rental Registry ID", "Rental Start Date",
+    public final String[] RENTAL_REGISTRY_COLUMNS_PRINT_FORMAT = {"Rental Registry ID", "Rental Start Date",
             "Rental End Date", "Car Registry ID", "Customer ID"};
 
     /**
-     * <p>The {@link #rentalRegistryCOLUMNS} includes all columns within the database which is including within the table customer_info.</p>
+     * <p>The {@link #RENTAL_REGISTRY_COLUMNS} includes all columns within the database which is including within the table customer_info.</p>
      *
      * @implNote 0 = rental_registry_id <br>
      * 1 = rental_start_date <br>
@@ -196,13 +207,12 @@ public class DB_Dependencies {
      * 3 = car_registry_id <br>
      * 4 = customer_id <br>
      */
-    public final String[] LEASING_AGREEMENT_COLUMNS = {"rental_registry_id", "rental_start_date", "rental_end_date",
-            "car_registry_id", "customer_id"};
+
 
 
     // Car Rental Group Section ----------------------------------------------------------
     /**
-     * <p>The {@link #rentalRegistryCOLUMNS} includes all columns within the database which is including within the table customer_info.</p>
+     * <p>The {@link #RENTAL_REGISTRY_COLUMNS} includes all columns within the database which is including within the table customer_info.</p>
      *
      * @implNote 0 = Car Rental Group ID <br>
      * 1 = Car Rental Group Name <br>
@@ -212,7 +222,7 @@ public class DB_Dependencies {
             "Car Properties ID"};
 
     /**
-     * <p>The {@link #rentalRegistryCOLUMNS} includes all columns within the database which is including within the table customer_info.</p>
+     * <p>The {@link #RENTAL_REGISTRY_COLUMNS} includes all columns within the database which is including within the table customer_info.</p>
      *
      * @implNote 0 = car_rental_group_id <br>
      * 1 = car_rental_group_name <br>
