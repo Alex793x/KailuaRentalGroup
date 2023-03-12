@@ -107,7 +107,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
         } // End of outer if statement
     } // End of method
 
-    public boolean isCarsAvailable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
+    private boolean isCarsAvailable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         if (requestHandler.checkIfEmpty("SELECT * FROM " + db_dependencies.TABLE_NAMES[3] +
                 " WHERE " + db_dependencies.CAR_REGISTRY_COLUMNS[7] + " = 0")) {
             System.out.println("All cars are rented at the very moment");
