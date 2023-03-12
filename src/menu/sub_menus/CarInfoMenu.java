@@ -10,11 +10,6 @@ import utility.UI;
 import java.util.Arrays;
 
 public class CarInfoMenu extends Menu implements DBStandardQueries {
-    /**
-     * @param menuHeader
-     * @param menuItems
-     */
-    private final DB_Dependencies db_dependencies = DB_Dependencies.getInstance();
 
     /**
      * The CarInfoMenu constructor
@@ -29,7 +24,7 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
 
 
     @Override
-    public void showTable(DB_QueryRequestHandler requestHandler) {
+    public void showTable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         String sql = "SELECT * FROM " + db_dependencies.TABLE_NAMES[1];
         requestHandler.printQueryResult(
                 sql,
@@ -39,7 +34,7 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
     }
 
     @Override
-    public void showTableOrdered(DB_QueryRequestHandler requestHandler) {
+    public void showTableOrdered(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         String sql = "SELECT * " +
                 "FROM " + db_dependencies.TABLE_NAMES[1] + " " +
                 "ORDER BY " + db_dependencies.CAR_PROPERTIES_COLUMNS[6] + " ASC";
@@ -51,7 +46,8 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
     }
 
     @Override
-    public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
+    public void insertToTable(DB_QueryEditingHandler editingHandler,
+                              DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
 
         String selectCarPropertiesSelection = String.join(", ",
                 Arrays.stream(db_dependencies.CAR_PROPERTIES_COLUMNS).skip(1).toArray(String[]::new));
@@ -69,7 +65,8 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
     }
 
     @Override
-    public void updateTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui) {
+    public void updateTable(DB_QueryEditingHandler editingHandler,
+                            DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
         String query = "UPDATE car_registry " + "SET " +
                 ui.insertInto(db_dependencies.CAR_PROPERTIES_COLUMNS,
                         requestHandler, db_dependencies.TABLE_NAMES[1], false, false) +
@@ -83,8 +80,9 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
     }
 
     @Override
-    public void deleteFromTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui) {
-        showTable(requestHandler);
+    public void deleteFromTable(DB_QueryEditingHandler editingHandler,
+                                DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
+        showTable(requestHandler, db_dependencies);
         String query = "DELETE FROM car_registry " +
                 "WHERE " + ui.chooseWhereOptions(
                 db_dependencies.TABLE_NAMES[1], db_dependencies.CAR_PROPERTIES_COLUMNS,

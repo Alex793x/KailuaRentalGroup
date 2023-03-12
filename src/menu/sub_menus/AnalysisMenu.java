@@ -5,7 +5,6 @@ import dbm.handler.DB_QueryRequestHandler;
 import menu.Menu;
 
 public class AnalysisMenu extends Menu {
-    private final DB_Dependencies db_dependencies = DB_Dependencies.getInstance();
     /**
      * @param menuHeader
      * @param menuItems
@@ -16,7 +15,7 @@ public class AnalysisMenu extends Menu {
 
 
     // Methods ---------------------------------------------------------------------
-    public void showTable(DB_QueryRequestHandler requestHandler) {
+    public void showTable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         String sql = "SELECT " + DB_Dependencies.getInstance().CUSTOMER_COLUMNS[1] + ", " +
                 db_dependencies.RENTAL_REGISTRY_COLUMNS[4] + ", " + "SUM(DATEDIFF(" +
                 db_dependencies.RENTAL_REGISTRY_COLUMNS[2] + "," +

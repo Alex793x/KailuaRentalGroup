@@ -10,9 +10,6 @@ import utility.UI;
 import java.util.Arrays;
 
 public class RentalRegistryMenu extends Menu implements DBStandardQueries {
-
-    private final DB_Dependencies db_dependencies = DB_Dependencies.getInstance();
-
     /**
      * The CarInfoMenu constructor
      *
@@ -26,7 +23,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
 
 
     @Override
-    public void showTable(DB_QueryRequestHandler requestHandler) {
+    public void showTable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         String sql = "SELECT * FROM " + db_dependencies.TABLE_NAMES[2];
         requestHandler.printQueryResult(
                 sql,
@@ -36,7 +33,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
     }
 
     @Override
-    public void showTableOrdered(DB_QueryRequestHandler requestHandler) {
+    public void showTableOrdered(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         String sql = "SELECT * " +
                 "FROM " + db_dependencies.TABLE_NAMES[2] + " " +
                 "ORDER BY " + db_dependencies.RENTAL_REGISTRY_COLUMNS[1] + " ASC";
@@ -48,7 +45,8 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
     }
 
     @Override
-    public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
+    public void insertToTable(DB_QueryEditingHandler editingHandler,
+                              DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
 
         String selectLeasingAgreementSelection = String.join(", ",
                 Arrays.stream(db_dependencies.RENTAL_REGISTRY_COLUMNS).skip(1).toArray(String[]::new));
@@ -66,7 +64,8 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
     }
 
     @Override
-    public void updateTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui) {
+    public void updateTable(DB_QueryEditingHandler editingHandler,
+                            DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
         String query = "UPDATE car_registry " + "SET " +
                 ui.insertInto(db_dependencies.RENTAL_REGISTRY_COLUMNS,
                         requestHandler, db_dependencies.TABLE_NAMES[2], false, false) +
@@ -80,7 +79,8 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
     }
 
     @Override
-    public void deleteFromTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui) {
+    public void deleteFromTable(DB_QueryEditingHandler editingHandler,
+                                DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
         /*showTable(requestHandler);
         String query = "DELETE FROM car_registry " +
                 "WHERE " + ui.chooseWhereOptions(

@@ -14,21 +14,20 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
      * @param menuHeader
      * @param menuItems
      */
-    private final DB_Dependencies db_dependencies = DB_Dependencies.getInstance();
 
     public CustomerMenu(String menuHeader, String[] menuItems) {
         super(menuHeader, menuItems);
     }
 
     @Override
-    public void showTable(DB_QueryRequestHandler requestHandler) {
+    public void showTable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         String query = "SELECT * FROM customer_info;";
         requestHandler.printQueryResult(query, db_dependencies.CUSTOMER_COLUMNS_PRINT_FORMAT,
                 db_dependencies.CUSTOMER_COLUMNS);
     }
 
     @Override
-    public void showTableOrdered(DB_QueryRequestHandler requestHandler) {
+    public void showTableOrdered(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         String query = "SELECT * FROM customer_info ORDER BY customer_name;";
         requestHandler.printQueryResult(query, db_dependencies.CUSTOMER_COLUMNS_PRINT_FORMAT,
                 db_dependencies.CUSTOMER_COLUMNS);
@@ -37,7 +36,7 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void insertToTable(DB_QueryEditingHandler editingHandler,
-                              DB_QueryRequestHandler requestHandler, UI ui) {
+                              DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
 
         String selectSection = String.join(", ",
                 Arrays.stream(DB_Dependencies.getInstance().CUSTOMER_COLUMNS).skip(1).toArray(String[]::new));
@@ -55,7 +54,7 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void updateTable(DB_QueryEditingHandler editingHandler,
-                            DB_QueryRequestHandler requestHandler, UI ui) { // DB REGUEST HANDLER
+                            DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
         String query = "UPDATE customer_info " + "SET " +
                 ui.insertInto(db_dependencies.CUSTOMER_COLUMNS,
                         requestHandler,
@@ -68,7 +67,7 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void deleteFromTable(DB_QueryEditingHandler editingHandler,
-                                DB_QueryRequestHandler requestHandler, UI ui) {
+                                DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
         String query = "DELETE FROM customer_info " +
                 "WHERE " + ui.chooseWhereOptions(db_dependencies.TABLE_NAMES[0],
                 db_dependencies.CUSTOMER_COLUMNS, requestHandler);

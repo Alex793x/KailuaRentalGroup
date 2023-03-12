@@ -1,11 +1,10 @@
 package controller;
 
+import dbm.DB_Dependencies;
 import dbm.handler.DB_QueryEditingHandler;
 import dbm.handler.DB_QueryRequestHandler;
 import utility.*;
 import menu.handler.*;
-
-import java.sql.SQLException;
 
 /**
  * The AppLogic class is defining and running all the logic within the app.
@@ -24,6 +23,7 @@ public class AppLogic {
     private final MenuHandler menuHandler;
     private final DB_QueryRequestHandler queryRequestHandler;
     private final DB_QueryEditingHandler editingHandler;
+    private final DB_Dependencies db_dependencies = DB_Dependencies.getInstance();
 
 
 
@@ -68,11 +68,11 @@ public class AppLogic {
         while (isRunning) {
             menuHandler.customerMenu.printMenu();
             switch (ui.readInteger()) {
-                case 1 -> {menuHandler.customerMenu.showTable(queryRequestHandler);}
-                case 2 -> {menuHandler.customerMenu.showTableOrdered(queryRequestHandler);}
-                case 3 -> {menuHandler.customerMenu.insertToTable(editingHandler, queryRequestHandler,ui);}
-                case 4 -> {menuHandler.customerMenu.updateTable(editingHandler, queryRequestHandler,ui);}
-                case 5 -> {menuHandler.customerMenu.deleteFromTable(editingHandler, queryRequestHandler,ui);}
+                case 1 -> {menuHandler.customerMenu.showTable(queryRequestHandler, db_dependencies);}
+                case 2 -> {menuHandler.customerMenu.showTableOrdered(queryRequestHandler, db_dependencies);}
+                case 3 -> {menuHandler.customerMenu.insertToTable(editingHandler, queryRequestHandler,ui, db_dependencies);}
+                case 4 -> {menuHandler.customerMenu.updateTable(editingHandler, queryRequestHandler,ui, db_dependencies);}
+                case 5 -> {menuHandler.customerMenu.deleteFromTable(editingHandler, queryRequestHandler,ui, db_dependencies);}
                 case 0 -> isRunning = false;
                 default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case
@@ -84,10 +84,10 @@ public class AppLogic {
         while (isRunning){
             menuHandler.rentalRegistryMenu.printMenu();
             switch (ui.readInteger()) {
-                case 1 -> {menuHandler.rentalRegistryMenu.showTable(queryRequestHandler);}
-                case 2 -> {menuHandler.rentalRegistryMenu.showTableOrdered(queryRequestHandler);}
-                case 3 -> {menuHandler.rentalRegistryMenu.insertToTable(editingHandler,queryRequestHandler,ui);}
-                case 4 -> {menuHandler.rentalRegistryMenu.updateTable(editingHandler,queryRequestHandler,ui);}
+                case 1 -> {menuHandler.rentalRegistryMenu.showTable(queryRequestHandler, db_dependencies);}
+                case 2 -> {menuHandler.rentalRegistryMenu.showTableOrdered(queryRequestHandler,db_dependencies);}
+                case 3 -> {menuHandler.rentalRegistryMenu.insertToTable(editingHandler,queryRequestHandler,ui,db_dependencies);}
+                case 4 -> {menuHandler.rentalRegistryMenu.updateTable(editingHandler,queryRequestHandler,ui,db_dependencies);}
                 case 0 -> {isRunning = false;}
                 default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case
@@ -99,11 +99,11 @@ public class AppLogic {
         while (isRunning) {
             menuHandler.carRegistryMenu.printMenu();
             switch (ui.readInteger()) {
-                case 1 -> {menuHandler.carRegistryMenu.showTable(queryRequestHandler);}
-                case 2 -> {menuHandler.carRegistryMenu.showTableOrdered(queryRequestHandler);}
-                case 3 -> {menuHandler.carRegistryMenu.insertToTable(editingHandler, queryRequestHandler,ui);}
-                case 4 -> {menuHandler.carRegistryMenu.updateTable(editingHandler, queryRequestHandler, ui);}
-                case 5 -> menuHandler.carRegistryMenu.deleteFromTable(editingHandler, queryRequestHandler, ui);
+                case 1 -> {menuHandler.carRegistryMenu.showTable(queryRequestHandler,db_dependencies);}
+                case 2 -> {menuHandler.carRegistryMenu.showTableOrdered(queryRequestHandler,db_dependencies);}
+                case 3 -> {menuHandler.carRegistryMenu.insertToTable(editingHandler, queryRequestHandler,ui,db_dependencies);}
+                case 4 -> {menuHandler.carRegistryMenu.updateTable(editingHandler, queryRequestHandler, ui,db_dependencies);}
+                case 5 -> menuHandler.carRegistryMenu.deleteFromTable(editingHandler, queryRequestHandler, ui,db_dependencies);
                 case 0 -> isRunning = false;
                 default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case
@@ -115,11 +115,11 @@ public class AppLogic {
         while (isRunning) {
             menuHandler.carPropertiesMenu.printMenu();
             switch (ui.readInteger()) {
-                case 1 -> menuHandler.carPropertiesMenu.showTable(queryRequestHandler);
-                case 2 -> menuHandler.carPropertiesMenu.showTableOrdered(queryRequestHandler);
-                case 3 -> menuHandler.carPropertiesMenu.searchAndShowTable(queryRequestHandler, ui);
-                case 4 -> menuHandler.carPropertiesMenu.updateTable(editingHandler,queryRequestHandler,ui);
-                case 5 -> menuHandler.carPropertiesMenu.deleteFromTable(editingHandler,queryRequestHandler,ui);
+                case 1 -> menuHandler.carPropertiesMenu.showTable(queryRequestHandler,db_dependencies);
+                case 2 -> menuHandler.carPropertiesMenu.showTableOrdered(queryRequestHandler,db_dependencies);
+                case 3 -> menuHandler.carPropertiesMenu.searchAndShowTable(queryRequestHandler, ui,db_dependencies);
+                case 4 -> menuHandler.carPropertiesMenu.updateTable(editingHandler,queryRequestHandler,ui,db_dependencies);
+                case 5 -> menuHandler.carPropertiesMenu.deleteFromTable(editingHandler,queryRequestHandler,ui,db_dependencies);
                 case 0 -> isRunning = false;
                 default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case
@@ -131,7 +131,7 @@ public class AppLogic {
         while (isRunning) {
             menuHandler.analysisMenu.printMenu();
             switch (ui.readInteger()) {
-                case 1 -> {menuHandler.analysisMenu.showTable(queryRequestHandler);}
+                case 1 -> {menuHandler.analysisMenu.showTable(queryRequestHandler,db_dependencies);}
                 case 0 -> {isRunning = false;}
                 default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case

@@ -88,6 +88,16 @@ public class DB_QueryRequestHandler {
         System.out.println();
     } // End of method
 
+    /**
+     * <p>This method is a helper method for the method in the
+     * {@link UI#insertInto(String[], DB_QueryRequestHandler, String, boolean, boolean)}. It helps when the case of usage
+     * is for rental registry, to validate cars available for renting, while securing user cant change cars which
+     * already are rented out.</p>
+     * @param query         The SQL statement which request some kind of result set
+     * @param valueID       The value ID which is requested for change (Specifically for the rental registry method)
+     * @param columnForID   The ID which must indicate a valid object for query change within the rental registry method
+     * @return              This method returns a boolean expression if given query has a valid Car to be rented out for
+     */
     public boolean checkIfExists(String query, int valueID, int columnForID) {
         try (
                 Connection connection = DriverManager.getConnection(
@@ -110,6 +120,13 @@ public class DB_QueryRequestHandler {
         return false;
     } // End of method
 
+
+    /**
+     * This method is another helper method for the {@link UI#insertInto(String[], DB_QueryRequestHandler, String, boolean, boolean)}
+     * It helps checking if the result set returned has at least one value.
+     * @param query The SQL statement which request some kind of result set
+     * @return This method returns a boolean expression if the result set returned is null or has at least one value.
+     */
     public boolean checkIfEmpty(String query) {
         try (
                 Connection connection = DriverManager.getConnection(
