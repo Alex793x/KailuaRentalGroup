@@ -6,10 +6,6 @@ import menu.Menu;
 import utility.UI;
 
 public class AnalysisMenu extends Menu {
-    /**
-     * @param menuHeader
-     * @param menuItems
-     */
     public AnalysisMenu(String menuHeader, String[] menuItems) {
         super(menuHeader, menuItems);
     }
