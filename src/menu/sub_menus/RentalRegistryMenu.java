@@ -93,4 +93,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
         System.out.print("Please enter car_registry_id you just deleted: ");
         editingHandler.insertQuery(query);*/
     }
+
+
+
 }

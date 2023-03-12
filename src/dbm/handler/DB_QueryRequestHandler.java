@@ -62,7 +62,7 @@ public class DB_QueryRequestHandler {
         ) {
             printResultSet(resultSet, printColumns, dbColumnNames);
         } catch (SQLException e) {
-            System.out.println("Error with SQL Print request");
+            System.out.println("Error with SQL Print request " + e);
         } // End of try - catch block
     } // End of method
 
@@ -115,7 +115,7 @@ public class DB_QueryRequestHandler {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error with SQL Print request");
+            System.out.println("Error with SQL Print request ");
         } // End of try - catch block
         return false;
     } // End of method
