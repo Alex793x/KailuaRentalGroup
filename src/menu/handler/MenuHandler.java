@@ -62,13 +62,12 @@ public class MenuHandler {
             "0. Return to main menu"
     });
 
-    public LeasingAgreementMenu leasingAgreementMenu = new LeasingAgreementMenu("LEASING AGREEMENT MENU", new String[] {
+    public RentalRegistryMenu rentalRegistryMenu = new RentalRegistryMenu("LEASING AGREEMENT MENU", new String[] {
             "1. Show all leasing agreements",
             "2. Show all leasing agreements ordered",
             "3. Add new leasing agreement",
             "4. Edit leasing agreement",
-            "5. Delete leasing agreement",
-            "6. Find available Cars"
+            "0. Return to main menu"
     });
 
     public CarInfoMenu rentalServiceMenu = new CarInfoMenu("RENTAL SERVICE MENU", new String[] {

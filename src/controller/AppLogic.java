@@ -55,7 +55,7 @@ public class AppLogic {
                 case 1 -> runCustomerMenu();
                 case 2 -> runCarRegistryMenu();
                 case 3 -> runCarPropertyMenu();
-                case 4 -> runLeasingAgreementMenu();
+                case 4 -> runRentalRegistryMenu();
                 case 5 -> runCarInfoMenu();
                 case 6 -> runAnalysisMenu();
                 case 0 -> isRunning = false;
@@ -81,17 +81,15 @@ public class AppLogic {
         } // End of while loop
     } // End of method
 
-    private void runLeasingAgreementMenu() {
+    private void runRentalRegistryMenu() {
         boolean isRunning = true;
         while (isRunning){
-            menuHandler.leasingAgreementMenu.printMenu();
+            menuHandler.rentalRegistryMenu.printMenu();
             switch (ui.readInteger()) {
-                case 1 -> {menuHandler.leasingAgreementMenu.showTable(queryRequestHandler);}
-                case 2 -> {menuHandler.leasingAgreementMenu.showTableOrdered(queryRequestHandler);}
-                case 3 -> {menuHandler.leasingAgreementMenu.insertToTable(editingHandler,queryRequestHandler,ui);}
-                case 4 -> {menuHandler.leasingAgreementMenu.updateTable(editingHandler,queryRequestHandler,ui);}
-                case 5 -> {menuHandler.leasingAgreementMenu.deleteFromTable(editingHandler,queryRequestHandler,ui);}
-                case 6 -> {menuHandler.leasingAgreementMenu.getAvailableCars(queryRequestHandler, ui);}
+                case 1 -> {menuHandler.rentalRegistryMenu.showTable(queryRequestHandler);}
+                case 2 -> {menuHandler.rentalRegistryMenu.showTableOrdered(queryRequestHandler);}
+                case 3 -> {menuHandler.rentalRegistryMenu.insertToTable(editingHandler,queryRequestHandler,ui);}
+                case 4 -> {menuHandler.rentalRegistryMenu.updateTable(editingHandler,queryRequestHandler,ui);}
                 case 0 -> {isRunning = false;}
                 default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case
@@ -141,8 +139,6 @@ public class AppLogic {
             menuHandler.analysisMenu.printMenu();
             switch (ui.readInteger()) {
                 case 1 -> {menuHandler.analysisMenu.showTable(queryRequestHandler);}
-                case 2 -> {menuHandler.analysisMenu.showTableOrdered(queryRequestHandler);}
-                case 3 -> {menuHandler.analysisMenu.insertToTable(editingHandler, queryRequestHandler,ui);}
                 case 0 -> {isRunning = false;}
                 default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case

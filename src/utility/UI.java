@@ -160,7 +160,6 @@ public class UI {
      */
     public String insertInto(String[] columnValues, DB_QueryRequestHandler requestHandler, String tableName, boolean isInsert) {
         StringBuilder insertValues = new StringBuilder();
-        input.nextLine();
 
         Arrays.stream(columnValues).skip(1).forEach(columnElement -> {
             boolean isStay = !isInsert && readStay("If the value shouldn't be changed for " + columnElement + " just type \"stay\", else type \"edit\": ");

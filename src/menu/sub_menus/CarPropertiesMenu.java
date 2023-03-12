@@ -19,7 +19,7 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
      */
     public CarPropertiesMenu(String menuHeader, String[] menuItems) {
         super(menuHeader, menuItems);
-    }
+    } // End of method
 
 
     @Override
@@ -29,7 +29,7 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
         requestHandler.printQueryResult(sql,
                 db_dependencies.CAR_PROPERTIES_PRINT_FORMAT,
                 db_dependencies.CAR_PROPERTIES_COLUMNS);
-    }
+    } // End of method
 
     @Override
     public void showTableOrdered(DB_QueryRequestHandler requestHandler) {
@@ -40,7 +40,7 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
         requestHandler.printQueryResult(sql,
                 db_dependencies.CAR_PROPERTIES_PRINT_FORMAT,
                 db_dependencies.CAR_PROPERTIES_COLUMNS);
-    }
+    } // End of method
 
     @Override
     public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
@@ -55,7 +55,7 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
                         db_dependencies.TABLE_NAMES[1], true) + ")";
 
         editingHandler.insertQuery(insertPropertiesSQL);
-    }
+    } // End of method
 
     @Override
     public void updateTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
@@ -69,7 +69,7 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
 
         System.out.println(query);
         editingHandler.insertQuery(query);
-    }
+    } // End of method
 
     @Override
     public void deleteFromTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
@@ -77,7 +77,7 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
         String query = "DELETE FROM car_properties " +
                 "WHERE " + db_dependencies.CAR_PROPERTIES_COLUMNS[0] + " = " + ui.readInteger() + ui.readLine();
         editingHandler.insertQuery(query);
-    }
+    } // End of method
 
     public void searchAndShowTable(DB_QueryRequestHandler requestHandler, UI ui) {
         String query = "SELECT * FROM " + db_dependencies.TABLE_NAMES[1] + " " +
@@ -87,5 +87,18 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
 
         requestHandler.printQueryResult(query, db_dependencies.CAR_PROPERTIES_PRINT_FORMAT,
                 db_dependencies.CAR_PROPERTIES_COLUMNS);
-    }
+    } // End of method
+
+    private String getGroupType(UI ui, DB_QueryRequestHandler requestHandler){
+        String sql = ui.insertInto(db_dependencies.CAR_PROPERTIES_COLUMNS,
+                requestHandler,
+                db_dependencies.TABLE_NAMES[1], true);
+
+        String[] sqlCheck = sql.split(",");
+        if (sqlCheck[2].equalsIgnoreCase("Automatic")){
+            return sql + ", 1";
+        } else if(Integer.parseInt(sqlCheck[6])>200 && Integer.parseInt(sqlCheck[5])<=5) {
+            return sql + ", 3";
+        } else return sql + ", 2";
+    } // End of method
 }

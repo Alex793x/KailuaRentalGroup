@@ -88,7 +88,7 @@ public class DB_QueryRequestHandler {
         System.out.println();
     } // End of method
 
-    public boolean checkIfExists(String query, String valueID, int columnForID) {
+    public boolean checkIfExists(String query, int valueID, int columnForID) {
         try (
                 Connection connection = DriverManager.getConnection(
                         DB_Dependencies.getInstance().database_url,
@@ -100,6 +100,7 @@ public class DB_QueryRequestHandler {
                 ResultSet resultSet = statement.executeQuery(query);
         ) {
             while (resultSet.next()) {
+                System.out.println(resultSet.getObject(columnForID));
                 if (resultSet.getObject(columnForID).equals(valueID)) {
                     return true;
                 }
