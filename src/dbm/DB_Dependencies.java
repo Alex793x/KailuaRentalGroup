@@ -7,7 +7,7 @@ public class DB_Dependencies {
     // Login / Connection Fields ---------------------------------------------------------
     public final String database_url = "jdbc:mysql://localhost:3306/kailua_rental";
     public final String username = "root";
-    public final String password = "Kww1jll###";
+    public final String password = "Mfbz9yzxn";
 
 
     // Table INFO and Dependencies ------------------------------------------------------
@@ -211,16 +211,6 @@ public class DB_Dependencies {
      */
     public final String[] RENTAL_REGISTRY_COLUMNS_PRINT_FORMAT = {"Rental Registry ID", "Rental Start Date",
             "Rental End Date", "Car Registry ID", "Customer ID"};
-
-    /**
-     * <p>The {@link #RENTAL_REGISTRY_COLUMNS} includes all columns within the database which is including within the table customer_info.</p>
-     *
-     * @implNote 0 = rental_registry_id <br>
-     * 1 = rental_start_date <br>
-     * 2 = rental_end_date <br>
-     * 3 = car_registry_id <br>
-     * 4 = customer_id <br>
-     */
 
 
 

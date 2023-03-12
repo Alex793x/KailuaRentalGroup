@@ -11,10 +11,6 @@ import java.util.Arrays;
 
 public class CarPropertiesMenu extends Menu implements DBStandardQueries {
 
-    /**
-     * @param menuHeader
-     * @param menuItems
-     */
     public CarPropertiesMenu(String menuHeader, String[] menuItems) {
         super(menuHeader, menuItems);
     } // End of method
@@ -31,7 +27,6 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void showTableOrdered(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
-        UI ui = new UI();
         String sql = "SELECT * FROM " + db_dependencies.TABLE_NAMES[1] + " " +
                 "ORDER BY " + db_dependencies.CAR_PROPERTIES_COLUMNS[9] + " ASC";
 

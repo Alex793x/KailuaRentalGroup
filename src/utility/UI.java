@@ -2,13 +2,15 @@ package utility;
 
 import dbm.DB_Dependencies;
 import dbm.handler.DB_QueryRequestHandler;
+import menu.sub_menus.RentalRegistryMenu;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Stream;
 
 
 /**
@@ -27,7 +29,7 @@ import java.util.stream.Stream;
 public class UI {
 
     public Scanner input;
-    private final DB_Dependencies db_dependencies = DB_Dependencies.getInstance();
+    private final DB_Dependencies db_dependencies = dbm.DB_Dependencies.getInstance();
 
 
     // Constructor -----------------------------------------------------------------
@@ -88,9 +90,6 @@ public class UI {
         } // End of while loop
     } // End of method
 
-    public String readNextLine() {
-        return input.nextLine();
-    }
 
     public String readLineWithNumbers() {
         return input.nextLine();
@@ -146,6 +145,23 @@ public class UI {
         return response.equals("stay");
     }
 
+    public int getRentalGroup(){
+        while(true){
+            System.out.println("""
+                    Please choose -
+                    1. Luxury Car
+                    2. Family
+                    3. Sport""");
+
+            switch (readInteger()){
+                case 1 -> {return 1;}
+                case 2 -> {return 2;}
+                case 3 -> {return 3;}
+                default -> System.out.println("Please choose a valid Rental Group");
+            } // End of switch statement
+        } // End of while loop
+    } // End of method
+
 
     // Insert into Generic Method -----------------------------------------------
 
@@ -159,21 +175,24 @@ public class UI {
      * @param tableName      The specific name of the table from DB we wish to work with
      * @return A string made up of all the values needed for a valid insert statement within specific table.
      */
-    public String insertInto(String[] columnValues, DB_QueryRequestHandler requestHandler, String tableName, boolean isInsert, boolean isRentalRegistryMenu) {
-        StringBuilder insertValues = new StringBuilder();
+    public String insertInto(String[] columnValues, DB_QueryRequestHandler requestHandler, String tableName,
+                             boolean isInsert, boolean isRentalRegistryMenu) {
 
-        if (isRentalRegistryMenu) {
-            if (requestHandler.checkIfEmpty("SELECT * FROM " + db_dependencies.TABLE_NAMES[3] +
-                    " WHERE " + db_dependencies.CAR_REGISTRY_COLUMNS[7] + " = 0")) {
-                System.out.println("All cars are rented at the very moment");
-                return "";
-            }
-        }
+        StringBuilder insertValues = new StringBuilder();
 
         Arrays.stream(columnValues).skip(1).forEach(columnElement -> {
             boolean isStay = !isInsert && readStay("If the value shouldn't be changed for " + columnElement + " just type \"stay\", else type \"edit\": ");
             if (!isStay) {
-                printForLeasingRegistry(isRentalRegistryMenu, columnElement, requestHandler);
+
+                if (isRentalRegistryMenu) {
+                    try {
+                        Method method = RentalRegistryMenu.class.getMethod("getAvailableCarsByGroup",boolean.class, String.class, DB_Dependencies.class,
+                                DB_QueryRequestHandler.class, UI.class);
+                        Object result = method.invoke(null, true, columnElement, db_dependencies, requestHandler, this);
+                    } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
 
                 String dataType = requestHandler.getColumnDataType(tableName, columnElement);
                 String columnValue = isInsert ? getInsertValue(columnElement, dataType) : getUpdateValue(columnElement, dataType);
@@ -280,9 +299,8 @@ public class UI {
         for (int i = amountOfClauses; i > 0; i--) {
             AtomicInteger count = new AtomicInteger(1);
             System.out.println("Please enter what specific search parameter you want to change for: ");
-            Arrays.stream(columnValues).forEach(value -> {
-                System.out.println(count.getAndIncrement() + ": " + value);
-            });
+            Arrays.stream(columnValues)
+                    .forEach(value -> System.out.println(count.getAndIncrement() + ": " + value));
 
             System.out.println();
             String columnValue = columnValues[readInteger() - 1] +""; // Scanner bug
@@ -299,51 +317,8 @@ public class UI {
     } // End of method
 
 
-    public void printForLeasingRegistry(boolean isRegistryMenu, String columnElement, DB_QueryRequestHandler requestHandler) {
-        if(isRegistryMenu && (columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[0]) ||
-                columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[0]))) {
-
-            if (columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[0])) {
-                 requestHandler.printQueryResult("SELECT * FROM " + db_dependencies.TABLE_NAMES[0],
-                        db_dependencies.CUSTOMER_COLUMNS_PRINT_FORMAT,
-                        db_dependencies.CUSTOMER_COLUMNS);
-
-            } else {
-                requestHandler.printQueryResult("SELECT car_registry_id, crg.car_rental_group_id, crg.car_rental_group_name," +
-                                String.join(", ",Arrays.asList(db_dependencies.CAR_PROPERTIES_COLUMNS).subList(1,10)) +", car_isRented\n" +
-                                "        FROM car_rental_group crg\n" +
-                                "        JOIN car_properties USING(car_rental_group_id)\n" +
-                                "        JOIN car_registry USING (car_properties_id)\n" +
-                                "        WHERE crg.car_rental_group_id = " + getRentalGroup() +" AND NOT car_isRented;",
-                                db_dependencies.CAR_REGISTRY_CAR_RENTAL_JOIN_COLUMNS_PRINT,
-                                db_dependencies.CAR_REGISTRY_CAR_RENTAL_JOIN_COLUMNS);
-
-            } // End of inner if-else statement
-        } // End of outer if statement
-    } // End of method
-
-
     // Invalid Print statements --------------------------------------------------
     public String invalidChoiceInput() {
         return "Invalid input was given";
-    }
-
-    private int getRentalGroup(){
-        while(true){
-            System.out.println("""
-                    Please choose -
-                    1. Luxury Car
-                    2. Family
-                    3. Sport""");
-
-            switch (readInteger()){
-                case 1 -> {return 1;}
-                case 2 -> {return 2;}
-                case 3 -> {return 3;}
-                default -> {
-                    System.out.println("Please choose a valid Rental Group");
-                }
-            }
-        }
-    }
+    } // End of method
 }

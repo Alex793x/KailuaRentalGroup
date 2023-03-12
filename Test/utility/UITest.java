@@ -14,7 +14,7 @@ class UITest {
 
 
     @Test
-    @DisplayName("Test only valid integer type input")
+	@DisplayName("Test only valid integer type input")
     void TestReadInteger() {
         testIn = new ByteArrayInputStream("1\n3\n5\n0\n".getBytes());
         System.setIn(testIn);
@@ -27,7 +27,7 @@ class UITest {
     }
 
     @Test
-    @DisplayName("Test only valid letters in line input")
+	@DisplayName("Test only valid letters in line input")
     void TestReadLine() {
         testIn = new ByteArrayInputStream("Hello World\nJames Is A Mover\nChilling\nZero\n".getBytes());
         System.setIn(testIn);
@@ -40,7 +40,7 @@ class UITest {
     }
 
     @Test
-    @DisplayName("Test only valid letters in word input")
+	@DisplayName("Test only valid letters in word input")
     void TestReadNext() {
         testIn = new ByteArrayInputStream("Hello     \nJames     \nChilling   \nZero       \n".getBytes());
         System.setIn(testIn);
@@ -53,7 +53,7 @@ class UITest {
     }
 
     @Test
-    @DisplayName("Test only valid boolean type input")
+	@DisplayName("Test only valid boolean type input")
     void TestReadBoolean() {
         testIn = new ByteArrayInputStream("true\nfalse\n".getBytes());
         System.setIn(testIn);
@@ -64,7 +64,7 @@ class UITest {
     }
 
     @Test
-    @DisplayName("Test only valid double type input")
+	@DisplayName("Test only valid double type input")
     void TestReadDouble() {
         testIn = new ByteArrayInputStream("1\n3\n5\n0\n".getBytes());
         System.setIn(testIn);
@@ -72,7 +72,7 @@ class UITest {
     }
 
     @Test
-    @DisplayName("Test only valid Date input")
+	@DisplayName("Test only valid Date input")
     void TestReadDate() {
         testIn = new ByteArrayInputStream("1\n3\n5\n0\n".getBytes());
         System.setIn(testIn);
@@ -80,7 +80,7 @@ class UITest {
     }
 
     @Test
-    @DisplayName("Test returned value of InvalidNumberInput")
+	@DisplayName("Test returned value of InvalidNumberInput")
     void TestInvalidNumberInput() {
 
     }

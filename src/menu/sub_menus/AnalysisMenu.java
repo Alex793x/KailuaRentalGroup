@@ -5,10 +5,6 @@ import dbm.handler.DB_QueryRequestHandler;
 import menu.Menu;
 
 public class AnalysisMenu extends Menu {
-    /**
-     * @param menuHeader
-     * @param menuItems
-     */
     public AnalysisMenu(String menuHeader, String[] menuItems) {
         super(menuHeader, menuItems);
     }
