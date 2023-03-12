@@ -41,9 +41,4 @@ public class CarInfoMenu extends Menu implements DBStandardQueries {
                                 UI ui) {
 
     }
-
-    @Override
-    public void alterTable() {
-
-    }
 }

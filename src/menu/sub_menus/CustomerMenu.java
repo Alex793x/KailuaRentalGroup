@@ -8,16 +8,13 @@ import menu.Menu;
 import utility.UI;
 
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class CustomerMenu extends Menu implements DBStandardQueries {
     /**
      * @param menuHeader
      * @param menuItems
      */
-    private DB_Dependencies db_dependencies = DB_Dependencies.getInstance();
-    private String[] printColumnNames = {"Customer ID", "name", "address", "ZIP", "City", "Phone no.",
-            "Email", "Driver license number", "Driver license since"};
+    private final DB_Dependencies db_dependencies = DB_Dependencies.getInstance();
 
     public CustomerMenu(String menuHeader, String[] menuItems) {
         super(menuHeader, menuItems);
@@ -26,19 +23,22 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
     @Override
     public void showTable(DB_QueryRequestHandler requestHandler) {
         String query = "SELECT * FROM customer_info;";
-        requestHandler.printQueryResult(query, printColumnNames, db_dependencies.CUSTOMER_COLUMNS);
+        requestHandler.printQueryResult(query, db_dependencies.CUSTOMER_COLUMNS_PRINT_FORMAT,
+                db_dependencies.CUSTOMER_COLUMNS);
     }
 
     @Override
     public void showTableOrdered(DB_QueryRequestHandler requestHandler) {
         String query = "SELECT * FROM customer_info ORDER BY customer_name;";
-        requestHandler.printQueryResult(query, printColumnNames, db_dependencies.CUSTOMER_COLUMNS);
+        requestHandler.printQueryResult(query, db_dependencies.CUSTOMER_COLUMNS_PRINT_FORMAT,
+                db_dependencies.CUSTOMER_COLUMNS);
     }
 
 
     @Override
     public void insertToTable(DB_QueryEditingHandler editingHandler,
                               DB_QueryRequestHandler requestHandler, UI ui) {
+
         String selectSection = String.join(", ",
                 Arrays.stream(DB_Dependencies.getInstance().CUSTOMER_COLUMNS).skip(1).toArray(String[]::new));
 
@@ -60,8 +60,8 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
                 ui.insertInto(db_dependencies.CUSTOMER_COLUMNS,
                         requestHandler,
                         db_dependencies.TABLE_NAMES[0], false) +
-                " WHERE " + db_dependencies.CUSTOMER_COLUMNS[0] + " = " +
-                getCustomerID(requestHandler, ui) + ";";
+                " WHERE " + ui.chooseWhereOptions(db_dependencies.TABLE_NAMES[0],
+                db_dependencies.CUSTOMER_COLUMNS,requestHandler);
         System.out.println(query);
         editingHandler.insertQuery(query);
     }
@@ -70,20 +70,9 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
     public void deleteFromTable(DB_QueryEditingHandler editingHandler,
                                 DB_QueryRequestHandler requestHandler, UI ui) {
         String query = "DELETE FROM customer_info " +
-                "WHERE " + db_dependencies.CUSTOMER_COLUMNS[0] + " = " +
-                getCustomerID(requestHandler, ui) + ";";
+                "WHERE " + ui.chooseWhereOptions(db_dependencies.TABLE_NAMES[0],
+                db_dependencies.CUSTOMER_COLUMNS, requestHandler);
 
         editingHandler.insertQuery(query);
-    }
-
-    @Override
-    public void alterTable() {
-
-    }
-
-    private int getCustomerID(DB_QueryRequestHandler requestHandler, UI ui) {
-        showTable(requestHandler);
-        System.out.print("Please enter the customers ID: ");
-        return ui.readInteger();
     }
 }

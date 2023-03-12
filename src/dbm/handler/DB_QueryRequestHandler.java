@@ -88,4 +88,25 @@ public class DB_QueryRequestHandler {
         System.out.println();
     } // End of method
 
+    public boolean checkIfExists(String query, String valueID, int columnForID) {
+        try (
+                Connection connection = DriverManager.getConnection(
+                        DB_Dependencies.getInstance().database_url,
+                        DB_Dependencies.getInstance().username,
+                        DB_Dependencies.getInstance().password
+                );
+
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+        ) {
+            while (resultSet.next()) {
+                if (resultSet.getObject(columnForID).equals(valueID)) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error with SQL Print request");
+        } // End of try - catch block
+        return false;
+    } // End of method
 }

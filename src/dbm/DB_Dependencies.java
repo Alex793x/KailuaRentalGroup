@@ -121,6 +121,23 @@ public class DB_Dependencies {
             "customer_address", "customer_zip", "customer_city", "customer_phone", "customer_email",
             "customer_driver_license_number", "customer_driver_since"};
 
+    /**
+     * <p>The {@link #CUSTOMER_COLUMNS} includes all columns within the database which is including within the table customer_info.</p>
+     *
+     * @implNote 0 = Customer ID <br>
+     * 1 = Name <br>
+     * 2 = Address <br>
+     * 3 = ZIP <br>
+     * 4 = City <br>
+     * 5 = Phone no. <br>
+     * 6 = Email <br>
+     * 7 = Driver license number <br>
+     * 8 = Driver license since <br>
+     */
+    public final String[] CUSTOMER_COLUMNS_PRINT_FORMAT = {
+            "Customer ID", "Name", "Address", "ZIP", "City", "Phone no.",
+            "Email", "Driver license number", "Driver license since"};
+
 
     //Analysis section ---------------------------------------
     /**

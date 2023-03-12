@@ -9,7 +9,7 @@ import utility.UI;
 
 import java.sql.SQLException;
 
-public class AnalysisMenu extends Menu implements DBStandardQueries {
+public class AnalysisMenu extends Menu {
     /**
      * @param menuHeader
      * @param menuItems
@@ -18,7 +18,8 @@ public class AnalysisMenu extends Menu implements DBStandardQueries {
         super(menuHeader, menuItems);
     }
 
-    @Override
+
+    // Methods ---------------------------------------------------------------------
     public void showTable(DB_QueryRequestHandler requestHandler) {
         String sql = "SELECT " + DB_Dependencies.getInstance().CUSTOMER_COLUMNS[1] + ", " +
                 DB_Dependencies.getInstance().rentalRegistryCOLUMNS[4] + ", " + "SUM(DATEDIFF(" +
@@ -36,29 +37,4 @@ public class AnalysisMenu extends Menu implements DBStandardQueries {
                 DB_Dependencies.getInstance().BestCustomerDB);
     }
 
-    @Override
-    public void showTableOrdered(DB_QueryRequestHandler requestHandler) {
-    }
-
-    @Override
-    public void insertToTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
-
-    }
-
-    @Override
-    public void updateTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler,
-                            UI ui) {
-
-    }
-
-    @Override
-    public void deleteFromTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler,
-                                UI ui) {
-
-    }
-
-    @Override
-    public void alterTable() {
-
-    }
 }

@@ -73,14 +73,10 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void deleteFromTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
+        System.out.println("Please enter Car registry ID to delete: ");
         String query = "DELETE FROM car_properties " +
                 "WHERE " + db_dependencies.CAR_PROPERTIES_COLUMNS[0] + " = " + ui.readInteger() + ui.readLine();
         editingHandler.insertQuery(query);
-    }
-
-    @Override
-    public void alterTable() {
-
     }
 
     public void searchAndShowTable(DB_QueryRequestHandler requestHandler, UI ui) {

@@ -11,7 +11,6 @@ import utility.UI;
  * {@link #insertToTable(DB_QueryEditingHandler,DB_QueryRequestHandler, UI)} mirrors the intention of creating / adding new rows INSERT TO query within MySQL <br>
  * {@link #updateTable(DB_QueryEditingHandler, DB_QueryRequestHandler, UI)} mirrors the intention of editing / updating a row data set UPDATE SET query within MySQL <br>
  * {@link #deleteFromTable(DB_QueryEditingHandler, DB_QueryRequestHandler, UI)} mirrors the intention of deleting a row set DELETE query within MySQL <br>
- * {@link #alterTable()} mirrors the intention of altering / adding column ALTER TABLE query within MySQL <br>
  */
 
 public interface DBStandardQueries {
@@ -25,7 +24,5 @@ public interface DBStandardQueries {
     void updateTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui);
 
     void deleteFromTable(DB_QueryEditingHandler editingHandler,  DB_QueryRequestHandler requestHandler, UI ui);
-
-    void alterTable();
 
 }

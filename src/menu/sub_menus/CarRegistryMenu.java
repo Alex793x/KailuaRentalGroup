@@ -86,15 +86,12 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
                 db_dependencies.TABLE_NAMES[3], db_dependencies.CAR_REGISTRY_COLUMNS,
                 requestHandler) + ";";
 
-        editingHandler.insertQuery(query);
+
 
         System.out.println("Now we need to do the same for Car Properties associated with the deleted car");
         System.out.print("Please enter car_registry_id you just deleted: ");
+        editingHandler.insertQuery(query);
         super.deleteFromTable(editingHandler, requestHandler,ui);
     }
 
-    @Override
-    public void alterTable() {
-
-    }
 }
