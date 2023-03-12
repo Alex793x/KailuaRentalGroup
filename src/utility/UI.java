@@ -158,13 +158,22 @@ public class UI {
      * @param tableName      The specific name of the table from DB we wish to work with
      * @return A string made up of all the values needed for a valid insert statement within specific table.
      */
-    public String insertInto(String[] columnValues, DB_QueryRequestHandler requestHandler, String tableName, boolean isInsert) {
+    public String insertInto(String[] columnValues, DB_QueryRequestHandler requestHandler, String tableName, boolean isInsert, boolean isRentalRegistryMenu) {
         StringBuilder insertValues = new StringBuilder();
+
+        if (isRentalRegistryMenu) {
+            if (requestHandler.checkIfEmpty("SELECT * FROM " + db_dependencies.TABLE_NAMES[3] +
+                    " WHERE " + db_dependencies.CAR_REGISTRY_COLUMNS[7] + " = 0")) {
+                System.out.println("All cars are rented at the very moment");
+                return "";
+            }
+        }
 
         Arrays.stream(columnValues).skip(1).forEach(columnElement -> {
             boolean isStay = !isInsert && readStay("If the value shouldn't be changed for " + columnElement + " just type \"stay\", else type \"edit\": ");
-
             if (!isStay) {
+                printForLeasingRegistry(isRentalRegistryMenu, columnElement, requestHandler);
+
                 String dataType = requestHandler.getColumnDataType(tableName, columnElement);
                 String columnValue = isInsert ? getInsertValue(columnElement, dataType) : getUpdateValue(columnElement, dataType);
 
@@ -287,9 +296,23 @@ public class UI {
         return whereClause.toString();
     } // End of method
 
-    public int parseValue(int valueToParse) {
-        return valueToParse;
-    }
+    public void printForLeasingRegistry(boolean isRegistryMenu, String columnElement, DB_QueryRequestHandler requestHandler) {
+        if(isRegistryMenu && (columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[0]) ||
+                columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[0]))) {
+
+            if (columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[0])) {
+                 requestHandler.printQueryResult("SELECT * FROM " + db_dependencies.TABLE_NAMES[0],
+                        db_dependencies.CUSTOMER_COLUMNS_PRINT_FORMAT,
+                        db_dependencies.CUSTOMER_COLUMNS);
+            } else {
+                requestHandler.printQueryResult("SELECT * FROM " + db_dependencies.TABLE_NAMES[3] +
+                        " WHERE " + db_dependencies.CAR_REGISTRY_COLUMNS[7] + " = 0",
+                        db_dependencies.CAR_REGISTRY_COLUMNS,
+                        db_dependencies.CAR_REGISTRY_COLUMNS);
+            } // End of inner if-else statement
+        } // End of outer if statement
+    } // End of method
+
 
     // Invalid Print statements --------------------------------------------------
     public String invalidChoiceInput() {

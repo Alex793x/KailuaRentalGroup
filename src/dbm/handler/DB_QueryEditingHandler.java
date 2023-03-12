@@ -19,7 +19,7 @@ public class DB_QueryEditingHandler {
         ) {
             s.executeUpdate(query);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("Empty response");
         }
     }
 }

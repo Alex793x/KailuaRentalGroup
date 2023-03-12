@@ -100,7 +100,6 @@ public class DB_QueryRequestHandler {
                 ResultSet resultSet = statement.executeQuery(query);
         ) {
             while (resultSet.next()) {
-                System.out.println(resultSet.getObject(columnForID));
                 if (resultSet.getObject(columnForID).equals(valueID)) {
                     return true;
                 }
@@ -109,5 +108,26 @@ public class DB_QueryRequestHandler {
             System.out.println("Error with SQL Print request");
         } // End of try - catch block
         return false;
+    } // End of method
+
+    public boolean checkIfEmpty(String query) {
+        try (
+                Connection connection = DriverManager.getConnection(
+                        DB_Dependencies.getInstance().database_url,
+                        DB_Dependencies.getInstance().username,
+                        DB_Dependencies.getInstance().password
+                );
+
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+        ) {
+            if (resultSet.next()) {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error with SQL Print request");
+        } // End of try - catch block
+        return true;
     } // End of method
 }

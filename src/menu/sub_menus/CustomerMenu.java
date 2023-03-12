@@ -48,7 +48,7 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
                 ui.insertInto(
                         db_dependencies.CUSTOMER_COLUMNS,
                         requestHandler,
-                        db_dependencies.TABLE_NAMES[0],true) + ")";
+                        db_dependencies.TABLE_NAMES[0],true, false) + ")";
 
         editingHandler.insertQuery(sql);
     }
@@ -59,7 +59,7 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
         String query = "UPDATE customer_info " + "SET " +
                 ui.insertInto(db_dependencies.CUSTOMER_COLUMNS,
                         requestHandler,
-                        db_dependencies.TABLE_NAMES[0], false) +
+                        db_dependencies.TABLE_NAMES[0], false, false) +
                 " WHERE " + ui.chooseWhereOptions(db_dependencies.TABLE_NAMES[0],
                 db_dependencies.CUSTOMER_COLUMNS,requestHandler);
         System.out.println(query);

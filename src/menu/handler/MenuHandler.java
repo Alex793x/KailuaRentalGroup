@@ -8,24 +8,13 @@ import menu.sub_menus.*;
  */
 public class MenuHandler {
 
-    // Constructor ----------------------------------------------------------------
-    /**
-     * MenuHandler constructor
-     */
-    public MenuHandler() {
-
-    }
-
-
     // Menus being instantiated ----------------------------------------------------
-
     public MainMenu mainMenu = new MainMenu("MAIN MENU", new String[] {
             "1. Customers",
             "2. Car Registry",
             "3. Cars Properties",
             "4. Leasing agreement",
-            "5. Rental Service",
-            "6. Analysis",
+            "5. Analysis",
             "0. Exit"
     });
 
@@ -70,10 +59,4 @@ public class MenuHandler {
             "0. Return to main menu"
     });
 
-    public CarInfoMenu rentalServiceMenu = new CarInfoMenu("RENTAL SERVICE MENU", new String[] {
-            "1. ",
-            "2. ",
-            "3. ",
-            "4. "
-    });
 }
