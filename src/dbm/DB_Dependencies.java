@@ -7,7 +7,7 @@ public class DB_Dependencies {
     // Login / Connection Fields ---------------------------------------------------------
     public final String database_url = "jdbc:mysql://localhost:3306/kailua_rental";
     public final String username = "root";
-    public final String password = "Mfbz9yzxn";
+    public final String password = "Kww1jll###";
 
 
     // Table INFO and Dependencies ------------------------------------------------------
@@ -21,7 +21,7 @@ public class DB_Dependencies {
      * 4 = car_rental_groups
      */
     public final String[] TABLE_NAMES = {
-            "customer_info", "car_properties", "rental_registry", "car_registry", "car_rental_groups"
+            "customer_info", "car_properties", "rental_registry", "car_registry", "car_rental_group"
     };
 
 
@@ -43,6 +43,19 @@ public class DB_Dependencies {
             "availability", "car_properties_id", "car_isRented"
 
     };
+
+    public final String[] CAR_REGISTRY_CAR_RENTAL_JOIN_COLUMNS = {
+            "cr.car_registry_id","crg.car_rental_group_id", "crg.car_rental_group_name",
+            "ccm", "gear_type", "air_condition", "seat_type", "seat_amount",
+            "horsepower", "cruise_control", "odometer", "fuel_type","car_isRented"
+    };
+
+    public final String[] CAR_REGISTRY_CAR_RENTAL_JOIN_COLUMNS_PRINT = {
+            "Car Registry Id","Car Rental Group ID", "Car Rental Group Name",
+            "CCM", "Gear Type", "Air Condition", "Seat Type", "Seat Amount",
+            "Horsepower", "Cruise Control", "Odometer", "Fuel Type","Car Is Rented"
+    };
+
 
     /**
      * <p>The {@link #CAR_REGISTRY_COLUMN_PRINT_FORMAT} is simply a nicer formatting for the column names for printing purposes within the console

@@ -19,7 +19,7 @@ public class DB_QueryEditingHandler {
         ) {
             s.executeUpdate(query);
         } catch (SQLException e) {
-            System.out.println("Empty response");
+            System.out.println("Empty response" + e);
         }
     }
 }

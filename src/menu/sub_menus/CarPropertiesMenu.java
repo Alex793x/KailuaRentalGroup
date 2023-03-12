@@ -102,4 +102,6 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
             return sql + ", 3";
         } else return sql + ", 2";
     } // End of method
+
+
 }

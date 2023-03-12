@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 
 /**
@@ -269,6 +270,7 @@ public class UI {
      * @return Returns a filled out WHERE statement which can if amount of clauses > 1 define more than one column to express
      * search parameter for.
      */
+    
     public String chooseWhereOptions(String columnTable, String[] columnValues, DB_QueryRequestHandler requestHandler) {
         System.out.println("How many parameters do you wish to search for?: ");
         int amountOfClauses = readInteger();
@@ -296,6 +298,7 @@ public class UI {
         return whereClause.toString();
     } // End of method
 
+
     public void printForLeasingRegistry(boolean isRegistryMenu, String columnElement, DB_QueryRequestHandler requestHandler) {
         if(isRegistryMenu && (columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[0]) ||
                 columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[0]))) {
@@ -304,11 +307,17 @@ public class UI {
                  requestHandler.printQueryResult("SELECT * FROM " + db_dependencies.TABLE_NAMES[0],
                         db_dependencies.CUSTOMER_COLUMNS_PRINT_FORMAT,
                         db_dependencies.CUSTOMER_COLUMNS);
+
             } else {
-                requestHandler.printQueryResult("SELECT * FROM " + db_dependencies.TABLE_NAMES[3] +
-                        " WHERE " + db_dependencies.CAR_REGISTRY_COLUMNS[7] + " = 0",
-                        db_dependencies.CAR_REGISTRY_COLUMNS,
-                        db_dependencies.CAR_REGISTRY_COLUMNS);
+                requestHandler.printQueryResult("SELECT car_registry_id, crg.car_rental_group_id, crg.car_rental_group_name," +
+                                String.join(", ",Arrays.asList(db_dependencies.CAR_PROPERTIES_COLUMNS).subList(1,10)) +", car_isRented\n" +
+                                "        FROM car_rental_group crg\n" +
+                                "        JOIN car_properties USING(car_rental_group_id)\n" +
+                                "        JOIN car_registry USING (car_properties_id)\n" +
+                                "        WHERE crg.car_rental_group_id = " + getRentalGroup() +" AND NOT car_isRented;",
+                                db_dependencies.CAR_REGISTRY_CAR_RENTAL_JOIN_COLUMNS_PRINT,
+                                db_dependencies.CAR_REGISTRY_CAR_RENTAL_JOIN_COLUMNS);
+
             } // End of inner if-else statement
         } // End of outer if statement
     } // End of method
@@ -319,4 +328,22 @@ public class UI {
         return "Invalid input was given";
     }
 
+    private int getRentalGroup(){
+        while(true){
+            System.out.println("""
+                    Please choose -
+                    1. Luxury Car
+                    2. Family
+                    3. Sport""");
+
+            switch (readInteger()){
+                case 1 -> {return 1;}
+                case 2 -> {return 2;}
+                case 3 -> {return 3;}
+                default -> {
+                    System.out.println("Please choose a valid Rental Group");
+                }
+            }
+        }
+    }
 }
