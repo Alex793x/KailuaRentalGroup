@@ -155,60 +155,37 @@ public class DB_Dependencies {
 
     //Analysis section ---------------------------------------
     /**
-     * <p>The {@link #bestCustomerPrint} includes all columns within the database which is including within the table customer_info.</p>
+     * <p>The {@link #BEST_COSTUMER_PRINT} includes all columns within the database which is including within the table customer_info.</p>
      *
      * @implNote 0 = Customer Name <br>
      * 1 = Customer ID <br>
      * 2 = Total Days Rented <br>
      */
-    public final String[] bestCustomerPrint = {"Customer Name", "Customer ID", "Total Days Rented"};
+    public final String[] BEST_COSTUMER_PRINT = {"Customer Name", "Customer ID", "Total Days Rented"};
 
     /**
-     * <p>The {@link #BestCustomerDB} includes all columns within the database which is including within the table customer_info.</p>
+     * <p>The {@link #BEST_CUSTOMER_COLUMNS} includes all columns within the database which is including within the table customer_info.</p>
      *
      * @implNote 0 = customer_name <br>
      * 1 = customer_id <br>
      * 2 = total_days_rented <br>
      */
-    public final String[] BestCustomerDB = {"customer_name", "customer_id", "total_days_rented"};
+    public final String[] BEST_CUSTOMER_COLUMNS = {"customer_name", "customer_id", "total_days_rented"};
+
+
+    public final String[] SHOW_CITY_AND_CAR_INFO = {"cu.customer_city", "rg.rental_registry_id",
+            "cr.car_brand", "cr.car_model", "cp.gear_type", "crg.car_rental_group_name"};
+
+    public final String[] SHOW_CITY_AND_CAR_INFO_PRINT = {"Customer City", "Rental Registry ID",
+            "Car Brand", "Car Model", "Gear Type", "Rental Group Name"};
+
+
 
 
     // Rental Registry section --------------------------------------
-    /**
-     * <p>The {@link #RENTAL_REGISTRY_COLUMNS_FOR_JOINS} includes all columns within the database which is including within the table customer_info.</p>
-     *
-     * @implNote 0 = rental_registry.rental_registry_id <br>
-     * 1 = rental_registry.rental_start_date <br>
-     * 2 = rental_registry.rental_end_date <br>
-     * 3 = rental_registry.car_registry_id <br>
-     * 4 = rental_registry.customer_id <br>
-     */
-    public final String[] RENTAL_REGISTRY_COLUMNS_FOR_JOINS = {
-            "rental_registry.rental_registry_id", "rental_registry.rental_start_date", "rental_registry.rental_end_date"
-            , "rental_registry.car_registry_id", "rental_registry.customer_id"};
-
-    /**
-     * <p>The {@link #RENTAL_REGISTRY_COLUMNS_FOR_JOINS} includes all columns within the database which is including within the table customer_info.</p>
-     *
-     * @implNote 0 = rental_registry.rental_registry_id <br>
-     * 1 = rental_start_date <br>
-     * 2 = rental_end_date <br>
-     * 3 = car_registry_id <br>
-     * 4 = customer_id <br>
-     */
 
     public final String[] RENTAL_REGISTRY_COLUMNS = {
             "rental_registry_id", "rental_start_date", "rental_end_date", "car_registry_id", "customer_id"};
-
-    /**
-     * <p>The {@link #RENTAL_REGISTRY_COLUMNS_FOR_JOINS} includes all columns within the database which is including within the table customer_info.</p>
-     *
-     * @implNote 0 = Rental Registry ID <br>
-     * 1 = Rental Start Date <br>
-     * 2 = Rental End Date <br>
-     * 3 = Car Registry ID <br>
-     * 4 = Customer ID <br>
-     */
     public final String[] RENTAL_REGISTRY_COLUMNS_PRINT_FORMAT = {"Rental Registry ID", "Rental Start Date",
             "Rental End Date", "Car Registry ID", "Customer ID"};
 

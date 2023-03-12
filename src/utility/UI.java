@@ -4,6 +4,7 @@ import dbm.DB_Dependencies;
 import dbm.handler.DB_QueryRequestHandler;
 import menu.sub_menus.RentalRegistryMenu;
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.DateTimeException;
@@ -289,7 +290,7 @@ public class UI {
      * @return Returns a filled out WHERE statement which can if amount of clauses > 1 define more than one column to express
      * search parameter for.
      */
-    
+
     public String chooseWhereOptions(String columnTable, String[] columnValues, DB_QueryRequestHandler requestHandler) {
         System.out.println("How many parameters do you wish to search for?: ");
         int amountOfClauses = readInteger();
@@ -321,4 +322,10 @@ public class UI {
     public String invalidChoiceInput() {
         return "Invalid input was given";
     } // End of method
+
+
+    public String getCityName() {
+            System.out.println("Please write the name of the city you wish to find");
+            return input.nextLine();
+    }
 }

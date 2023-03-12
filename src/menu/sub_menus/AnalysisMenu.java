@@ -3,6 +3,7 @@ package menu.sub_menus;
 import dbm.DB_Dependencies;
 import dbm.handler.DB_QueryRequestHandler;
 import menu.Menu;
+import utility.UI;
 
 public class AnalysisMenu extends Menu {
     public AnalysisMenu(String menuHeader, String[] menuItems) {
@@ -24,8 +25,22 @@ public class AnalysisMenu extends Menu {
                 "total_days_rented DESC;";
         requestHandler.printQueryResult(
                 sql,
-                db_dependencies.bestCustomerPrint,
-                db_dependencies.BestCustomerDB);
+                db_dependencies.BEST_COSTUMER_PRINT,
+                db_dependencies.BEST_CUSTOMER_COLUMNS);
     } // End of method
+
+    public void showCityInfo(UI ui, DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
+        String sql = "SELECT cu.customer_city, rg.rental_registry_id, cr.car_brand, cr.car_model, cp.gear_type, crg.car_rental_group_name\n" +
+                "FROM customer_info cu\n" +
+                "JOIN rental_registry rg USING (customer_id)\n" +
+                "JOIN car_registry cr USING (car_registry_id)\n" +
+                "JOIN car_properties cp USING (car_properties_id) \n" +
+                "JOIN car_rental_group crg USING (car_rental_group_id) \n" +
+                "WHERE cu.customer_city = "+ "\""+ ui.getCityName() +"\"" +" \n" +
+                "ORDER BY crg.car_rental_group_name ASC";
+
+        requestHandler.printQueryResult(sql,db_dependencies.SHOW_CITY_AND_CAR_INFO_PRINT,db_dependencies.SHOW_CITY_AND_CAR_INFO);
+    }
+
 
 }

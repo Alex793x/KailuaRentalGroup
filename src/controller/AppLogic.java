@@ -131,8 +131,9 @@ public class AppLogic {
         while (isRunning) {
             menuHandler.analysisMenu.printMenu();
             switch (ui.readInteger()) {
-                case 1 -> menuHandler.analysisMenu.showTable(queryRequestHandler,db_dependencies);
-                case 0 -> isRunning = false;
+                case 1 -> {menuHandler.analysisMenu.showTable(queryRequestHandler,db_dependencies);}
+                case 4 -> {menuHandler.analysisMenu.showCityInfo(ui,queryRequestHandler,db_dependencies);}
+                case 0 -> {isRunning = false;}
                 default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case
         } // End of while loop
