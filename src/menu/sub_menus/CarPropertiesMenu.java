@@ -33,6 +33,7 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void showTableOrdered(DB_QueryRequestHandler requestHandler) {
+        UI ui = new UI();
         String sql = "SELECT * FROM " + db_dependencies.TABLE_NAMES[1] + " " +
                 "ORDER BY " + db_dependencies.CAR_PROPERTIES_COLUMNS[9] + " ASC";
 
@@ -58,7 +59,7 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void updateTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
-        String query = "UPDATE car_registry " + "SET " +
+        String query = "UPDATE car_properties " + "SET " +
                 ui.insertInto(db_dependencies.CAR_PROPERTIES_COLUMNS,
                         requestHandler, db_dependencies.TABLE_NAMES[1], false) +
 
@@ -72,11 +73,19 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
 
     @Override
     public void deleteFromTable(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
-        
+        System.out.println("Please enter Car registry ID to delete: ");
+        String query = "DELETE FROM car_properties " +
+                "WHERE " + db_dependencies.CAR_PROPERTIES_COLUMNS[0] + " = " + ui.readInteger() + ui.readLine();
+        editingHandler.insertQuery(query);
     }
 
-    @Override
-    public void alterTable() {
+    public void searchAndShowTable(DB_QueryRequestHandler requestHandler, UI ui) {
+        String query = "SELECT * FROM " + db_dependencies.TABLE_NAMES[1] + " " +
+                "WHERE " + ui.chooseWhereOptions(db_dependencies.TABLE_NAMES[1],
+                db_dependencies.CAR_PROPERTIES_COLUMNS, requestHandler) + " " +
+                "ORDER BY " + db_dependencies.CAR_PROPERTIES_COLUMNS[9];
 
+        requestHandler.printQueryResult(query, db_dependencies.CAR_PROPERTIES_PRINT_FORMAT,
+                db_dependencies.CAR_PROPERTIES_COLUMNS);
     }
 }

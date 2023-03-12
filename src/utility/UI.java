@@ -52,7 +52,9 @@ public class UI {
     public int readInteger() {
         while (true) {
             try {
-                return Integer.parseInt(input.next());
+                int intInput = input.nextInt();
+                input.nextLine();
+                return intInput;
             } catch (NumberFormatException e) {
                 System.out.println("An invalid input was given, please enter a number");
             } // End of try-catch block
@@ -77,6 +79,7 @@ public class UI {
     public String readNext() {
         while (true) {
             String readLine = input.next();
+            input.nextLine();
             if (!readLine.matches(".*\\d.*")) {
                 return readLine;
             } // End of if statement
@@ -88,7 +91,7 @@ public class UI {
         return input.nextLine();
     }
 
-    public String readRegistration() {
+    public String readLineWithNumbers() {
         return input.nextLine();
     }
 
@@ -111,7 +114,7 @@ public class UI {
     public double readDouble() {
         while (true) {
             try {
-                return Double.parseDouble(readNext());
+                return Double.parseDouble(input.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a valid double value");
             } // End of try-catch block
@@ -163,9 +166,6 @@ public class UI {
             boolean isStay = !isInsert && readStay("If the value shouldn't be changed for " + columnElement + " just type \"stay\", else type \"edit\": ");
 
             if (!isStay) {
-                if (!columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[7]) && isInsert) {
-                    System.out.print("Please enter value for " + columnElement + ": ");
-                }
                 String dataType = requestHandler.getColumnDataType(tableName, columnElement);
                 String columnValue = isInsert ? getInsertValue(columnElement, dataType) : getUpdateValue(columnElement, dataType);
 
@@ -195,14 +195,15 @@ public class UI {
         System.out.print("Please enter value for " + columnElement + ": ");
         if (columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[3]) ||
                 columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[2]) ||
+                columnElement.equals(db_dependencies.CAR_PROPERTIES_COLUMNS[1]) ||
                 columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[5])) {
-            return "'" + readRegistration() + "'";
+            return "'" + readLineWithNumbers() + "'";
         } else {
             switch (dataType) {
-                case "int" -> {return readInteger() + input.nextLine();}        // Scanner bug
+                case "int" -> {return readInteger()+ "";}        // Scanner bug
                 case "varchar" -> {return "'" + readLine() + "'";}
                 case "date" -> {return "'" + readDate() + "'";}
-                case "tinyint" -> {return columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[7]) ? "false" : String.valueOf(readBoolean());}
+                case "tinyint" -> {return readBoolean() + ";";}
                 case "double" -> {return String.valueOf(readDouble());}
                 default -> {
                     System.out.println("Error: Unsupported data type " + dataType);
@@ -230,9 +231,10 @@ public class UI {
         System.out.print("Please enter value for " + columnElement + ": ");
         if (columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[3]) ||
                 columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[2]) ||
+                columnElement.equals(db_dependencies.CAR_PROPERTIES_COLUMNS[1]) ||
                 columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[5])) {
 
-            return columnElement + " = '" + readRegistration();
+            return columnElement + " = '" + readLineWithNumbers();
 
         } else {
             switch (dataType) {
@@ -260,18 +262,20 @@ public class UI {
      * search parameter for.
      */
     public String chooseWhereOptions(String columnTable, String[] columnValues, DB_QueryRequestHandler requestHandler) {
-        System.out.println("How many clauses, do you want to search parameters for?: ");
+        System.out.println("How many parameters do you wish to search for?: ");
         int amountOfClauses = readInteger();
+
         StringBuilder whereClause = new StringBuilder();
-        for (int i = 0; i < amountOfClauses; i++) {
+
+        for (int i = amountOfClauses; i > 0; i--) {
             AtomicInteger count = new AtomicInteger(1);
             System.out.println("Please enter what specific search parameter you want to change for: ");
-            Arrays.stream(columnValues).skip(1).forEach(value -> {
+            Arrays.stream(columnValues).forEach(value -> {
                 System.out.println(count.getAndIncrement() + ": " + value);
             });
 
             System.out.println();
-            String columnValue = columnValues[readInteger()] + input.nextLine(); // Scanner bug
+            String columnValue = columnValues[readInteger() - 1] +""; // Scanner bug
             String dataType = requestHandler.getColumnDataType(columnTable, columnValue);
             whereClause.append(columnValue).append(" = ").append(getInsertValue(columnValue, dataType));
 
