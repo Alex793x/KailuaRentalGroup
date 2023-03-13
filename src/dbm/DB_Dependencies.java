@@ -7,7 +7,7 @@ public class DB_Dependencies {
     // Login / Connection Fields ---------------------------------------------------------
     public final String database_url = "jdbc:mysql://localhost:3306/kailua_rental";
     public final String username = "root";
-    public final String password = "Mfbz9yzxn";
+    public final String password = "Kww1jll###";
 
 
     // Table INFO and Dependencies ------------------------------------------------------
@@ -210,6 +210,24 @@ public class DB_Dependencies {
      * 2 = car_properties_id <br>
      */
     public final String[] CAR_RENTAL_GROUPS_COLUMNS = {"car_rental_group_id", "car_rental_group_name", "car_properties_id"};
+
+
+    // Update rented cars to no longer rented---------------------------------------------
+    public String setCarToIsRented = "UPDATE car_registry \n" +
+            "SET car_isRented = 1 \n" +
+            "WHERE car_registry.car_registry_id IN \n" +
+            "(SELECT rental_registry.car_registry_id \n" +
+            "FROM rental_registry \n" +
+            "WHERE rental_registry.car_registry_id = car_registry.car_registry_id \n" +
+            "AND rental_registry.rental_end_date < CURDATE() AND rental_registry.rental_start_date >= CURDATE());";
+
+
+    public final String[] JOIN_FOR_CAR_ISRENTED = {"cu.customer_id", "cu.customer_name", "cu.customer_phone",
+            "cu.customer_email", "cr.car_registry_id", "cr.car_brand", "rg.rental_registry_id", "rg.rental_start_date", "rg.rental_end_date"};
+
+    public final String[] JOIN_FOR_CAR_ISRENTED_PRINT = {"Customer ID", "Customer Name", "Customer Phone",
+            "Customer Email", "Car Registry ID", "Car Brand",
+            "Rental Registry ID", "Rental Start Date", "Rental End Date"};
 
 
     // Constructor -----------------------------------------------------------------------

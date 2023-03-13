@@ -85,18 +85,4 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
                 db_dependencies.CAR_PROPERTIES_COLUMNS);
     } // End of method
 
-    private String getGroupType(UI ui, DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies){
-        String sql = ui.insertInto(db_dependencies.CAR_PROPERTIES_COLUMNS,
-                requestHandler,
-                db_dependencies.TABLE_NAMES[1], true, false);
-
-        String[] sqlCheck = sql.split(",");
-        if (sqlCheck[2].equalsIgnoreCase("Automatic")){
-            return sql + ", 1";
-        } else if(Integer.parseInt(sqlCheck[6])>200 && Integer.parseInt(sqlCheck[5])<=5) {
-            return sql + ", 3";
-        } else return sql + ", 2";
-    } // End of method
-
-
 }

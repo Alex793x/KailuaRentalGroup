@@ -6,6 +6,7 @@ import dbm.handler.DB_QueryRequestHandler;
 import dbm.interfaces.query_interfaces.DBStandardQueries;
 import menu.Menu;
 import utility.UI;
+
 import java.util.Arrays;
 
 public class RentalRegistryMenu extends Menu implements DBStandardQueries {
@@ -82,10 +83,10 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
 
     }
 
-    public static void getAvailableCarsByGroup(boolean isRegistryMenu,String columnElement, DB_Dependencies db_dependencies,
+    public static void getAvailableCarsByGroup(boolean isRegistryMenu, String columnElement, DB_Dependencies db_dependencies,
                                                DB_QueryRequestHandler requestHandler, UI ui) {
 
-        if(isRegistryMenu && (columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[0]) ||
+        if (isRegistryMenu && (columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[0]) ||
                 columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[0]))) {
 
             if (columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[0])) {
@@ -106,6 +107,27 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
             } // End of inner if-else statement
         } // End of outer if statement
     } // End of method
+
+    public void returnRentedCar(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
+        requestHandler.printQueryResult("SELECT cu.customer_id, cu.customer_name, cu.customer_phone, " +
+                        "cu.customer_email, cr.car_registry_id, cr.car_brand,rg.rental_registry_id, " +
+                        "rg.rental_start_date, rg.rental_end_date\n" +
+                        "FROM customer_info cu\n" +
+                        "JOIN rental_registry rg USING (customer_id)\n" +
+                        "JOIN car_registry cr USING (car_registry_id)\n" +
+                        "WHERE cr.car_isRented = 1;",
+                DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED_PRINT,
+                DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED);
+
+        System.out.print("Please enter car ID for rented car to return: ");
+        editingHandler.insertQuery("UPDATE car_registry \n" +
+                "SET car_isRented = 0, rg.rental" +
+                "WHERE car_registry.car_registry_id IN \n" +
+                "(SELECT rental_registry.car_registry_id \n" +
+                "FROM rental_registry \n" +
+                "WHERE rental_registry.car_registry_id = " + ui.readInteger() + " \n" +
+                "AND rental_registry.rental_end_date > CURDATE() AND rental_registry.rental_start_date <= CURDATE());");
+    }
 
     private boolean isCarsAvailable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         if (requestHandler.checkIfEmpty("SELECT * FROM " + db_dependencies.TABLE_NAMES[3] +

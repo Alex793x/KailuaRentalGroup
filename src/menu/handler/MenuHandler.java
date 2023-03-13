@@ -57,6 +57,7 @@ public class MenuHandler {
             "2. Show all leasing agreements ordered",
             "3. Add new leasing agreement",
             "4. Edit leasing agreement",
+            "5. Return car",
             "0. Return to main menu"
     });
 
