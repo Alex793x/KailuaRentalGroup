@@ -7,6 +7,9 @@ import utility.UI;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DB_QueryRequestHandler {
 
@@ -147,4 +150,29 @@ public class DB_QueryRequestHandler {
         } // End of try - catch block
         return true;
     } // End of method
+
+    public ArrayList<Integer> getAllIDs(String query, String columnName) {
+        ArrayList<Integer> iDs = new ArrayList<>();
+        try (
+                Connection connection = DriverManager.getConnection(
+                        DB_Dependencies.getInstance().database_url,
+                        DB_Dependencies.getInstance().username,
+                        DB_Dependencies.getInstance().password
+                );
+
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+        ) {
+            while (resultSet.next()) {
+                iDs.add((Integer) resultSet.getObject(columnName));
+            }
+            for (Integer x : iDs) {
+                System.out.print(", " + x);
+            }
+            return iDs;
+        } catch (SQLException e) {
+            System.out.println("Error with SQL Print request " + e);
+        } // End of try - catch block
+        return iDs;
+    }
 }

@@ -222,12 +222,11 @@ public class DB_Dependencies {
             "AND rental_registry.rental_end_date < CURDATE() AND rental_registry.rental_start_date >= CURDATE());";
 
 
-    public final String[] JOIN_FOR_CAR_ISRENTED = {"cu.customer_id", "cu.customer_name", "cu.customer_phone",
-            "cu.customer_email", "cr.car_registry_id", "cr.car_brand", "rg.rental_registry_id", "rg.rental_start_date", "rg.rental_end_date"};
+    public final String[] JOIN_FOR_CAR_ISRENTED = {"cr.car_registry_id","cu.customer_id", "cu.customer_name", "cu.customer_phone",
+            "cu.customer_email", "cr.car_brand", "rg.rental_start_date", "rg.rental_registry_id","rg.rental_end_date"};
 
-    public final String[] JOIN_FOR_CAR_ISRENTED_PRINT = {"Customer ID", "Customer Name", "Customer Phone",
-            "Customer Email", "Car Registry ID", "Car Brand",
-            "Rental Registry ID", "Rental Start Date", "Rental End Date"};
+    public final String[] JOIN_FOR_CAR_ISRENTED_PRINT = {"Car Registry ID","Customer ID", "Customer Name", "Customer Phone",
+            "Customer Email", "Car Brand","Rental Start Date","Rental Registry ID" ,"Rental End Date"};
 
 
     // Constructor -----------------------------------------------------------------------

@@ -7,6 +7,7 @@ import dbm.interfaces.query_interfaces.DBStandardQueries;
 import menu.Menu;
 import utility.UI;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class RentalRegistryMenu extends Menu implements DBStandardQueries {
@@ -109,8 +110,8 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
     } // End of method
 
     public void returnRentedCar(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
-        requestHandler.printQueryResult("SELECT cu.customer_id, cu.customer_name, cu.customer_phone, " +
-                        "cu.customer_email, cr.car_registry_id, cr.car_brand,rg.rental_registry_id, " +
+        requestHandler.printQueryResult("SELECT cr.car_registry_id,cu.customer_id, cu.customer_name, cu.customer_phone, " +
+                        "cu.customer_email,rg.rental_registry_id, cr.car_brand, " +
                         "rg.rental_start_date, rg.rental_end_date\n" +
                         "FROM customer_info cu\n" +
                         "JOIN rental_registry rg USING (customer_id)\n" +
@@ -118,15 +119,19 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
                         "WHERE cr.car_isRented = 1;",
                 DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED_PRINT,
                 DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED);
-
+        ArrayList<Integer> possibleIDS = requestHandler.getAllIDs("SELECT car_registry_id " +
+                "FROM car_registry cr\n" +
+                "WHERE cr.car_isRented = 1;", "car_registry_id");
         System.out.print("Please enter car ID for rented car to return: ");
-        editingHandler.insertQuery("UPDATE car_registry \n" +
-                "SET car_isRented = 0, rg.rental" +
-                "WHERE car_registry.car_registry_id IN \n" +
-                "(SELECT rental_registry.car_registry_id \n" +
-                "FROM rental_registry \n" +
-                "WHERE rental_registry.car_registry_id = " + ui.readInteger() + " \n" +
-                "AND rental_registry.rental_end_date > CURDATE() AND rental_registry.rental_start_date <= CURDATE());");
+        int carID = ui.readInteger();
+        if (possibleIDS.contains(carID)) {
+            editingHandler.insertQuery("UPDATE car_registry\n" +
+                    "JOIN rental_registry USING (car_registry_id)\n" +
+                    "SET car_isRented = 0, rental_registry.rental_end_date = CURDATE()\n" +
+                    "WHERE " + carID + " = rental_registry.rental_registry_id");
+        } else {
+            System.out.println("The car ID you wrote is not possible to return...");
+        }
     }
 
     private boolean isCarsAvailable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
