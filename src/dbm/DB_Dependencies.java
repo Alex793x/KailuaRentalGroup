@@ -11,7 +11,7 @@ public class DB_Dependencies {
     // Login / Connection Fields ---------------------------------------------------------
     public final String database_url = "jdbc:mysql://localhost:3306/kailua_rental";
     public final String username = "root";
-    public final String password = "Mfbz9yzxn";
+    public final String password = "Kww1jll###";
 
 
     // Table INFO and Dependencies ------------------------------------------------------
@@ -130,6 +130,33 @@ public class DB_Dependencies {
 
     public final String[] RENTAL_REGISTRY_COLUMNS = {
             "rental_registry_id", "rental_start_date", "rental_end_date", "car_registry_id", "customer_id"};
+
+
+    // Update rented cars to no longer rented---------------------------------------------
+    public String setCarToIsRented = "UPDATE car_registry \n" +
+            "SET car_isRented = 1 \n" +
+            "WHERE car_registry.car_registry_id IN \n" +
+            "(SELECT rental_registry.car_registry_id \n" +
+            "FROM rental_registry \n" +
+            "WHERE rental_registry.car_registry_id = car_registry.car_registry_id \n" +
+            "AND rental_registry.rental_end_date < CURDATE() AND rental_registry.rental_start_date >= CURDATE());";
+
+
+    public final String[] JOIN_FOR_CAR_ISRENTED = {"cr.car_registry_id","cu.customer_id", "cu.customer_name", "cu.customer_phone",
+            "cu.customer_email", "cr.car_brand", "rg.rental_start_date", "rg.rental_registry_id","rg.rental_end_date"};
+
+
+    public final String[] JOIN_FOR_CAR_ISRENTED_PRINT = {"Car Registry ID","Customer ID", "Customer Name", "Customer Phone",
+            "Customer Email", "Car Brand","Rental Start Date","Rental Registry ID" ,"Rental End Date"};
+
+    public final String[] JOIN_FOR_CAR_ISRENTED_W_OVERDUE = {"cr.car_registry_id","days_overdue","cu.customer_id", "cu.customer_name", "cu.customer_phone",
+            "cu.customer_email", "cr.car_brand", "rg.rental_start_date", "rg.rental_registry_id","rg.rental_end_date" };
+
+
+    public final String[] JOIN_FOR_CAR_ISRENTED_W_OVERDUE_PRINT = {"Car Registry ID","Days Overdue","Customer ID", "Customer Name", "Customer Phone",
+            "Customer Email", "Car Brand","Rental Start Date","Rental Registry ID" ,"Rental End Date" };
+
+
 
 
     // Constructor -----------------------------------------------------------------------

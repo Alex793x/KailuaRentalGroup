@@ -6,6 +6,8 @@ import dbm.handler.DB_QueryRequestHandler;
 import dbm.interfaces.query_interfaces.DBStandardQueries;
 import menu.Menu;
 import utility.UI;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class RentalRegistryMenu extends Menu implements DBStandardQueries {
@@ -83,10 +85,10 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
 
     }
 
-    public static void getAvailableCarsByGroup(boolean isRegistryMenu,String columnElement, DB_Dependencies db_dependencies,
+    public static void getAvailableCarsByGroup(boolean isRegistryMenu, String columnElement, DB_Dependencies db_dependencies,
                                                DB_QueryRequestHandler requestHandler, UI ui) {
 
-        if(isRegistryMenu && (columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[0]) ||
+        if (isRegistryMenu && (columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[0]) ||
                 columnElement.equals(db_dependencies.CAR_REGISTRY_COLUMNS[0]))) {
 
             if (columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[0])) {
@@ -108,6 +110,46 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
         } // End of outer if statement
     } // End of method
 
+    public void returnRentedCar(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
+        requestHandler.printQueryResult("SELECT cr.car_registry_id,cu.customer_id, cu.customer_name, cu.customer_phone, " +
+                        "cu.customer_email,rg.rental_registry_id, cr.car_brand, " +
+                        "rg.rental_start_date, rg.rental_end_date\n" +
+                        "FROM customer_info cu\n" +
+                        "JOIN rental_registry rg USING (customer_id)\n" +
+                        "JOIN car_registry cr USING (car_registry_id)\n" +
+                        "WHERE cr.car_isRented = 1;",
+                DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED_PRINT,
+                DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED);
+        ArrayList<Integer> possibleIDS = requestHandler.getAllIDs("SELECT car_registry_id " +
+                "FROM car_registry cr\n" +
+                "WHERE cr.car_isRented = 1;", "car_registry_id");
+        System.out.print("Please enter car ID for rented car to return: ");
+        int carID = ui.readInteger();
+        if (possibleIDS.contains(carID)) {
+            editingHandler.insertQuery("UPDATE car_registry\n" +
+                    "JOIN rental_registry USING (car_registry_id)\n" +
+                    "SET car_isRented = 0, rental_registry.rental_end_date = CURDATE()\n" +
+                    "WHERE " + carID + " = rental_registry.rental_registry_id");
+        } else {
+            System.out.println("The car ID you wrote is not possible to return...");
+        }
+    }
+
+    public void showOverdueCarRent(DB_QueryRequestHandler requestHandler) {
+        requestHandler.printQueryResult("SELECT cu.customer_id, DATEDIFF( CURDATE(), " +
+                        "rg.rental_end_date) AS days_overdue, cu.customer_name, " +
+                        "cu.customer_phone, cu.customer_email, cr.car_registry_id, " +
+                        "cr.car_brand,rg.rental_registry_id, rg.rental_start_date, " +
+                        "rg.rental_end_date " +
+                "FROM customer_info cu " +
+                "JOIN rental_registry rg USING (customer_id) " +
+                "JOIN car_registry cr USING (car_registry_id) " +
+                "WHERE rg.rental_end_date < CURDATE() AND cr.car_isRented = 1 " +
+                "ORDER BY days_overdue DESC;",
+                DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED_W_OVERDUE_PRINT,
+                DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED_W_OVERDUE);
+    }
+
     private boolean isCarsAvailable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         if (requestHandler.checkIfEmpty("SELECT * FROM " + db_dependencies.TABLE_NAMES[3] +
                 " WHERE " + db_dependencies.CAR_REGISTRY_COLUMNS[7] + " = 0")) {
@@ -117,6 +159,5 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
             return true;
         } // End of if-else statement
     } // End of method
-
 
 }

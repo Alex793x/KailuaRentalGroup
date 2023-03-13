@@ -50,6 +50,9 @@ public class AppLogic {
         while (isRunning) {
             menuHandler.mainMenu.printMenu();
 
+            // This method updates isRented on all cars which rental_end_date has been surpassed.
+            editingHandler.insertQuery(db_dependencies.setCarToIsRented);
+
             switch (ui.readInteger()) {
                 case 1 -> runCustomerMenu();
                 case 2 -> runCarRegistryMenu();
@@ -88,6 +91,8 @@ public class AppLogic {
                 case 2 -> menuHandler.rentalRegistryMenu.showTableOrdered(queryRequestHandler,db_dependencies);
                 case 3 -> menuHandler.rentalRegistryMenu.insertToTable(editingHandler,queryRequestHandler,ui,db_dependencies);
                 case 4 -> menuHandler.rentalRegistryMenu.updateTable(editingHandler,queryRequestHandler,ui,db_dependencies);
+                case 5 -> menuHandler.rentalRegistryMenu.returnRentedCar(editingHandler, queryRequestHandler, ui);
+                case 6 -> menuHandler.rentalRegistryMenu.showOverdueCarRent(queryRequestHandler);
                 case 0 -> isRunning = false;
                 default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case
@@ -138,5 +143,6 @@ public class AppLogic {
             } // End of switch case
         } // End of while loop
     } // End of method
+
 
 }
