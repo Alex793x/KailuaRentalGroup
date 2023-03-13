@@ -1,8 +1,6 @@
 package dbm;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class DB_Dependencies {
 
@@ -11,7 +9,7 @@ public class DB_Dependencies {
     // Login / Connection Fields ---------------------------------------------------------
     public final String database_url = "jdbc:mysql://localhost:3306/kailua_rental";
     public final String username = "root";
-    public final String password = "Kww1jll###";
+    public final String password = "Mfbz9yzxn";
 
 
     // Table INFO and Dependencies ------------------------------------------------------
@@ -44,14 +42,14 @@ public class DB_Dependencies {
      */
     public final String[] CAR_REGISTRY_COLUMNS = {
             "car_registry_id", "car_brand", "car_model", "registration_number", "first_registration",
-            "availability", "car_properties_id", "car_isRented"
+            "availability", "car_properties_id", "is_car_rented"
 
     };
 
     public final String[] CAR_REGISTRY_CAR_RENTAL_JOIN_COLUMNS = {
             "cr.car_registry_id","crg.car_rental_group_id", "crg.car_rental_group_name",
             "ccm", "gear_type", "air_condition", "seat_type", "seat_amount",
-            "horsepower", "cruise_control", "odometer", "fuel_type","car_isRented"
+            "horsepower", "cruise_control", "odometer", "fuel_type","is_car_rented"
     };
 
     public final String[] CAR_REGISTRY_CAR_RENTAL_JOIN_COLUMNS_PRINT = {
@@ -134,7 +132,7 @@ public class DB_Dependencies {
 
     // Update rented cars to no longer rented---------------------------------------------
     public String setCarToIsRented = "UPDATE car_registry \n" +
-            "SET car_isRented = 1 \n" +
+            "SET is_car_rented = 1 \n" +
             "WHERE car_registry.car_registry_id IN \n" +
             "(SELECT rental_registry.car_registry_id \n" +
             "FROM rental_registry \n" +
@@ -173,7 +171,7 @@ public class DB_Dependencies {
 
 
     // Print method for columns ----------------------------------------------------------
-    public String[] printFormat2(String[] columnArray) {
+    public String[] printFormat(String[] columnArray) {
         return Arrays.stream(columnArray)
                 .map(columnValue -> columnValue.replace("_", " "))
                 .map(columnValue -> {

@@ -25,7 +25,7 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
         String sql = "SELECT * FROM " + db_dependencies.TABLE_NAMES[3];
         requestHandler.printQueryResult(
                 sql,
-                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[3])),
+                db_dependencies.printFormat(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[3])),
                 requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[3]));
     } // End of method
 
@@ -37,7 +37,7 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
 
         requestHandler.printQueryResult(
                 sql,
-                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[3])),
+                db_dependencies.printFormat(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[3])),
                 requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1]));
     } // End of method
 

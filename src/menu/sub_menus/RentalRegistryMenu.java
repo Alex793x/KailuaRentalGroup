@@ -24,7 +24,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
         String sql = "SELECT * FROM " + db_dependencies.TABLE_NAMES[2];
         requestHandler.printQueryResult(
                 sql,
-                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2])),
+                db_dependencies.printFormat(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2])),
                 requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2]));
 
     }
@@ -37,7 +37,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
 
         requestHandler.printQueryResult(
                 sql,
-                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2])),
+                db_dependencies.printFormat(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2])),
                 requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2]));
     }
 
@@ -93,7 +93,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
 
             if (columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[0])) {
                 requestHandler.printQueryResult("SELECT * FROM " + db_dependencies.TABLE_NAMES[0],
-                        db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0])),
+                        db_dependencies.printFormat(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0])),
                         requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0]));
 
             } else {
@@ -102,7 +102,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
                                 "        FROM car_rental_group crg\n" +
                                 "        JOIN car_properties USING(car_rental_group_id)\n" +
                                 "        JOIN car_registry USING (car_properties_id)\n" +
-                                "        WHERE crg.car_rental_group_id = " + ui.getRentalGroup() + " AND NOT car_isRented;",
+                                "        WHERE crg.car_rental_group_id = " + ui.getRentalGroup() + " AND NOT is_car_rented;",
                         db_dependencies.CAR_REGISTRY_CAR_RENTAL_JOIN_COLUMNS_PRINT,
                         db_dependencies.CAR_REGISTRY_CAR_RENTAL_JOIN_COLUMNS);
 
@@ -117,18 +117,18 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
                         "FROM customer_info cu\n" +
                         "JOIN rental_registry rg USING (customer_id)\n" +
                         "JOIN car_registry cr USING (car_registry_id)\n" +
-                        "WHERE cr.car_isRented = 1;",
+                        "WHERE cr.is_car_rented = 1;",
                 DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED_PRINT,
                 DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED);
         ArrayList<Integer> possibleIDS = requestHandler.getAllIDs("SELECT car_registry_id " +
                 "FROM car_registry cr\n" +
-                "WHERE cr.car_isRented = 1;", "car_registry_id");
+                "WHERE cr.is_car_rented = 1;", "car_registry_id");
         System.out.print("Please enter car ID for rented car to return: ");
         int carID = ui.readInteger();
         if (possibleIDS.contains(carID)) {
             editingHandler.insertQuery("UPDATE car_registry\n" +
                     "JOIN rental_registry USING (car_registry_id)\n" +
-                    "SET car_isRented = 0, rental_registry.rental_end_date = CURDATE()\n" +
+                    "SET is_car_rented = 0, rental_registry.rental_end_date = CURDATE()\n" +
                     "WHERE " + carID + " = rental_registry.rental_registry_id");
         } else {
             System.out.println("The car ID you wrote is not possible to return...");
@@ -144,7 +144,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
                 "FROM customer_info cu " +
                 "JOIN rental_registry rg USING (customer_id) " +
                 "JOIN car_registry cr USING (car_registry_id) " +
-                "WHERE rg.rental_end_date < CURDATE() AND cr.car_isRented = 1 " +
+                "WHERE rg.rental_end_date < CURDATE() AND cr.is_car_rented = 1 " +
                 "ORDER BY days_overdue DESC;",
                 DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED_W_OVERDUE_PRINT,
                 DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED_W_OVERDUE);

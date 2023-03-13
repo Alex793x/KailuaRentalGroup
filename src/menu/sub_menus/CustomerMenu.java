@@ -23,7 +23,7 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
     public void showTable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         String query = "SELECT * FROM customer_info;";
         requestHandler.printQueryResult(query,
-                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0])),
+                db_dependencies.printFormat(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0])),
                 requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0]));
     }
 
@@ -31,7 +31,7 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
     public void showTableOrdered(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         String query = "SELECT * FROM customer_info ORDER BY customer_name;";
         requestHandler.printQueryResult(query,
-                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0])),
+                db_dependencies.printFormat(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0])),
                 requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0]));
     }
 

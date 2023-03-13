@@ -21,7 +21,7 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
         String sql = "SELECT * FROM " + db_dependencies.TABLE_NAMES[1];
 
         requestHandler.printQueryResult(sql,
-                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1])),
+                db_dependencies.printFormat(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1])),
                 requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1]));
     } // End of method
 
@@ -31,7 +31,7 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
                 "ORDER BY " + db_dependencies.CAR_PROPERTIES_COLUMNS[9] + " ASC";
 
         requestHandler.printQueryResult(sql,
-                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1])),
+                db_dependencies.printFormat(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1])),
                 requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1]));
     } // End of method
 
@@ -85,7 +85,7 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
                 "ORDER BY " + db_dependencies.CAR_PROPERTIES_COLUMNS[9];
 
         requestHandler.printQueryResult(query,
-                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1])),
+                db_dependencies.printFormat(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1])),
                 requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1]));
     } // End of method
 
