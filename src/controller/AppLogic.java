@@ -92,6 +92,7 @@ public class AppLogic {
                 case 3 -> menuHandler.rentalRegistryMenu.insertToTable(editingHandler,queryRequestHandler,ui,db_dependencies);
                 case 4 -> menuHandler.rentalRegistryMenu.updateTable(editingHandler,queryRequestHandler,ui,db_dependencies);
                 case 5 -> menuHandler.rentalRegistryMenu.returnRentedCar(editingHandler, queryRequestHandler, ui);
+                case 6 -> menuHandler.rentalRegistryMenu.showOverdueCarRent(queryRequestHandler);
                 case 0 -> isRunning = false;
                 default -> System.out.println(ui.invalidChoiceInput());
             } // End of switch case

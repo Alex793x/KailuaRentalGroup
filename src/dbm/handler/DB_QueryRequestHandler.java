@@ -166,9 +166,6 @@ public class DB_QueryRequestHandler {
             while (resultSet.next()) {
                 iDs.add((Integer) resultSet.getObject(columnName));
             }
-            for (Integer x : iDs) {
-                System.out.print(", " + x);
-            }
             return iDs;
         } catch (SQLException e) {
             System.out.println("Error with SQL Print request " + e);

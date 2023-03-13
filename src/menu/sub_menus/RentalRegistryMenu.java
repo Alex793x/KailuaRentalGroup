@@ -134,6 +134,21 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
         }
     }
 
+    public void showOverdueCarRent(DB_QueryRequestHandler requestHandler) {
+        requestHandler.printQueryResult("SELECT cu.customer_id, DATEDIFF( CURDATE(), " +
+                        "rg.rental_end_date) AS days_overdue, cu.customer_name, " +
+                        "cu.customer_phone, cu.customer_email, cr.car_registry_id, " +
+                        "cr.car_brand,rg.rental_registry_id, rg.rental_start_date, " +
+                        "rg.rental_end_date " +
+                "FROM customer_info cu " +
+                "JOIN rental_registry rg USING (customer_id) " +
+                "JOIN car_registry cr USING (car_registry_id) " +
+                "WHERE rg.rental_end_date < CURDATE() AND cr.car_isRented = 1 " +
+                "ORDER BY days_overdue DESC;",
+                DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED_W_OVERDUE_PRINT,
+                DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED_W_OVERDUE);
+    }
+
     private boolean isCarsAvailable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         if (requestHandler.checkIfEmpty("SELECT * FROM " + db_dependencies.TABLE_NAMES[3] +
                 " WHERE " + db_dependencies.CAR_REGISTRY_COLUMNS[7] + " = 0")) {
@@ -143,6 +158,5 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
             return true;
         } // End of if-else statement
     } // End of method
-
 
 }
