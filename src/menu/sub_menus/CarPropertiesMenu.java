@@ -21,8 +21,8 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
         String sql = "SELECT * FROM " + db_dependencies.TABLE_NAMES[1];
 
         requestHandler.printQueryResult(sql,
-                db_dependencies.CAR_PROPERTIES_PRINT_FORMAT,
-                db_dependencies.CAR_PROPERTIES_COLUMNS);
+                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1])),
+                requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1]));
     } // End of method
 
     @Override
@@ -31,8 +31,8 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
                 "ORDER BY " + db_dependencies.CAR_PROPERTIES_COLUMNS[9] + " ASC";
 
         requestHandler.printQueryResult(sql,
-                db_dependencies.CAR_PROPERTIES_PRINT_FORMAT,
-                db_dependencies.CAR_PROPERTIES_COLUMNS);
+                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1])),
+                requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1]));
     } // End of method
 
     @Override
@@ -44,7 +44,7 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
         String insertPropertiesSQL = "INSERT INTO " + db_dependencies.TABLE_NAMES[1] + " " +
                 "(" + selectCarPropertySelection + ") \n" +
                 "VALUES (" +
-                ui.insertInto(db_dependencies.CAR_PROPERTIES_COLUMNS,
+                ui.insertInto(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1]),
                         requestHandler,
                         db_dependencies.TABLE_NAMES[1], true, false) + ")";
 
@@ -55,11 +55,12 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
     public void updateTable(DB_QueryEditingHandler editingHandler,
                             DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
         String query = "UPDATE car_properties " + "SET " +
-                ui.insertInto(db_dependencies.CAR_PROPERTIES_COLUMNS,
+                ui.insertInto(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1]),
                         requestHandler, db_dependencies.TABLE_NAMES[1], false, false) +
 
                 " WHERE " + ui.chooseWhereOptions(
-                db_dependencies.TABLE_NAMES[1], db_dependencies.CAR_PROPERTIES_COLUMNS,
+                db_dependencies.TABLE_NAMES[1],
+                requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1]),
                 requestHandler) + ";";
 
         System.out.println(query);
@@ -77,13 +78,17 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
 
     public void searchAndShowTable(DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
         String query = "SELECT * FROM " + db_dependencies.TABLE_NAMES[1] + " " +
-                "WHERE " + ui.chooseWhereOptions(db_dependencies.TABLE_NAMES[1],
-                db_dependencies.CAR_PROPERTIES_COLUMNS, requestHandler) + " " +
+                "WHERE " + ui.chooseWhereOptions(
+                        db_dependencies.TABLE_NAMES[1],
+                requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1]),
+                requestHandler) + " " +
                 "ORDER BY " + db_dependencies.CAR_PROPERTIES_COLUMNS[9];
 
-        requestHandler.printQueryResult(query, db_dependencies.CAR_PROPERTIES_PRINT_FORMAT,
-                db_dependencies.CAR_PROPERTIES_COLUMNS);
+        requestHandler.printQueryResult(query,
+                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1])),
+                requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1]));
     } // End of method
+
 
     private String getGroupType(UI ui, DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies){
         String sql = ui.insertInto(db_dependencies.CAR_PROPERTIES_COLUMNS,

@@ -22,15 +22,17 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
     @Override
     public void showTable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         String query = "SELECT * FROM customer_info;";
-        requestHandler.printQueryResult(query, db_dependencies.CUSTOMER_COLUMNS_PRINT_FORMAT,
-                db_dependencies.CUSTOMER_COLUMNS);
+        requestHandler.printQueryResult(query,
+                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0])),
+                requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0]));
     }
 
     @Override
     public void showTableOrdered(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         String query = "SELECT * FROM customer_info ORDER BY customer_name;";
-        requestHandler.printQueryResult(query, db_dependencies.CUSTOMER_COLUMNS_PRINT_FORMAT,
-                db_dependencies.CUSTOMER_COLUMNS);
+        requestHandler.printQueryResult(query,
+                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0])),
+                requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0]));
     }
 
 
@@ -45,7 +47,7 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
                 "(" + selectSection + ") \n" +
                 "VALUES (" +
                 ui.insertInto(
-                        db_dependencies.CUSTOMER_COLUMNS,
+                        requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0]),
                         requestHandler,
                         db_dependencies.TABLE_NAMES[0],true, false) + ")";
 
@@ -59,8 +61,10 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
                 ui.insertInto(db_dependencies.CUSTOMER_COLUMNS,
                         requestHandler,
                         db_dependencies.TABLE_NAMES[0], false, false) +
-                " WHERE " + ui.chooseWhereOptions(db_dependencies.TABLE_NAMES[0],
-                db_dependencies.CUSTOMER_COLUMNS,requestHandler);
+                " WHERE " + ui.chooseWhereOptions(
+                        db_dependencies.TABLE_NAMES[0],
+                requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0]),
+                requestHandler);
         System.out.println(query);
         editingHandler.insertQuery(query);
     }
@@ -69,8 +73,10 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
     public void deleteFromTable(DB_QueryEditingHandler editingHandler,
                                 DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
         String query = "DELETE FROM customer_info " +
-                "WHERE " + ui.chooseWhereOptions(db_dependencies.TABLE_NAMES[0],
-                db_dependencies.CUSTOMER_COLUMNS, requestHandler);
+                "WHERE " + ui.chooseWhereOptions(
+                        db_dependencies.TABLE_NAMES[0],
+                requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0]),
+                requestHandler);
 
         editingHandler.insertQuery(query);
     }

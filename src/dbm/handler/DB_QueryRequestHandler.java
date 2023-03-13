@@ -7,6 +7,9 @@ import utility.UI;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DB_QueryRequestHandler {
 
@@ -146,5 +149,33 @@ public class DB_QueryRequestHandler {
             System.out.println("Error with SQL Print request");
         } // End of try - catch block
         return true;
+    } // End of method
+
+
+    public String[] getTableColumns(String tableName) {
+        List<String> tableColumns = new ArrayList<>();
+
+        String getColumnNameQuery = "SELECT * FROM " + tableName + " WHERE 1 = 0;";
+        try (
+                Connection connection = DriverManager.getConnection(
+                        DB_Dependencies.getInstance().database_url,
+                        DB_Dependencies.getInstance().username,
+                        DB_Dependencies.getInstance().password)
+                ) {
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(getColumnNameQuery);
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+
+            int columnCount = resultSetMetaData.getColumnCount();
+
+            for (int i = 1; i <= columnCount; i++) {
+                tableColumns.add(resultSetMetaData.getColumnName(i));
+            }
+            return tableColumns.toArray(String[]::new);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } // End of try-catch block
     } // End of method
 }

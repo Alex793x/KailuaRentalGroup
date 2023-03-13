@@ -22,8 +22,8 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
         String sql = "SELECT * FROM " + db_dependencies.TABLE_NAMES[2];
         requestHandler.printQueryResult(
                 sql,
-                db_dependencies.RENTAL_REGISTRY_COLUMNS_PRINT_FORMAT,
-                db_dependencies.RENTAL_REGISTRY_COLUMNS);
+                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2])),
+                requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2]));
 
     }
 
@@ -35,8 +35,8 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
 
         requestHandler.printQueryResult(
                 sql,
-                db_dependencies.RENTAL_REGISTRY_COLUMNS_PRINT_FORMAT,
-                db_dependencies.RENTAL_REGISTRY_COLUMNS);
+                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2])),
+                requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2]));
     }
 
     @Override
@@ -53,7 +53,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
                     "(" + selectLeasingAgreementSelection + ") \n" +
                     "VALUES (" +
                     ui.insertInto(
-                            db_dependencies.RENTAL_REGISTRY_COLUMNS,
+                            requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2]),
                             requestHandler,
                             db_dependencies.TABLE_NAMES[2], true, true) + ")";
 
@@ -69,7 +69,8 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
                         requestHandler, db_dependencies.TABLE_NAMES[2], false, false) +
 
                 " WHERE " + ui.chooseWhereOptions(
-                db_dependencies.TABLE_NAMES[2], db_dependencies.RENTAL_REGISTRY_COLUMNS,
+                db_dependencies.TABLE_NAMES[2],
+                requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2]),
                 requestHandler) + ";";
 
         System.out.println(query);
@@ -90,12 +91,12 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
 
             if (columnElement.equals(db_dependencies.CUSTOMER_COLUMNS[0])) {
                 requestHandler.printQueryResult("SELECT * FROM " + db_dependencies.TABLE_NAMES[0],
-                        db_dependencies.CUSTOMER_COLUMNS_PRINT_FORMAT,
-                        db_dependencies.CUSTOMER_COLUMNS);
+                        db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0])),
+                        requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0]));
 
             } else {
                 requestHandler.printQueryResult("SELECT car_registry_id, crg.car_rental_group_id, crg.car_rental_group_name," +
-                                String.join(", ", Arrays.asList(db_dependencies.CAR_PROPERTIES_COLUMNS).subList(1, 10)) + ", car_isRented\n" +
+                                String.join(", ", Arrays.asList(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1])).subList(1, 10)) + ", car_isRented\n" +
                                 "        FROM car_rental_group crg\n" +
                                 "        JOIN car_properties USING(car_rental_group_id)\n" +
                                 "        JOIN car_registry USING (car_properties_id)\n" +

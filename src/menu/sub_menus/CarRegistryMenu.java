@@ -25,8 +25,8 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
         String sql = "SELECT * FROM " + db_dependencies.TABLE_NAMES[3];
         requestHandler.printQueryResult(
                 sql,
-                db_dependencies.CAR_REGISTRY_COLUMN_PRINT_FORMAT,
-                db_dependencies.CAR_REGISTRY_COLUMNS);
+                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[3])),
+                requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[3]));
     } // End of method
 
     @Override
@@ -37,8 +37,8 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
 
         requestHandler.printQueryResult(
                 sql,
-                db_dependencies.CAR_REGISTRY_COLUMN_PRINT_FORMAT,
-                db_dependencies.CAR_REGISTRY_COLUMNS);
+                db_dependencies.printFormat2(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[3])),
+                requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1]));
     } // End of method
 
     @Override
@@ -53,7 +53,7 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
                 "(" + selectCarRegistrySelection + ") \n" +
                 "VALUES (" +
                 ui.insertInto(
-                        db_dependencies.CAR_REGISTRY_COLUMNS,
+                        requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[3]),
                         requestHandler,
                         db_dependencies.TABLE_NAMES[3], true, false) + ")";
 
@@ -65,7 +65,7 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
     public void updateTable(DB_QueryEditingHandler editingHandler,
                             DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
         String query = "UPDATE car_registry " + "SET " +
-                ui.insertInto(db_dependencies.CAR_REGISTRY_COLUMNS,
+                ui.insertInto(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[3]),
                         requestHandler, db_dependencies.TABLE_NAMES[3], false, false) +
 
                 " WHERE " + ui.chooseWhereOptions(
@@ -84,14 +84,16 @@ public class CarRegistryMenu extends CarPropertiesMenu implements DBStandardQuer
         System.out.println("Please enter ID for car to delete");
         int carID = ui.readInteger();
         String checkQuery = "SELECT * FROM " + db_dependencies.TABLE_NAMES[2];
+
         if (requestHandler.checkIfExists(checkQuery, carID, 4)) {
             System.out.println("The car is no longer possible to delete, it has been rented out. If " +
-                    "no longer possible to rent the car, please edit the \"avalability\" property for the car\n");
+                    "no longer possible to rent the car, please edit the \"availability\" property for the car\n");
         } else {
 
             String query = "DELETE FROM car_registry " +
                     "WHERE " + ui.chooseWhereOptions(
-                    db_dependencies.TABLE_NAMES[3], db_dependencies.CAR_REGISTRY_COLUMNS,
+                    db_dependencies.TABLE_NAMES[3],
+                    requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[3]),
                     requestHandler) + ";";
 
             System.out.println("Now we need to do the same for Car Properties associated with the deleted car");

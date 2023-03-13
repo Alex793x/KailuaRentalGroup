@@ -1,5 +1,9 @@
 package dbm;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class DB_Dependencies {
 
     private static DB_Dependencies theInstance = new DB_Dependencies();
@@ -57,25 +61,6 @@ public class DB_Dependencies {
     };
 
 
-    /**
-     * <p>The {@link #CAR_REGISTRY_COLUMN_PRINT_FORMAT} is simply a nicer formatting for the column names for printing purposes within the console
-     * please look at {@link #CAR_REGISTRY_COLUMNS} for further details of content</p>
-     *
-     * @implNote 0 = Car Registry ID <br>
-     * 1 = Car brand <br>
-     * 2 = Car model <br>
-     * 3 = Registration number <br>
-     * 4 = First registration <br>
-     * 5 = Availability <br>
-     * 6 = Car rental group id
-     * 7 = Car Is Rented ?
-     */
-    public final String[] CAR_REGISTRY_COLUMN_PRINT_FORMAT = {
-            "Car Registry ID", "Car brand", "Car model", "Registration number", "First registration",
-            "Availability","Car Properties ID", "Car Is Rented ?"
-    };
-
-
     // Car properties section ------------------------------------------------------------
     /**
      * @implNote 0 = car_properties_id <br>
@@ -96,27 +81,6 @@ public class DB_Dependencies {
     };
 
 
-    /**
-     * <p>The {@link #CAR_PROPERTIES_PRINT_FORMAT} is simply a nicer formatting for the column names for printing purposes within the console </p>
-     *
-     * @implNote 0 = Car Properties ID <br>
-     * 1 = CCM <br>
-     * 2 = Gear Type <br>
-     * 3 = Air Condition <br>
-     * 4 = Seat Type <br>
-     * 5 = Seat Amount <br>
-     * 6 = Horsepower <br>
-     * 7 = Cruise Control <br>
-     * 8 = Odometer <br>
-     * 9 = Fuel Type
-     * 10 = Car Rental Group ID
-     */
-    public final String[] CAR_PROPERTIES_PRINT_FORMAT = {
-            "Car Properties ID", "CCM", "Gear Type", "Air Condition", "Seat Type", "Seat Amount",
-            "Horsepower", "Cruise Control", "Odometer", "Fuel Type", "Car Rental Group ID"
-    };
-
-
     // Customer section ------------------------------------------------------------------
     /**
      * <p>The {@link #CUSTOMER_COLUMNS} includes all columns within the database which is including within the table customer_info.</p>
@@ -134,24 +98,6 @@ public class DB_Dependencies {
     public final String[] CUSTOMER_COLUMNS = {"customer_id", "customer_name",
             "customer_address", "customer_zip", "customer_city", "customer_phone", "customer_email",
             "customer_driver_license_number", "customer_driver_since"};
-
-    /**
-     * <p>The {@link #CUSTOMER_COLUMNS} includes all columns within the database which is including within the table customer_info.</p>
-     *
-     * @implNote 0 = Customer ID <br>
-     * 1 = Name <br>
-     * 2 = Address <br>
-     * 3 = ZIP <br>
-     * 4 = City <br>
-     * 5 = Phone no. <br>
-     * 6 = Email <br>
-     * 7 = Driver license number <br>
-     * 8 = Driver license since <br>
-     */
-    public final String[] CUSTOMER_COLUMNS_PRINT_FORMAT = {
-            "Customer ID", "Name", "Address", "ZIP", "City", "Phone no.",
-            "Email", "Driver license number", "Driver license since"};
-
 
     //Analysis section ---------------------------------------
     /**
@@ -180,36 +126,10 @@ public class DB_Dependencies {
             "Car Brand", "Car Model", "Gear Type", "Rental Group Name"};
 
 
-
-
     // Rental Registry section --------------------------------------
 
     public final String[] RENTAL_REGISTRY_COLUMNS = {
             "rental_registry_id", "rental_start_date", "rental_end_date", "car_registry_id", "customer_id"};
-    public final String[] RENTAL_REGISTRY_COLUMNS_PRINT_FORMAT = {"Rental Registry ID", "Rental Start Date",
-            "Rental End Date", "Car Registry ID", "Customer ID"};
-
-
-
-    // Car Rental Group Section ----------------------------------------------------------
-    /**
-     * <p>The {@link #RENTAL_REGISTRY_COLUMNS} includes all columns within the database which is including within the table customer_info.</p>
-     *
-     * @implNote 0 = Car Rental Group ID <br>
-     * 1 = Car Rental Group Name <br>
-     * 2 = Car Properties ID <br>
-     */
-    public final String[] CAR_RENTAL_GROUP_PRINT_FORMAT = {"Car Rental Group ID: ", "Car Rental Group Name",
-            "Car Properties ID"};
-
-    /**
-     * <p>The {@link #RENTAL_REGISTRY_COLUMNS} includes all columns within the database which is including within the table customer_info.</p>
-     *
-     * @implNote 0 = car_rental_group_id <br>
-     * 1 = car_rental_group_name <br>
-     * 2 = car_properties_id <br>
-     */
-    public final String[] CAR_RENTAL_GROUPS_COLUMNS = {"car_rental_group_id", "car_rental_group_name", "car_properties_id"};
 
 
     // Constructor -----------------------------------------------------------------------
@@ -222,5 +142,25 @@ public class DB_Dependencies {
             theInstance = new DB_Dependencies();
         }
         return theInstance;
+    }
+
+
+    // Print method for columns ----------------------------------------------------------
+    public String[] printFormat2(String[] columnArray) {
+        return Arrays.stream(columnArray)
+                .map(columnValue -> columnValue.replace("_", " "))
+                .map(columnValue -> {
+                    String[] words = columnValue.split(" ");
+                    for (int i = 0; i < words.length; i++) {
+                        words[i] = words[i].substring(0, 1).toUpperCase() +
+                                words[i].substring(1).toLowerCase();
+                    }
+                    return String.join(" ", words) + checkForVerb(words);
+                })
+                .toArray(String[]::new);
+    }
+
+    private String checkForVerb(String[] words){
+        return (words.length > 0 && words[0].toLowerCase().matches("^(is|are|am).*")) ? " ?" : "";
     }
 }
