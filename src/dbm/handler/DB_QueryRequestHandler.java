@@ -178,4 +178,28 @@ public class DB_QueryRequestHandler {
             throw new RuntimeException(e);
         } // End of try-catch block
     } // End of method
+
+
+
+    public ArrayList<Integer> getAllIDs(String query, String columnName) {
+        ArrayList<Integer> iDs = new ArrayList<>();
+        try (
+                Connection connection = DriverManager.getConnection(
+                        DB_Dependencies.getInstance().database_url,
+                        DB_Dependencies.getInstance().username,
+                        DB_Dependencies.getInstance().password
+                );
+
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+        ) {
+            while (resultSet.next()) {
+                iDs.add((Integer) resultSet.getObject(columnName));
+            }
+            return iDs;
+        } catch (SQLException e) {
+            System.out.println("Error with SQL Print request " + e);
+        } // End of try - catch block
+        return iDs;
+    }
 }
