@@ -209,7 +209,7 @@ public class UI {
     } // End of method
 
     /**
-     * <p> The {@link #getInsertValue(String columnElement, String dataType)} validates the datatype of the specified column which
+     * <p>Validates the datatype of the specified column which
      * is intended to be filled out for an INSERT TO statement with MySQL.
      * When the datatype has been validated and known, the method requests the correct input method, to avoid bad inputs
      * based on the datatype which the database requites for the specific column</p>
@@ -243,8 +243,7 @@ public class UI {
     } // End of method
 
     /**
-     * <p> The {@link #getUpdateValue(String columnElement, String dataType)} is very similar to
-     * {@link #getInsertValue(String columnElement, String dataType)}, but it do have a slightly different approach.
+     * <p> Very similar to {@link #getInsertValue(String columnElement, String dataType)}, but it do have a slightly different approach.
      * Before it validates the datatype of the specified column, the method request the user to choose, if the column element
      * should be changed or not, if user enters "stay", the method continues and skips the element, which
      * is intended to be filled out for an UPDATE SET statement with MySQL.

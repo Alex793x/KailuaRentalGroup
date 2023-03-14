@@ -4,8 +4,8 @@ import menu.Menu;
 
 public class MainMenu extends Menu {
     /**
-     * @param menuHeader
-     * @param menuItems
+     * @param menuHeader    Title of the menu
+     * @param menuItems     Menu elements
      */
     public MainMenu(String menuHeader, String[] menuItems) {
         super(menuHeader, menuItems);

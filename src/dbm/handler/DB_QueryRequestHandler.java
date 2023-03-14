@@ -1,14 +1,12 @@
 package dbm.handler;
 
 import dbm.DB_Dependencies;
-import dbm.interfaces.query_interfaces.DBStandardQueries;
-import utility.UI;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+
+import utility.UI;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 
 public class DB_QueryRequestHandler {
@@ -24,7 +22,7 @@ public class DB_QueryRequestHandler {
     public String getColumnDataType(String tableName, String columnName) {
         String dataTypeQuery = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + tableName +"' AND COLUMN_NAME = '" + columnName + "'";
         try (
-                java.sql.Connection connection = DriverManager.getConnection(
+                Connection connection = DriverManager.getConnection(
                 DB_Dependencies.getInstance().database_url,
                 DB_Dependencies.getInstance().username,
                 DB_Dependencies.getInstance().password);
@@ -115,8 +113,8 @@ public class DB_QueryRequestHandler {
             while (resultSet.next()) {
                 if (resultSet.getObject(columnForID).equals(valueID)) {
                     return true;
-                }
-            }
+                } // End of if statement
+            } // End of while loop
         } catch (SQLException e) {
             System.out.println("Error with SQL Print request ");
         } // End of try - catch block

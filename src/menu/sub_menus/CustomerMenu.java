@@ -11,8 +11,8 @@ import java.util.Arrays;
 
 public class CustomerMenu extends Menu implements DBStandardQueries {
     /**
-     * @param menuHeader
-     * @param menuItems
+     * @param menuHeader    Title of the menu
+     * @param menuItems     Menu elements
      */
 
     public CustomerMenu(String menuHeader, String[] menuItems) {

@@ -14,7 +14,7 @@ public class DB_Dependencies {
 
     // Table INFO and Dependencies ------------------------------------------------------
     /**
-     * <p>The {@link #TABLE_NAMES} includes all table names within the database</p>
+     * <p>Includes all table names within the database</p>
      *
      * @implNote 0 = customer_info <br>
      * 1 = car_properties <br>
@@ -29,7 +29,7 @@ public class DB_Dependencies {
 
     // Car registry section --------------------------------------------------------------
     /**
-     * <p>The {@link #CAR_REGISTRY_COLUMNS} includes all columns within the database which is including within the table car_registry.</p>
+     * <p>Includes all columns within the database which is including within the table car_registry.</p>
      *
      * @implNote 0 = car_registry_id <br>
      * 1 = car_brand <br>
@@ -81,7 +81,7 @@ public class DB_Dependencies {
 
     // Customer section ------------------------------------------------------------------
     /**
-     * <p>The {@link #CUSTOMER_COLUMNS} includes all columns within the database which is including within the table customer_info.</p>
+     * <p>Includes all columns within the database which is including within the table customer_info.</p>
      *
      * @implNote 0 = customer_id <br>
      * 1 = customer_name <br>
@@ -99,7 +99,7 @@ public class DB_Dependencies {
 
     //Analysis section ---------------------------------------
     /**
-     * <p>The {@link #BEST_COSTUMER_PRINT} includes all columns within the database which is including within the table customer_info.</p>
+     * <p>Includes all columns within the database which is including within the table customer_info.</p>
      *
      * @implNote 0 = Customer Name <br>
      * 1 = Customer ID <br>
@@ -108,7 +108,7 @@ public class DB_Dependencies {
     public final String[] BEST_COSTUMER_PRINT = {"Customer Name", "Customer ID", "Total Days Rented"};
 
     /**
-     * <p>The {@link #BEST_CUSTOMER_COLUMNS} includes all columns within the database which is including within the table customer_info.</p>
+     * <p>Includes all columns within the database which is including within the table customer_info.</p>
      *
      * @implNote 0 = customer_name <br>
      * 1 = customer_id <br>
@@ -131,13 +131,14 @@ public class DB_Dependencies {
 
 
     // Update rented cars to no longer rented---------------------------------------------
-    public String setCarToIsRented = "UPDATE car_registry \n" +
-            "SET is_car_rented = 1 \n" +
-            "WHERE car_registry.car_registry_id IN \n" +
-            "(SELECT rental_registry.car_registry_id \n" +
-            "FROM rental_registry \n" +
-            "WHERE rental_registry.car_registry_id = car_registry.car_registry_id \n" +
-            "AND rental_registry.rental_end_date < CURDATE() AND rental_registry.rental_start_date >= CURDATE());";
+    public String setCarToIsRented = """
+            UPDATE car_registry\s
+            SET is_car_rented = 1\s
+            WHERE car_registry.car_registry_id IN\s
+            (SELECT rental_registry.car_registry_id\s
+            FROM rental_registry\s
+            WHERE rental_registry.car_registry_id = car_registry.car_registry_id\s
+            AND rental_registry.rental_end_date < CURDATE() AND rental_registry.rental_start_date >= CURDATE());""";
 
 
     public final String[] JOIN_FOR_CAR_ISRENTED = {"cr.car_registry_id","cu.customer_id", "cu.customer_name", "cu.customer_phone",
