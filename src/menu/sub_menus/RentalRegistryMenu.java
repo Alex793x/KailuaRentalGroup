@@ -98,7 +98,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
 
             } else {
                 requestHandler.printQueryResult("SELECT car_registry_id, crg.car_rental_group_id, crg.car_rental_group_name," +
-                                String.join(", ", Arrays.asList(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1])).subList(1, 10)) + ", car_isRented\n" +
+                                String.join(", ", Arrays.asList(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[1])).subList(1, 10)) + ", is_car_rented\n" +
                                 "        FROM car_rental_group crg\n" +
                                 "        JOIN car_properties USING(car_rental_group_id)\n" +
                                 "        JOIN car_registry USING (car_properties_id)\n" +

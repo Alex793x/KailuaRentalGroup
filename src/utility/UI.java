@@ -189,7 +189,7 @@ public class UI {
                     try {
                         Method method = RentalRegistryMenu.class.getMethod("getAvailableCarsByGroup",boolean.class, String.class, DB_Dependencies.class,
                                 DB_QueryRequestHandler.class, UI.class);
-                        Object result = method.invoke(null, true, columnElement, db_dependencies, requestHandler, this);
+                        method.invoke(null, true, columnElement, db_dependencies, requestHandler, this);
                     } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
                         throw new RuntimeException(e);
                     }
