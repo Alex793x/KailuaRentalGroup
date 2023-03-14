@@ -20,6 +20,6 @@ public class DB_QueryEditingHandler {
             s.executeUpdate(query);
         } catch (SQLException e) {
             System.out.println("Empty response" + e);
-        }
-    }
+        } // End of try-catch block
+    } // End of method
 }

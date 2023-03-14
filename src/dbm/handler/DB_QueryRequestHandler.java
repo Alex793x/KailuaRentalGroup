@@ -63,13 +63,13 @@ public class DB_QueryRequestHandler {
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
         ) {
-            printResultSet(resultSet, printColumns, dbColumnNames);
+            printResultSet(resultSet, printColumns);
         } catch (SQLException e) {
             System.out.println("Error with SQL Print request " + e);
         } // End of try - catch block
     } // End of method
 
-    private void printResultSet(ResultSet resultSet, String[] printColumns, String[] dbColumnNames) throws SQLException {
+    private void printResultSet(ResultSet resultSet, String[] printColumns) throws SQLException {
         // Get metadata
         ResultSetMetaData metaData = resultSet.getMetaData();
         int numColumns = metaData.getColumnCount();

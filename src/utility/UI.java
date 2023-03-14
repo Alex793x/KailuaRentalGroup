@@ -327,5 +327,5 @@ public class UI {
     public String getCityName() {
             System.out.println("Please write the name of the city you wish to find");
             return input.nextLine();
-    }
+    } // End of method
 }

@@ -19,13 +19,15 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
         super(menuHeader, menuItems);
     }
 
+    // Methods ---------------------------------------------------------------------
+
     @Override
     public void showTable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         String query = "SELECT * FROM customer_info;";
         requestHandler.printQueryResult(query,
                 db_dependencies.printFormat(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0])),
                 requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0]));
-    }
+    } // End of method
 
     @Override
     public void showTableOrdered(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
@@ -33,7 +35,7 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
         requestHandler.printQueryResult(query,
                 db_dependencies.printFormat(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0])),
                 requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[0]));
-    }
+    } // End of method
 
 
     @Override
@@ -52,7 +54,8 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
                         db_dependencies.TABLE_NAMES[0],true, false) + ")";
 
         editingHandler.insertQuery(sql);
-    }
+    } // End of method
+
 
     @Override
     public void updateTable(DB_QueryEditingHandler editingHandler,
@@ -67,7 +70,8 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
                 requestHandler);
         System.out.println(query);
         editingHandler.insertQuery(query);
-    }
+    } // End of method
+
 
     @Override
     public void deleteFromTable(DB_QueryEditingHandler editingHandler,
@@ -79,5 +83,5 @@ public class CustomerMenu extends Menu implements DBStandardQueries {
                 requestHandler);
 
         editingHandler.insertQuery(query);
-    }
+    } // End of method
 }

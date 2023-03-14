@@ -40,7 +40,7 @@ public class AnalysisMenu extends Menu {
                 "ORDER BY crg.car_rental_group_name ASC";
 
         requestHandler.printQueryResult(sql,db_dependencies.SHOW_CITY_AND_CAR_INFO_PRINT,db_dependencies.SHOW_CITY_AND_CAR_INFO);
-    }
+    } // End of method
 
 
 }

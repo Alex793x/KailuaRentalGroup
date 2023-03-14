@@ -27,7 +27,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
                 db_dependencies.printFormat(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2])),
                 requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2]));
 
-    }
+    } // End of method
 
     @Override
     public void showTableOrdered(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
@@ -39,7 +39,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
                 sql,
                 db_dependencies.printFormat(requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2])),
                 requestHandler.getTableColumns(db_dependencies.TABLE_NAMES[2]));
-    }
+    } // End of method
 
     @Override
     public void insertToTable(DB_QueryEditingHandler editingHandler,
@@ -60,8 +60,8 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
                             db_dependencies.TABLE_NAMES[2], true, true) + ")";
 
             editingHandler.insertQuery(insertNewLeasingAgreementSQL);
-        }
-    }
+        } // End of if statement
+    } // ENd of method
 
     @Override
     public void updateTable(DB_QueryEditingHandler editingHandler,
@@ -77,7 +77,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
 
         System.out.println(query);
         editingHandler.insertQuery(query);
-    }
+    } // End of method
 
     @Override
     public void deleteFromTable(DB_QueryEditingHandler editingHandler,
@@ -134,8 +134,8 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
                     "WHERE " + carID + " = rental_registry.rental_registry_id");
         } else {
             System.out.println("The car ID you wrote is not possible to return...");
-        }
-    }
+        } // End of if-else statement
+    } // End of method
 
     public void showOverdueCarRent(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         requestHandler.printQueryResult("SELECT cu.customer_id, DATEDIFF( CURDATE(), " +
@@ -150,7 +150,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
                 "ORDER BY days_overdue DESC;",
                 db_dependencies.JOIN_FOR_CAR_ISRENTED_W_OVERDUE_PRINT,
                 db_dependencies.JOIN_FOR_CAR_ISRENTED_W_OVERDUE);
-    }
+    } // End of method
 
     private boolean isCarsAvailable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         if (requestHandler.checkIfEmpty("SELECT * FROM " + db_dependencies.TABLE_NAMES[3] +
