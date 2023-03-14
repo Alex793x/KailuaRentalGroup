@@ -110,7 +110,8 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
         } // End of outer if statement
     } // End of method
 
-    public void returnRentedCar(DB_QueryEditingHandler editingHandler, DB_QueryRequestHandler requestHandler, UI ui) {
+    public void returnRentedCar(DB_QueryEditingHandler editingHandler,
+                                DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
         requestHandler.printQueryResult("SELECT cr.car_registry_id,cu.customer_id, cu.customer_name, cu.customer_phone, " +
                         "cu.customer_email,rg.rental_registry_id, cr.car_brand, " +
                         "rg.rental_start_date, rg.rental_end_date\n" +
@@ -118,12 +119,13 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
                         "JOIN rental_registry rg USING (customer_id)\n" +
                         "JOIN car_registry cr USING (car_registry_id)\n" +
                         "WHERE cr.is_car_rented = 1;",
-                DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED_PRINT,
-                DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED);
+                db_dependencies.JOIN_FOR_CAR_ISRENTED_PRINT,
+                db_dependencies.JOIN_FOR_CAR_ISRENTED);
         ArrayList<Integer> possibleIDS = requestHandler.getAllIDs("SELECT car_registry_id " +
                 "FROM car_registry cr\n" +
                 "WHERE cr.is_car_rented = 1;", "car_registry_id");
         System.out.print("Please enter car ID for rented car to return: ");
+
         int carID = ui.readInteger();
         if (possibleIDS.contains(carID)) {
             editingHandler.insertQuery("UPDATE car_registry\n" +
@@ -135,7 +137,7 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
         }
     }
 
-    public void showOverdueCarRent(DB_QueryRequestHandler requestHandler) {
+    public void showOverdueCarRent(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
         requestHandler.printQueryResult("SELECT cu.customer_id, DATEDIFF( CURDATE(), " +
                         "rg.rental_end_date) AS days_overdue, cu.customer_name, " +
                         "cu.customer_phone, cu.customer_email, cr.car_registry_id, " +
@@ -146,8 +148,8 @@ public class RentalRegistryMenu extends Menu implements DBStandardQueries {
                 "JOIN car_registry cr USING (car_registry_id) " +
                 "WHERE rg.rental_end_date < CURDATE() AND cr.is_car_rented = 1 " +
                 "ORDER BY days_overdue DESC;",
-                DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED_W_OVERDUE_PRINT,
-                DB_Dependencies.getInstance().JOIN_FOR_CAR_ISRENTED_W_OVERDUE);
+                db_dependencies.JOIN_FOR_CAR_ISRENTED_W_OVERDUE_PRINT,
+                db_dependencies.JOIN_FOR_CAR_ISRENTED_W_OVERDUE);
     }
 
     private boolean isCarsAvailable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
