@@ -15,6 +15,7 @@ import menu.handler.*;
  * {@link #runCustomerMenu()} Will be handling all customer queries (adding new customer, delete, edit etc.) <br>
  * {@link #runRentalRegistryMenu()} Will be handling all leasing agreements while query details on cars and specifications <br>
  * {@link #runCarRegistryMenu()} Will be handling all queries when user wants to create unique search criteria on car info <br>
+ * {@link #runCarPropertyMenu()} Will be handling all queries specific for properties belonging within a car <br>
  * {@link #runAnalysisMenu()} Will be handling detailed analysis queries if employees want to get some detailed information about customer behaviour <br>
  */
 public class AppLogic {
@@ -50,7 +51,7 @@ public class AppLogic {
         while (isRunning) {
             menuHandler.mainMenu.printMenu();
 
-            // This method updates isRented on all cars which rental_end_date has been surpassed.
+            // This method updates is_car_rented on all cars which rental_end_date has been surpassed.
             editingHandler.insertQuery(db_dependencies.setCarToIsRented);
 
             switch (ui.readInteger()) {

@@ -51,6 +51,31 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
         editingHandler.insertQuery(insertPropertiesSQL);
     } // End of method
 
+
+    /**
+     * <p>This method incorporates the generic method from {@link UI#chooseWhereOptions(String columnTable, String[] columnValues, DB_QueryRequestHandler requestHandler)}
+     * which allows for a SQL building block effect. <br>
+     * This way the user can interact with generic seamless effect, allowing
+     * for endless search options for searching specific car properties.</p>
+     * <pr>The uniqueness of this method, is the double headed polymorphic setup, since insertion to car properties should
+     * only happen if a new car is created. <br> <br>
+     * When The method {@link CarRegistryMenu#insertToTable(DB_QueryEditingHandler, DB_QueryRequestHandler, UI, DB_Dependencies)}
+     * is called, the car menu actually calls its super class, which is this. Since the carRegistryMenu
+     * inherited from the carPropertyMenu. <br>
+     * This allows us to use the same method but in the right order, while keeping
+     * readability and smarter logic / design of the program. We don't need to call other methods that what already is
+     * given through the interface {@link DBStandardQueries#insertToTable(DB_QueryEditingHandler, DB_QueryRequestHandler, UI, DB_Dependencies)}</pr>
+     *
+     * @param editingHandler Read {@link DB_QueryEditingHandler}
+     * @param requestHandler Read {@link DB_QueryRequestHandler}
+     * @param ui Read {@link UI}
+     * @param db_dependencies Read {@link DB_Dependencies}
+     *
+     * @implNote To The user first gets prompted for choosing amount of WHERE CLAUSES to search for, after completed search
+     * criteria has been done the user must choose which car /'s should be affected. <br>
+     * If the user chooses the car_properties_id only 1 car gets affected, but user could also choose property which is
+     * streamlined for multiple pairs, which would affect all cars which satisfy the parameter.
+     */
     @Override
     public void updateTable(DB_QueryEditingHandler editingHandler,
                             DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
@@ -76,6 +101,15 @@ public class CarPropertiesMenu extends Menu implements DBStandardQueries {
         editingHandler.insertQuery(query);
     } // End of method
 
+    /**
+     * <p>This method incorporates the generic method from {@link UI#chooseWhereOptions(String columnTable, String[] columnValues, DB_QueryRequestHandler requestHandler)}
+     * which allows for a SQL building block effect. <br> This way the user can interact with generic seamless effect, allowing
+     * for endless search options for searching specific car properties.</p>
+     *
+     * @param requestHandler Read {@link DB_QueryRequestHandler}
+     * @param ui Read {@link UI}
+     * @param db_dependencies Read {@link DB_Dependencies}
+     */
     public void searchAndShowTable(DB_QueryRequestHandler requestHandler, UI ui, DB_Dependencies db_dependencies) {
         String query = "SELECT * FROM " + db_dependencies.TABLE_NAMES[1] + " " +
                 "WHERE " + ui.chooseWhereOptions(
