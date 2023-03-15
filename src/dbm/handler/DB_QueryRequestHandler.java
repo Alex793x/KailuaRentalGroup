@@ -58,7 +58,8 @@ public class DB_QueryRequestHandler {
                         DB_Dependencies.getInstance().password
                 );
 
-                Statement statement = connection.createStatement();
+                Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                        ResultSet.CONCUR_READ_ONLY);
                 ResultSet resultSet = statement.executeQuery(query);
         ) {
             printResultSet(resultSet, printColumns);
@@ -68,21 +69,20 @@ public class DB_QueryRequestHandler {
     } // End of method
 
     private void printResultSet(ResultSet resultSet, String[] printColumns) throws SQLException {
-        // Get metadata
-        ResultSetMetaData metaData = resultSet.getMetaData();
-        int numColumns = metaData.getColumnCount();
-
+        int[] lengthArray = checkColumnLength(resultSet,printColumns);
         // Print column headers
-        for (String column : printColumns) {
-            System.out.printf("%-30s","[" + column + "]");
+        for (int i = 0; i < printColumns.length; i++) {
+            System.out.printf("%-" +lengthArray[i] + "s","[" + printColumns[i] + "]");
         } // End of for loop
         System.out.println();
 
         // Print rows
         while (resultSet.next()) {
-            for (int i = 1; i <= numColumns; i++) {
+            for (int i = 1; i <= printColumns.length; i++) {
                 Object value = resultSet.getObject(i);
-                System.out.printf("%-30s", value);
+                if(i==1){
+                System.out.printf("%s%-" + lengthArray[i-1] +"s","#", value);}
+                else {System.out.printf("%-" + lengthArray[i-1] +"s", value);}
             } // End of for loop
             System.out.println();
         } // End of while loop
@@ -201,5 +201,31 @@ public class DB_QueryRequestHandler {
             System.out.println("Error with SQL Print request " + e);
         } // End of try - catch block
         return iDs;
+    }
+
+    private int[] checkColumnLength(ResultSet resultSet, String[] printColumns) {
+        try {
+            int[] returnArray = new int[printColumns.length];
+            for (int i = 0; i < returnArray.length; i++) {
+                returnArray[i] = (printColumns[i].length() + 6);
+            }
+
+            for (int i = 1; i <= returnArray.length; i++) {
+                while (resultSet.next()) {
+                    String value = resultSet.getString(i);
+                    if (value.length()>=returnArray[i-1]-3){
+                        returnArray[i-1] = value.length() + 4;
+                    }
+                } // End of while loop
+                resultSet.beforeFirst();
+            }
+            resultSet.beforeFirst();
+            return returnArray;
+
+        } catch (SQLException e){
+            System.out.println(e);
+            return null;
+        }
+
     }
 }
