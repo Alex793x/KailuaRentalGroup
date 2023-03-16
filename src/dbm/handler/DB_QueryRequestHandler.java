@@ -203,23 +203,23 @@ public class DB_QueryRequestHandler {
         return iDs;
     }
 
+    // Method to check datalength in ResultSet
     private int[] checkColumnLength(ResultSet resultSet, String[] printColumns) {
         try {
-            int[] returnArray = new int[printColumns.length];
+            int[] returnArray = new int[printColumns.length]; // Array to be returned with max datalength pr. column
             for (int i = 0; i < returnArray.length; i++) {
-                returnArray[i] = (printColumns[i].length() + 6);
-            }
+                returnArray[i] = (printColumns[i].length() + 6); // Adds input columnlength to returnArray
+            } // End for loop
 
-            for (int i = 1; i <= returnArray.length; i++) {
-                while (resultSet.next()) {
-                    String value = resultSet.getString(i);
-                    if (value.length()>=returnArray[i-1]-3){
-                        returnArray[i-1] = value.length() + 4;
+            for (int i = 1; i <= returnArray.length; i++) { // Iterate through resultSet-columns
+                while (resultSet.next()) { // Iterate through resultSet-rows
+                    String value = resultSet.getString(i);     // Get current string in cell
+                    if (value.length()>=returnArray[i-1]-3){   // Checks if current data in cell is longer
+                        returnArray[i-1] = value.length() + 4; // Updates the max length of data in returnArray
                     }
                 } // End of while loop
                 resultSet.beforeFirst();
-            }
-            resultSet.beforeFirst();
+            } // End of for loop
             return returnArray;
 
         } catch (SQLException e){
