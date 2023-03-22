@@ -13,15 +13,15 @@ public class AnalysisMenu extends Menu {
 
     // Methods ---------------------------------------------------------------------
     public void showTable(DB_QueryRequestHandler requestHandler, DB_Dependencies db_dependencies) {
-        String sql = "SELECT " + DB_Dependencies.getInstance().CUSTOMER_COLUMNS[1] + ", " +
-                db_dependencies.RENTAL_REGISTRY_COLUMNS[4] + ", " + "SUM(DATEDIFF(" +
-                db_dependencies.RENTAL_REGISTRY_COLUMNS[2] + "," +
-                db_dependencies.RENTAL_REGISTRY_COLUMNS[1] + ")) AS total_days_rented FROM " +
+        String sql = "SELECT " +"customer_info." + DB_Dependencies.getInstance().CUSTOMER_COLUMNS[1] + ", " +
+                "rental_registry."+db_dependencies.RENTAL_REGISTRY_COLUMNS[4] + ", " + "SUM(DATEDIFF(" +
+                "rental_registry." + db_dependencies.RENTAL_REGISTRY_COLUMNS[2] + "," +
+                "rental_registry." + db_dependencies.RENTAL_REGISTRY_COLUMNS[1] + ")) AS total_days_rented FROM " +
                 db_dependencies.TABLE_NAMES[2] + " JOIN " +
                 db_dependencies.TABLE_NAMES[0] + " ON " +
-                db_dependencies.RENTAL_REGISTRY_COLUMNS[4] + " = " +
-                db_dependencies.CUSTOMER_COLUMNS[0] + " GROUP BY " +
-                db_dependencies.RENTAL_REGISTRY_COLUMNS[4] + " ORDER BY " +
+                "rental_registry." + db_dependencies.RENTAL_REGISTRY_COLUMNS[4] + " = " +
+                "customer_info." + db_dependencies.CUSTOMER_COLUMNS[0] + " GROUP BY " +
+                "rental_registry." + db_dependencies.RENTAL_REGISTRY_COLUMNS[4] + " ORDER BY " +
                 "total_days_rented DESC;";
         requestHandler.printQueryResult(
                 sql,
